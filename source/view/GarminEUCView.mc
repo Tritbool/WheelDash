@@ -2,10 +2,12 @@ import Toybox.Graphics;
 import Toybox.WatchUi;
 using Toybox.Timer;
 
+import Toybox.Lang;
+
 using Toybox.System;
 
 class GarminEUCView extends WatchUi.View {
-  private var cDrawables = {};
+  private var cDrawables as Dictionary<Symbol, Drawable> = {};
   function initialize() {
     View.initialize();
   }
@@ -23,8 +25,7 @@ class GarminEUCView extends WatchUi.View {
     cDrawables[:SpeedArc] = View.findDrawableById("SpeedDial"); // used for PMW
     cDrawables[:BatteryArc] = View.findDrawableById("BatteryArc");
     cDrawables[:TemperatureArc] = View.findDrawableById("TemperatureArc");
-    cDrawables[:RecordingIndicator] =
-      View.findDrawableById("RecordingIndicator");
+    cDrawables[:RecordingIndicator] = View.findDrawableById("RecordingIndicator");
   }
 
   // Called when this View is brought to the foreground. Restore
@@ -32,17 +33,27 @@ class GarminEUCView extends WatchUi.View {
   // loading resources into memory.
   function onShow() {
     var CurrentTime = System.getClockTime();
-    cDrawables[:TimeDate].setText(
+    var TimeView = cDrawables[:TimeDate] as Text;
+    TimeView.setText(
       CurrentTime.hour.format("%d") + ":" + CurrentTime.min.format("%02d")
     );
 
-    cDrawables[:TimeDate].setColor(Graphics.COLOR_WHITE);
+    TimeView.setColor(Graphics.COLOR_WHITE);
   }
 
   // Update the view
-  function onUpdate(dc) {
+  function onUpdate(dc as Toybox.Graphics.Dc) {
     // Update label drawables
-    cDrawables[:TimeDate].setText(
+    var TimeDate = cDrawables[:TimeDate] as Text;
+    var BatteryNumber = cDrawables[:BatteryNumber] as Text;
+    var TemperatureNumber = cDrawables[:TemperatureNumber] as Text;
+    var BottomSubtitle = cDrawables[:BottomSubtitle] as Text;
+    var SpeedNumber = cDrawables[:SpeedNumber] as Text;
+    var SpeedArc = cDrawables[:SpeedArc] as ArcRenderer;
+    var BatteryArc = cDrawables[:BatteryArc] as ArcRenderer;
+    var TemperatureArc = cDrawables[:TemperatureArc] as ArcRenderer;
+
+    TimeDate.setText(
       // Update time
       System.getClockTime().hour.format("%d") +
         ":" +
@@ -50,13 +61,13 @@ class GarminEUCView extends WatchUi.View {
     );
     var batteryPercentage = eucData.getBatteryPercentage();
 
-    cDrawables[:BatteryNumber].setText(
+    BatteryNumber.setText(
       valueRound(batteryPercentage, "%.1f") + "%"
     );
-    cDrawables[:TemperatureNumber].setText(
+    TemperatureNumber.setText(
       valueRound(eucData.temperature, "%.1f").toString() + "°C"
     );
-    cDrawables[:BottomSubtitle].setText(diplayStats());
+    BottomSubtitle.setText(diplayStats());
     /* To implement later
             switch (AppStorage.getSetting("BottomSubtitleData")) {
                 case 0: cDrawables[:BottomSubtitle].setText(WheelData.wheelModel); break;
@@ -96,27 +107,28 @@ class GarminEUCView extends WatchUi.View {
         speedNumberStr = valueRound(speedNumberVal, "%.1f").toString();
       }
     }
-    cDrawables[:SpeedNumber].setText(speedNumberStr);
+    SpeedNumber.setText(speedNumberStr);
     //cDrawables[:SpeedArc].setValues(WheelData.currentSpeed.toFloat(), WheelData.speedLimit);
     if (eucData.topBar == 0) {
-      cDrawables[:SpeedArc].setValues(eucData.PWM.toFloat(), 100);
+      SpeedArc.setValues(eucData.PWM.toFloat(), 100);
     } else {
-      cDrawables[:SpeedArc].setValues(
+      SpeedArc.setValues(
         eucData.correctedSpeed.toFloat(),
         eucData.maxDisplayedSpeed
       );
     }
 
-    cDrawables[:BatteryArc].setValues(batteryPercentage, 100);
-    cDrawables[:TemperatureArc].setValues(
+    BatteryArc.setValues(batteryPercentage, 100);
+    TemperatureArc.setValues(
       eucData.temperature,
       eucData.maxTemperature
     );
-    cDrawables[:TimeDate].setColor(Graphics.COLOR_WHITE);
-    cDrawables[:SpeedNumber].setColor(Graphics.COLOR_WHITE);
-    cDrawables[:BatteryNumber].setColor(Graphics.COLOR_WHITE);
-    cDrawables[:TemperatureNumber].setColor(Graphics.COLOR_WHITE);
-    cDrawables[:BottomSubtitle].setColor(Graphics.COLOR_WHITE);
+
+    TimeDate.setColor(Graphics.COLOR_WHITE);
+    SpeedNumber.setColor(Graphics.COLOR_WHITE);
+    BatteryNumber.setColor(Graphics.COLOR_WHITE);
+    TemperatureNumber.setColor(Graphics.COLOR_WHITE);
+    BottomSubtitle.setColor(Graphics.COLOR_WHITE);
 
     // Call the parent onUpdate function to redraw the layout
     View.onUpdate(dc);

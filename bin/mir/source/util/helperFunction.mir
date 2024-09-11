@@ -1,0 +1,596 @@
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 1; ]
+import Toybox.Lang;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 2; ]
+using Toybox.StringUtil;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 3; ]
+using Toybox.Math;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 4; ]
+using Toybox.System;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 7; ]
+function string_to_byte_array(plain_text) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_7_42_15_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 8 2 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_7_42_15_0_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_7_42_15_0_stop" ]
+    %options.1 = local;
+    %tmp.1 = newd 3;
+    %tmp.3 = const :fromRepresentation;
+    %tmp.4 = getm $.Toybox.StringUtil;
+    %tmp.5 = getv %tmp.4 :REPRESENTATION_STRING_PLAIN_TEXT;
+    %tmp.6 = dup %tmp.1;
+    %tmp.7 = aputv %tmp.6 %tmp.3 %tmp.5;
+    %tmp.9 = const :toRepresentation;
+    %tmp.10 = getm $.Toybox.StringUtil;
+    %tmp.11 = getv %tmp.10 :REPRESENTATION_BYTE_ARRAY;
+    %tmp.12 = dup %tmp.7;
+    %tmp.13 = aputv %tmp.12 %tmp.9 %tmp.11;
+    %tmp.15 = const :encoding;
+    %tmp.16 = getm $.Toybox.StringUtil;
+    %tmp.17 = getv %tmp.16 :CHAR_ENCODING_UTF8;
+    %tmp.18 = dup %tmp.13;
+    %tmp.19 = aputv %tmp.18 %tmp.15 %tmp.17;
+    lputv %options.1 %tmp.19;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 13 2 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_7_42_15_0_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_7_42_15_0_stop" ]
+    %result.2 = local;
+    %tmp.20 = getm $.Toybox.StringUtil;
+    %tmp.21 = getv function %tmp.20 :convertEncodedString;
+    %tmp.23 = lgetv %plain_text;
+    %tmp.25 = lgetv %options.1;
+    %tmp.26 = invoke %tmp.20 %tmp.21(%tmp.23, %tmp.25);
+    lputv %result.2 %tmp.26;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 14 2 ]
+    %tmp.28 = lgetv %result.2;
+    ret %tmp.28;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_7_42_15_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 18; ]
+function valueRound(value, format) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_18_35_22_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 19 2 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_18_35_22_0_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_18_35_22_0_stop" ]
+    %rounded.1 = local;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 20 2 ]
+    %tmp.1 = getm $.Toybox.Math;
+    %tmp.2 = getv function %tmp.1 :round;
+    %tmp.4 = lgetv %value;
+    %tmp.5 = 100;
+    %tmp.6 = mul %tmp.4 %tmp.5;
+    %tmp.7 = invoke %tmp.1 %tmp.2(%tmp.6);
+    %tmp.8 = 100;
+    %tmp.9 = div %tmp.7 %tmp.8;
+    lputv %rounded.1 %tmp.9;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 21 2 ]
+    %tmp.10 = lgetv %rounded.1;
+    %tmp.11 = getv function %tmp.10 :format;
+    %tmp.13 = lgetv %format;
+    %tmp.14 = invoke %tmp.10 %tmp.11(%tmp.13);
+    ret %tmp.14;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_18_35_22_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 25; ]
+function getEUCSettingsDict() {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_25_30_40_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 26 2 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_26_2_28_2_if_stmt:
+    %tmp.2 = getv ? :eucData;
+    %tmp.3 = getv %tmp.2 :wheelBrand;
+    %tmp.4 = 0;
+    %tmp.5 = eq %tmp.3 %tmp.4;
+    bf %tmp.5 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_26_2_28_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_26_2_28_2_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_26_31_28_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 27 4 ]
+    %tmp.9 = getv ? :gotwayConfig;
+    %tmp.6 = newc %tmp.9 ();
+    ret %tmp.6;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_26_31_28_2_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_26_2_28_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_26_2_28_2_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 29 2 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_29_2_31_2_if_stmt:
+    %tmp.11 = getv ? :eucData;
+    %tmp.12 = getv %tmp.11 :wheelBrand;
+    %tmp.13 = 1;
+    %tmp.14 = eq %tmp.12 %tmp.13;
+    bf %tmp.14 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_29_2_31_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_29_2_31_2_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_29_31_31_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 30 4 ]
+    %tmp.18 = getv ? :veteranConfig;
+    %tmp.15 = newc %tmp.18 ();
+    ret %tmp.15;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_29_31_31_2_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_29_2_31_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_29_2_31_2_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 32 2 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_2_34_2_if_stmt:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_6_32_55_begin:
+    %tmp.20 = getv ? :eucData;
+    %tmp.21 = getv %tmp.20 :wheelBrand;
+    %tmp.22 = 2;
+    %tmp.23 = eq %tmp.21 %tmp.22;
+    bt %tmp.23 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_2_34_2_if_true;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_33_32_55_false:
+    %tmp.25 = getv ? :eucData;
+    %tmp.26 = getv %tmp.25 :wheelBrand;
+    %tmp.27 = 3;
+    %tmp.28 = eq %tmp.26 %tmp.27;
+    push %tmp.28;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_33_32_55_end:
+    %tmp.29 = phi [%tmp.23 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_6_32_55_begin] [%tmp.28 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_33_32_55_false] [%tmp.29 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_33_32_55_end];
+    bf %tmp.29 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_2_34_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_2_34_2_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_58_34_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 33 4 ]
+    %tmp.33 = getv ? :kingsongConfig;
+    %tmp.30 = newc %tmp.33 ();
+    ret %tmp.30;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_58_34_2_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_2_34_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_32_2_34_2_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 35 2 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_35_2_39_2_if_stmt:
+    %tmp.35 = getv ? :eucData;
+    %tmp.36 = getv %tmp.35 :wheelBrand;
+    %tmp.37 = 4;
+    %tmp.38 = eq %tmp.36 %tmp.37;
+    bf %tmp.38 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_35_2_39_2_if_false;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_35_2_39_2_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_35_31_37_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 36 4 ]
+    %tmp.42 = getv ? :inmotionConfig;
+    %tmp.39 = newc %tmp.42 ();
+    ret %tmp.39;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_35_31_37_2_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_35_2_39_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_35_2_39_2_if_false:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_37_9_39_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 38 4 ]
+    %tmp.46 = getv ? :dummyConfig;
+    %tmp.43 = newc %tmp.46 ();
+    ret %tmp.43;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_37_9_39_2_stop:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_35_2_39_2_if_end:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_25_30_40_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 43; ]
+import Toybox.WatchUi;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 44; ]
+function createMenu(labels, title) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_44_35_54_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 45 2 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_44_35_54_0_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_44_35_54_0_stop" ]
+    %menu.1 = local;
+    %tmp.3 = getm $.Toybox.WatchUi;
+    %tmp.4 = getv function ? %tmp.3 :Menu2;
+    %tmp.5 = newd 1;
+    %tmp.7 = const :title;
+    %tmp.9 = lgetv %title;
+    %tmp.10 = dup %tmp.5;
+    %tmp.11 = aputv %tmp.10 %tmp.7 %tmp.9;
+    %tmp.1 = newc %tmp.4 (%tmp.11);
+    lputv %menu.1 %tmp.1;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 47 2 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_47_2_52_2_if_stmt:
+    %tmp.13 = lgetv %labels;
+    %tmp.14 = null;
+    %tmp.15 = ne %tmp.13 %tmp.14;
+    bf %tmp.15 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_47_2_52_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_47_2_52_2_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_47_22_52_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 48 4 ]
+    for @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_test @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_incr @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_init:
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_begin" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_end" ]
+    %i.2 = local;
+    %tmp.16 = 0;
+    lputv %i.2 %tmp.16;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_test:
+    %tmp.18 = lgetv %i.2;
+    %tmp.19 = lgetv %labels;
+    %tmp.20 = as %tmp.19 { (!Null) };
+    %tmp.21 = getv function %tmp.20 :size;
+    %tmp.22 = invoke %tmp.20 %tmp.21();
+    %tmp.23 = lt %tmp.18 %tmp.22;
+    bf %tmp.23 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_begin:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_44_50_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 49 6 ]
+    %tmp.24 = lgetv %menu.1;
+    %tmp.25 = getv function %tmp.24 :addItem;
+    %tmp.29 = getv ? :MenuItem;
+    %tmp.31 = lgetv %labels;
+    %tmp.32 = as %tmp.31 { (!Null) };
+    %tmp.34 = lgetv %i.2;
+    %tmp.35 = agetv %tmp.32 %tmp.34;
+    %tmp.36 = "";
+    %tmp.38 = lgetv %labels;
+    %tmp.39 = as %tmp.38 { (!Null) };
+    %tmp.41 = lgetv %i.2;
+    %tmp.42 = agetv %tmp.39 %tmp.41;
+    %tmp.43 = newd 0;
+    %tmp.26 = newc %tmp.29 (%tmp.35, %tmp.36, %tmp.42, %tmp.43);
+    invoke %tmp.24 %tmp.25(%tmp.26);
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_44_50_4_stop:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_incr:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 48 ]
+    %tmp.46 = lgetv %i.2;
+    %tmp.47 = add %tmp.46 1;
+    lputv %i.2 %tmp.47;
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_test;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_48_4_50_4_for_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 51 4 ]
+    %tmp.49 = lgetv %menu.1;
+    ret %tmp.49;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_47_22_52_2_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_47_2_52_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_47_2_52_2_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 53 2 ]
+    %tmp.50 = null;
+    ret %tmp.50;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_44_35_54_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 56; ]
+function splitstr(str as Lang.String, char) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_56_44_79_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 57 2 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_56_44_79_0_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_56_44_79_0_stop" ]
+    %stringArray.1 = local;
+    %tmp.2 = 0;
+    %tmp.1 = newa %tmp.2;
+    lputv %stringArray.1 %tmp.1;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 58 2 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_56_44_79_0_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_56_44_79_0_stop" ]
+    %strlength.2 = local;
+    %tmp.3 = lgetv %str;
+    %tmp.4 = getv function %tmp.3 :length;
+    %tmp.5 = invoke %tmp.3 %tmp.4();
+    lputv %strlength.2 %tmp.5;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 59 2 ]
+    for @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_test @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_incr @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_init:
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_begin" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_end" ]
+    %i.3 = local;
+    %tmp.6 = 0;
+    lputv %i.3 %tmp.6;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_test:
+    %tmp.8 = lgetv %i.3;
+    %tmp.10 = lgetv %strlength.2;
+    %tmp.11 = lt %tmp.8 %tmp.10;
+    bf %tmp.11 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_begin:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_38_77_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 60 4 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_38_77_2_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_38_77_2_stop" ]
+    %endidx.4 = local;
+    %tmp.12 = lgetv %str;
+    %tmp.13 = getv function %tmp.12 :find;
+    %tmp.15 = lgetv %char;
+    %tmp.16 = invoke %tmp.12 %tmp.13(%tmp.15);
+    lputv %endidx.4 %tmp.16;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 61 4 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_4_76_4_if_stmt:
+    %tmp.18 = lgetv %endidx.4;
+    %tmp.19 = null;
+    %tmp.20 = ne %tmp.18 %tmp.19;
+    bf %tmp.20 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_4_76_4_if_false;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_4_76_4_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_24_69_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 62 6 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_24_69_4_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_24_69_4_stop" ]
+    %substr.5 = local;
+    %tmp.21 = lgetv %str;
+    %tmp.22 = getv function %tmp.21 :substring;
+    %tmp.23 = 0;
+    %tmp.25 = lgetv %endidx.4;
+    %tmp.26 = as %tmp.25 { (!Null) };
+    %tmp.27 = invoke %tmp.21 %tmp.22(%tmp.23, %tmp.26);
+    lputv %substr.5 %tmp.27;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 63 6 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_63_6_68_6_if_stmt:
+    %tmp.29 = lgetv %substr.5;
+    %tmp.30 = null;
+    %tmp.31 = ne %tmp.29 %tmp.30;
+    bf %tmp.31 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_63_6_68_6_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_63_6_68_6_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_63_26_68_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 64 8 ]
+    %tmp.32 = lgetv %stringArray.1;
+    %tmp.33 = getv function %tmp.32 :add;
+    %tmp.35 = lgetv %substr.5;
+    %tmp.36 = as %tmp.35 { (!Null) };
+    invoke %tmp.32 %tmp.33(%tmp.36);
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 65 8 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_63_26_68_6_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_63_26_68_6_stop" ]
+    %startidx.6 = local;
+    %tmp.38 = lgetv %endidx.4;
+    %tmp.39 = as %tmp.38 { (!Null) };
+    %tmp.40 = 1;
+    %tmp.41 = add %tmp.39 %tmp.40;
+    lputv %startidx.6 %tmp.41;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 66 8 ]
+    %tmp.42 = lgetv %str;
+    %tmp.43 = getv function %tmp.42 :substring;
+    %tmp.45 = lgetv %startidx.6;
+    %tmp.47 = lgetv %strlength.2;
+    %tmp.48 = lgetv %substr.5;
+    %tmp.49 = as %tmp.48 { (!Null) };
+    %tmp.50 = getv function %tmp.49 :length;
+    %tmp.51 = invoke %tmp.49 %tmp.50();
+    %tmp.52 = sub %tmp.47 %tmp.51;
+    %tmp.53 = invoke %tmp.42 %tmp.43(%tmp.45, %tmp.52);
+    lputv %str %tmp.53;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_63_26_68_6_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_63_6_68_6_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_63_6_68_6_if_end:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_24_69_4_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_4_76_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_4_76_4_if_false:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_69_11_76_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 70 6 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_70_6_75_6_if_stmt:
+    %tmp.54 = lgetv %str;
+    %tmp.55 = getv function %tmp.54 :length;
+    %tmp.56 = invoke %tmp.54 %tmp.55();
+    %tmp.57 = 0;
+    %tmp.58 = gt %tmp.56 %tmp.57;
+    bf %tmp.58 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_70_6_75_6_if_false;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_70_6_75_6_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_70_28_73_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 71 8 ]
+    %tmp.59 = lgetv %stringArray.1;
+    %tmp.60 = getv function %tmp.59 :add;
+    %tmp.62 = lgetv %str;
+    invoke %tmp.59 %tmp.60(%tmp.62);
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 72 8 ]
+    goto break @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_70_28_73_6_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_70_6_75_6_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_70_6_75_6_if_false:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_73_13_75_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 74 8 ]
+    goto break @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_73_13_75_6_stop:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_70_6_75_6_if_end:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_69_11_76_4_stop:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_61_4_76_4_if_end:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_38_77_2_stop:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_incr:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 59 ]
+    %tmp.65 = lgetv %i.3;
+    %tmp.66 = add %tmp.65 1;
+    lputv %i.3 %tmp.66;
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_test;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_59_2_77_2_for_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 78 2 ]
+    %tmp.68 = lgetv %stringArray.1;
+    ret %tmp.68;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_56_44_79_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 81; ]
+function signedShortFromBytesBE(bytes, starting) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_81_49_88_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 82 2 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_82_2_86_2_if_stmt:
+    %tmp.1 = lgetv %bytes;
+    %tmp.2 = getv function %tmp.1 :size;
+    %tmp.3 = invoke %tmp.1 %tmp.2();
+    %tmp.5 = lgetv %starting;
+    %tmp.6 = 2;
+    %tmp.7 = add %tmp.5 %tmp.6;
+    %tmp.8 = gte %tmp.3 %tmp.7;
+    bf %tmp.8 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_82_2_86_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_82_2_86_2_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_82_36_86_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 83 4 ]
+    %tmp.10 = lgetv %bytes;
+    %tmp.12 = lgetv %starting;
+    %tmp.13 = agetv %tmp.10 %tmp.12;
+    %tmp.14 = 0xff;
+    %tmp.15 = bitand %tmp.13 %tmp.14;
+    %tmp.16 = 8;
+    %tmp.17 = shl %tmp.15 %tmp.16;
+    %tmp.19 = lgetv %bytes;
+    %tmp.21 = lgetv %starting;
+    %tmp.22 = 1;
+    %tmp.23 = add %tmp.21 %tmp.22;
+    %tmp.24 = agetv %tmp.19 %tmp.23;
+    %tmp.25 = bitor %tmp.17 %tmp.24;
+    %tmp.26 = 16;
+    %tmp.27 = shl %tmp.25 %tmp.26;
+    %tmp.28 = 16;
+    %tmp.29 = shr %tmp.27 %tmp.28;
+    ret %tmp.29;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_82_36_86_2_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_82_2_86_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_82_2_86_2_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 87 2 ]
+    %tmp.30 = 0;
+    ret %tmp.30;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_81_49_88_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 90; ]
+function shortFromBytesBE(bytes, starting) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_90_43_99_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 91 2 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_91_2_97_2_if_stmt:
+    %tmp.1 = lgetv %bytes;
+    %tmp.2 = getv function %tmp.1 :size;
+    %tmp.3 = invoke %tmp.1 %tmp.2();
+    %tmp.5 = lgetv %starting;
+    %tmp.6 = 2;
+    %tmp.7 = add %tmp.5 %tmp.6;
+    %tmp.8 = gte %tmp.3 %tmp.7;
+    bf %tmp.8 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_91_2_97_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_91_2_97_2_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_91_36_97_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 92 4 ]
+    %tmp.10 = lgetv %bytes;
+    %tmp.12 = lgetv %starting;
+    %tmp.13 = agetv %tmp.10 %tmp.12;
+    %tmp.14 = 0xff;
+    %tmp.15 = bitand %tmp.13 %tmp.14;
+    %tmp.16 = 8;
+    %tmp.17 = shl %tmp.15 %tmp.16;
+    %tmp.19 = lgetv %bytes;
+    %tmp.21 = lgetv %starting;
+    %tmp.22 = 1;
+    %tmp.23 = add %tmp.21 %tmp.22;
+    %tmp.24 = agetv %tmp.19 %tmp.23;
+    %tmp.25 = 0xff;
+    %tmp.26 = bitand %tmp.24 %tmp.25;
+    %tmp.27 = bitor %tmp.17 %tmp.26;
+    %tmp.28 = 16;
+    %tmp.29 = shl %tmp.27 %tmp.28;
+    %tmp.30 = 16;
+    %tmp.31 = shr %tmp.29 %tmp.30;
+    ret %tmp.31;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_91_36_97_2_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_91_2_97_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_91_2_97_2_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 98 2 ]
+    %tmp.32 = 0;
+    ret %tmp.32;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_90_43_99_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 101; ]
+function UInt32FromBytesBE(bytes, starting) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_101_44_111_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 102 2 ]
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_102_2_109_2_if_stmt:
+    %tmp.1 = lgetv %bytes;
+    %tmp.2 = getv function %tmp.1 :size;
+    %tmp.3 = invoke %tmp.1 %tmp.2();
+    %tmp.5 = lgetv %starting;
+    %tmp.6 = 4;
+    %tmp.7 = add %tmp.5 %tmp.6;
+    %tmp.8 = gte %tmp.3 %tmp.7;
+    bf %tmp.8 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_102_2_109_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_102_2_109_2_if_true:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_102_36_109_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 103 4 ]
+    %tmp.10 = lgetv %bytes;
+    %tmp.12 = lgetv %starting;
+    %tmp.13 = agetv %tmp.10 %tmp.12;
+    %tmp.14 = 0xff;
+    %tmp.15 = bitand %tmp.13 %tmp.14;
+    %tmp.16 = 24;
+    %tmp.17 = shl %tmp.15 %tmp.16;
+    %tmp.19 = lgetv %bytes;
+    %tmp.21 = lgetv %starting;
+    %tmp.22 = 1;
+    %tmp.23 = add %tmp.21 %tmp.22;
+    %tmp.24 = agetv %tmp.19 %tmp.23;
+    %tmp.25 = 0xff;
+    %tmp.26 = bitand %tmp.24 %tmp.25;
+    %tmp.27 = 16;
+    %tmp.28 = shl %tmp.26 %tmp.27;
+    %tmp.29 = bitor %tmp.17 %tmp.28;
+    %tmp.31 = lgetv %bytes;
+    %tmp.33 = lgetv %starting;
+    %tmp.34 = 2;
+    %tmp.35 = add %tmp.33 %tmp.34;
+    %tmp.36 = agetv %tmp.31 %tmp.35;
+    %tmp.37 = 0xff;
+    %tmp.38 = bitand %tmp.36 %tmp.37;
+    %tmp.39 = 8;
+    %tmp.40 = shl %tmp.38 %tmp.39;
+    %tmp.41 = bitor %tmp.29 %tmp.40;
+    %tmp.43 = lgetv %bytes;
+    %tmp.45 = lgetv %starting;
+    %tmp.46 = 3;
+    %tmp.47 = add %tmp.45 %tmp.46;
+    %tmp.48 = agetv %tmp.43 %tmp.47;
+    %tmp.49 = 0xff;
+    %tmp.50 = bitand %tmp.48 %tmp.49;
+    %tmp.51 = bitor %tmp.41 %tmp.50;
+    ret %tmp.51;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_102_36_109_2_stop:
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_102_2_109_2_if_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_102_2_109_2_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 110 2 ]
+    %tmp.52 = 0;
+    ret %tmp.52;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_101_44_111_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 113; ]
+function decode2bytes(byte1, byte2) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_113_36_115_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 114 2 ]
+    %tmp.2 = lgetv %byte1;
+    %tmp.3 = 0xff;
+    %tmp.4 = bitand %tmp.2 %tmp.3;
+    %tmp.6 = lgetv %byte2;
+    %tmp.7 = 8;
+    %tmp.8 = shl %tmp.6 %tmp.7;
+    %tmp.9 = add %tmp.4 %tmp.8;
+    ret %tmp.9;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_113_36_115_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 116; ]
+function decode4bytes(byte1, byte2, byte3, byte4) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_116_50_118_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 117 2 ]
+    %tmp.2 = lgetv %byte1;
+    %tmp.3 = 16;
+    %tmp.4 = shl %tmp.2 %tmp.3;
+    %tmp.6 = lgetv %byte2;
+    %tmp.7 = 24;
+    %tmp.8 = shl %tmp.6 %tmp.7;
+    %tmp.9 = add %tmp.4 %tmp.8;
+    %tmp.11 = lgetv %byte3;
+    %tmp.12 = add %tmp.9 %tmp.11;
+    %tmp.14 = lgetv %byte4;
+    %tmp.15 = 8;
+    %tmp.16 = shl %tmp.14 %tmp.15;
+    %tmp.17 = add %tmp.12 %tmp.16;
+    ret %tmp.17;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_116_50_118_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 120; ]
+function xorChkSum(bytes) {
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_120_26_126_0_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 121 2 ]
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_120_26_126_0_start" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_120_26_126_0_stop" ]
+    %chksum.1 = local;
+    %tmp.1 = 0;
+    lputv %chksum.1 %tmp.1;
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 122 2 ]
+    for @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_test @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_incr @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_init:
+    [ "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_begin" "_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_end" ]
+    %i.2 = local;
+    %tmp.2 = 0;
+    lputv %i.2 %tmp.2;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_test:
+    %tmp.4 = lgetv %i.2;
+    %tmp.5 = lgetv %bytes;
+    %tmp.6 = getv function %tmp.5 :size;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    %tmp.8 = lt %tmp.4 %tmp.7;
+    bf %tmp.8 @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_end;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_begin:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_41_124_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 123 4 ]
+    %tmp.10 = lgetv %chksum.1;
+    %tmp.12 = lgetv %bytes;
+    %tmp.14 = lgetv %i.2;
+    %tmp.15 = agetv %tmp.12 %tmp.14;
+    %tmp.16 = xor %tmp.10 %tmp.15;
+    lputv %chksum.1 %tmp.16;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_41_124_2_stop:
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_incr:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 122 ]
+    %tmp.19 = lgetv %i.2;
+    %tmp.20 = add %tmp.19 1;
+    lputv %i.2 %tmp.20;
+    goto @_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_test;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_122_2_124_2_for_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc" 125 2 ]
+    %tmp.22 = lgetv %chksum.1;
+    ret %tmp.22;
+_home_tritbool_workspace_WheelDash_source_util_helperFunction_mc_120_26_126_0_stop:
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/helperFunction.mc"; @line = 1; ]
+<init> {
+}

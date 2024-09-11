@@ -52,7 +52,7 @@ class GarminEUCApp extends Application.AppBase {
   }
 
   // Return the initial view of your application here
-  function getInitialView() as Array<Views or InputDelegates>? {
+  function getInitialView() as [Views] or [Views, InputDelegates]{
     view = profileSelector.createPSMenu();
     delegate = profileSelector.createPSDelegate();
     if (!usePS) {
@@ -63,7 +63,7 @@ class GarminEUCApp extends Application.AppBase {
       delegate = delegate.getDelegate();
     }
 
-    return [view, delegate] as Array<Views or InputDelegates>;
+    return [view, delegate] as [Views, InputDelegates];
   }
   // Timer callback for various alarms & update UI
   function onUpdateTimer() {

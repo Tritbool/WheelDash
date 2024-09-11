@@ -1,0 +1,1012 @@
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 1; ]
+import Toybox.Lang;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 2; ]
+import Toybox.System;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 3; ]
+import Toybox.WatchUi;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 4; ]
+using Toybox.System;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 5; ]
+using Toybox.Lang;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 6; ]
+using Toybox.BluetoothLowEnergy as :Ble;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 7; ]
+using Toybox.Timer;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 8; ]
+using Toybox.Application.Storage;
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 10; ]
+class PSMenuDelegate extends WatchUi.Menu2InputDelegate{
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 10; ]
+    <init> {
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 10; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 11; @position = 14; ]
+    private
+    var queue;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 12; @position = 14; ]
+    private
+    var eucBleDelegate;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 13; @position = 14; ]
+    private
+    var mainView;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 14; @position = 14; ]
+    private
+    var EUCSettingsDict;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 15; @position = 14; ]
+    private
+    var actionButtonTrigger;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 16; @position = 14; ]
+    private
+    var menu;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 17; @position = 14; ]
+    private
+    var menu2Delegate;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 18; @position = 14; ]
+    private
+    var mainViewdelegate;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 19; @position = 14; ]
+    private
+    var profileNb;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 20; @position = 14; ]
+    private
+    var connView;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 22; @position = 14; ]
+    private
+    var activityRecordView;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 23; ]
+    function initialize() as Void {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_23_24_28_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 24 4 ]
+        %tmp.4 = getv ? :ActionButton;
+        %tmp.1 = newc %tmp.4 ();
+        putv self :actionButtonTrigger %tmp.1;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 25 4 ]
+        %tmp.6 = getv ? :Menu2InputDelegate;
+        %tmp.7 = getv function %tmp.6 :initialize;
+        invoke %tmp.6 %tmp.7();
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 26 4 ]
+        %tmp.11 = getv ? :BleQueue;
+        %tmp.8 = newc %tmp.11 ();
+        putv self :queue %tmp.8;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_23_24_28_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 30; ]
+    function onSelect(item) {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_30_26_33_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 31 4 ]
+        %tmp.1 = self;
+        %tmp.2 = getv function %tmp.1 :setSettings;
+        %tmp.3 = lgetv %item;
+        %tmp.4 = getv function %tmp.3 :getId;
+        %tmp.5 = invoke %tmp.3 %tmp.4();
+        invoke %tmp.1 %tmp.2(%tmp.5);
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 32 4 ]
+        %tmp.6 = self;
+        %tmp.7 = getv function %tmp.6 :connInit;
+        invoke %tmp.6 %tmp.7();
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_30_26_33_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 34; ]
+    function onDone() {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_34_20_36_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 35 4 ]
+        %tmp.1 = getm $.Toybox.WatchUi;
+        %tmp.2 = getv function %tmp.1 :popView;
+        %tmp.3 = getm $.Toybox.WatchUi;
+        %tmp.4 = getv %tmp.3 :SLIDE_DOWN;
+        invoke %tmp.1 %tmp.2(%tmp.4);
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_34_20_36_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 37; ]
+    function connInit() {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_37_22_53_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 38 4 ]
+        [ "_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_37_22_53_2_start" "_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_37_22_53_2_stop" ]
+        %profileManager.1 = local;
+        %tmp.4 = getv ? :eucPM;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %profileManager.1 %tmp.1;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 40 4 ]
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_40_4_50_4_if_stmt:
+        %tmp.6 = getv ? :Toybox;
+        %tmp.8 = const :BluetoothLowEnergy;
+        %tmp.9 = canhazplz %tmp.6 %tmp.8;
+        bf %tmp.9 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_40_4_50_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_40_4_50_4_if_true:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_40_40_50_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 41 6 ]
+        %tmp.10 = lgetv %profileManager.1;
+        %tmp.11 = getv function %tmp.10 :setManager;
+        invoke %tmp.10 %tmp.11();
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 42 6 ]
+        %tmp.15 = getv ? :eucBLEDelegate;
+        %tmp.17 = lgetv %profileManager.1;
+        %tmp.19 = getv ? :profileNb;
+        %tmp.21 = getv ? :queue;
+        %tmp.23 = getv ? :frameDecoder;
+        %tmp.24 = getv function %tmp.23 :init;
+        %tmp.25 = invoke %tmp.23 %tmp.24();
+        %tmp.12 = newc %tmp.15 (%tmp.17, %tmp.19, %tmp.21, %tmp.25);
+        putv self :eucBleDelegate %tmp.12;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 48 6 ]
+        %tmp.27 = getv ? :BluetoothLowEnergy;
+        %tmp.28 = getv function %tmp.27 :setDelegate;
+        %tmp.30 = getv ? :eucBleDelegate;
+        invoke %tmp.27 %tmp.28(%tmp.30);
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 49 6 ]
+        %tmp.31 = lgetv %profileManager.1;
+        %tmp.32 = getv function %tmp.31 :registerProfiles;
+        invoke %tmp.31 %tmp.32();
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_40_40_50_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_40_4_50_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_40_4_50_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 52 4 ]
+        %tmp.33 = self;
+        %tmp.34 = getv function %tmp.33 :viewInit;
+        invoke %tmp.33 %tmp.34();
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_37_22_53_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 54; ]
+    function viewInit() {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_54_22_92_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 55 4 ]
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_55_4_60_4_if_stmt:
+        %tmp.2 = getv ? :eucData;
+        %tmp.3 = getv %tmp.2 :debug;
+        %tmp.4 = true;
+        %tmp.5 = eq %tmp.3 %tmp.4;
+        bf %tmp.5 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_55_4_60_4_if_false;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_55_4_60_4_if_true:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_55_31_58_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 56 6 ]
+        %tmp.9 = getv ? :GarminEUCDebugView;
+        %tmp.6 = newc %tmp.9 ();
+        putv self :mainView %tmp.6;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 57 6 ]
+        %tmp.11 = getv ? :mainView;
+        %tmp.12 = getv function %tmp.11 :setBleDelegate;
+        %tmp.14 = getv ? :eucBleDelegate;
+        invoke %tmp.11 %tmp.12(%tmp.14);
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_55_31_58_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_55_4_60_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_55_4_60_4_if_false:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_58_11_60_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 59 6 ]
+        %tmp.18 = getv ? :GarminEUCView;
+        %tmp.15 = newc %tmp.18 ();
+        putv self :mainView %tmp.15;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_58_11_60_4_stop:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_55_4_60_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 61 4 ]
+        %tmp.19 = self;
+        %tmp.20 = getv function %tmp.19 :getEUCSettingsDict;
+        %tmp.21 = invoke %tmp.19 %tmp.20();
+        putv self :EUCSettingsDict %tmp.21;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 62 4 ]
+        %tmp.23 = getv ? :actionButtonTrigger;
+        %tmp.24 = getv function %tmp.23 :setEUCDict;
+        invoke %tmp.23 %tmp.24();
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 63 4 ]
+        %tmp.25 = self;
+        %tmp.26 = getv function %tmp.25 :createMenu;
+        %tmp.28 = getv ? :EUCSettingsDict;
+        %tmp.29 = getv function %tmp.28 :getConfigLabels;
+        %tmp.30 = invoke %tmp.28 %tmp.29();
+        %tmp.31 = "Settings";
+        %tmp.32 = invoke %tmp.25 %tmp.26(%tmp.30, %tmp.31);
+        putv self :menu %tmp.32;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 64 4 ]
+        %tmp.36 = getv ? :GarminEUCMenu2Delegate_generic;
+        %tmp.38 = getv ? :menu;
+        %tmp.40 = getv ? :eucBleDelegate;
+        %tmp.42 = getv ? :queue;
+        %tmp.44 = getv ? :mainView;
+        %tmp.46 = getv ? :EUCSettingsDict;
+        %tmp.33 = newc %tmp.36 (%tmp.38, %tmp.40, %tmp.42, %tmp.44, %tmp.46);
+        putv self :menu2Delegate %tmp.33;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 71 4 ]
+        %tmp.50 = getv ? :ActivityRecordView;
+        %tmp.47 = newc %tmp.50 ();
+        putv self :activityRecordView %tmp.47;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 73 4 ]
+        %tmp.54 = getv ? :GarminEUCDelegate;
+        %tmp.56 = getv ? :mainView;
+        %tmp.58 = getv ? :menu;
+        %tmp.60 = getv ? :menu2Delegate;
+        %tmp.62 = getv ? :eucBleDelegate;
+        %tmp.64 = getv ? :queue;
+        %tmp.66 = getv ? :activityRecordView;
+        %tmp.68 = getv ? :actionButtonTrigger;
+        %tmp.51 = newc %tmp.54 (%tmp.56, %tmp.58, %tmp.60, %tmp.62, %tmp.64, %tmp.66, %tmp.68);
+        putv self :mainViewdelegate %tmp.51;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 83 4 ]
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_83_4_91_4_if_stmt:
+        %tmp.70 = getv ? :eucBleDelegate;
+        %tmp.71 = getv %tmp.70 :isFirst;
+        %tmp.72 = false;
+        %tmp.73 = eq %tmp.71 %tmp.72;
+        bf %tmp.73 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_83_4_91_4_if_false;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_83_4_91_4_if_true:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_83_41_87_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 86 6 ]
+        %tmp.74 = getm $.Toybox.WatchUi;
+        %tmp.75 = getv function %tmp.74 :pushView;
+        %tmp.77 = getv ? :mainView;
+        %tmp.79 = getv ? :mainViewdelegate;
+        %tmp.80 = getm $.Toybox.WatchUi;
+        %tmp.81 = getv %tmp.80 :SLIDE_IMMEDIATE;
+        invoke %tmp.74 %tmp.75(%tmp.77, %tmp.79, %tmp.81);
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_83_41_87_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_83_4_91_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_83_4_91_4_if_false:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_87_11_91_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 89 6 ]
+        %tmp.85 = getv ? :connectionView;
+        %tmp.87 = getv ? :eucBleDelegate;
+        %tmp.89 = getv ? :profileNb;
+        %tmp.91 = self;
+        %tmp.82 = newc %tmp.85 (%tmp.87, %tmp.89, %tmp.91);
+        putv self :connView %tmp.82;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 90 6 ]
+        %tmp.92 = getm $.Toybox.WatchUi;
+        %tmp.93 = getv function %tmp.92 :pushView;
+        %tmp.95 = getv ? :connView;
+        %tmp.96 = null;
+        %tmp.97 = getm $.Toybox.WatchUi;
+        %tmp.98 = getv %tmp.97 :SLIDE_IMMEDIATE;
+        invoke %tmp.92 %tmp.93(%tmp.95, %tmp.96, %tmp.98);
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_87_11_91_4_stop:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_83_4_91_4_if_end:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_54_22_92_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 93; ]
+    function unpair() {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_93_20_95_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 94 4 ]
+        %tmp.2 = getv ? :eucBleDelegate;
+        %tmp.3 = getv function %tmp.2 :manualUnpair;
+        invoke %tmp.2 %tmp.3();
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_93_20_95_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 96; ]
+    function getView() {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_96_21_98_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 97 4 ]
+        %tmp.2 = getv ? :mainView;
+        ret %tmp.2;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_96_21_98_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 99; ]
+    function getDelegate() {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_99_25_101_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 100 4 ]
+        %tmp.2 = getv ? :mainViewdelegate;
+        ret %tmp.2;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_99_25_101_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 102; ]
+    function getMenu2Delegate() {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_102_30_104_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 103 4 ]
+        %tmp.2 = getv ? :menu2Delegate;
+        ret %tmp.2;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_102_30_104_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 105; ]
+    function getActivityView() {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_105_29_107_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 106 4 ]
+        %tmp.2 = getv ? :mainViewdelegate;
+        %tmp.3 = getv function %tmp.2 :getActivityView;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        ret %tmp.4;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_105_29_107_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 109; ]
+    function setSettings(profileName) {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_109_36_128_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 110 4 ]
+        [ "_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_109_36_128_2_start" "_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_109_36_128_2_stop" ]
+        %profileSelected.1 = local;
+        %tmp.1 = self;
+        %tmp.2 = getv function %tmp.1 :pickProfile;
+        %tmp.4 = lgetv %profileName;
+        %tmp.5 = invoke %tmp.1 %tmp.2(%tmp.4);
+        lputv %profileSelected.1 %tmp.5;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 111 4 ]
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_111_4_127_4_if_stmt:
+        %tmp.7 = lgetv %profileSelected.1;
+        %tmp.8 = true;
+        %tmp.9 = ne %tmp.7 %tmp.8;
+        bf %tmp.9 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_111_4_127_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_111_4_127_4_if_true:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_111_33_127_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 113 6 ]
+        [ "_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_111_33_127_4_start" "_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_111_33_127_4_stop" ]
+        %lastProfile.2 = local;
+        %tmp.10 = getm $.Toybox.Application.Storage;
+        %tmp.11 = getv function %tmp.10 :getValue;
+        %tmp.12 = "lastProfile";
+        %tmp.13 = invoke %tmp.10 %tmp.11(%tmp.12);
+        lputv %lastProfile.2 %tmp.13;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 115 6 ]
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_6_126_6_if_stmt:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_10_115_76_begin:
+        %tmp.15 = lgetv %lastProfile.2;
+        %tmp.16 = null;
+        %tmp.17 = ne %tmp.15 %tmp.16;
+        bf %tmp.17 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_6_126_6_if_false;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_33_115_76_true:
+        %tmp.19 = getv ? :AppStorage;
+        %tmp.20 = getv function %tmp.19 :getSetting;
+        %tmp.21 = "defaultProfile";
+        %tmp.22 = invoke %tmp.19 %tmp.20(%tmp.21);
+        %tmp.23 = 0;
+        %tmp.24 = eq %tmp.22 %tmp.23;
+        push %tmp.24;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_33_115_76_end:
+        %tmp.25 = phi [%tmp.17 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_10_115_76_begin] [%tmp.24 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_33_115_76_true] [%tmp.25 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_33_115_76_end];
+        bf %tmp.25 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_6_126_6_if_false;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_6_126_6_if_true:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_79_121_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 116 8 ]
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_116_8_119_8_if_stmt:
+        %tmp.26 = self;
+        %tmp.27 = getv function %tmp.26 :pickProfile;
+        %tmp.29 = lgetv %lastProfile.2;
+        %tmp.30 = as %tmp.29 { (!Null) };
+        %tmp.31 = invoke %tmp.26 %tmp.27(%tmp.30);
+        %tmp.32 = false;
+        %tmp.33 = eq %tmp.31 %tmp.32;
+        bf %tmp.33 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_116_8_119_8_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_116_8_119_8_if_true:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_116_47_119_8_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 118 10 ]
+        %tmp.34 = self;
+        %tmp.35 = getv function %tmp.34 :pickProfile;
+        %tmp.36 = self;
+        %tmp.37 = getv function %tmp.36 :getProfileList;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        %tmp.39 = 0;
+        %tmp.40 = agetv %tmp.38 %tmp.39;
+        invoke %tmp.34 %tmp.35(%tmp.40);
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_116_47_119_8_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_116_8_119_8_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_116_8_119_8_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 120 8 ]
+        %tmp.41 = self;
+        %tmp.42 = getv function %tmp.41 :connInit;
+        invoke %tmp.41 %tmp.42();
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_79_121_6_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_6_126_6_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_6_126_6_if_false:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_121_13_126_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 122 8 ]
+        %tmp.43 = self;
+        %tmp.44 = getv function %tmp.43 :pickProfile;
+        %tmp.45 = self;
+        %tmp.46 = getv function %tmp.45 :getProfileList;
+        %tmp.47 = invoke %tmp.45 %tmp.46();
+        %tmp.49 = getv ? :AppStorage;
+        %tmp.50 = getv function %tmp.49 :getSetting;
+        %tmp.51 = "defaultProfile";
+        %tmp.52 = invoke %tmp.49 %tmp.50(%tmp.51);
+        %tmp.53 = 1;
+        %tmp.54 = sub %tmp.52 %tmp.53;
+        %tmp.55 = agetv %tmp.47 %tmp.54;
+        invoke %tmp.43 %tmp.44(%tmp.55);
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 125 8 ]
+        %tmp.56 = self;
+        %tmp.57 = getv function %tmp.56 :connInit;
+        invoke %tmp.56 %tmp.57();
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_121_13_126_6_stop:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_115_6_126_6_if_end:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_111_33_127_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_111_4_127_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_111_4_127_4_if_end:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_109_36_128_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 129; ]
+    function getProfileList() {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_129_28_135_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 130 4 ]
+        %tmp.1 = newa 3;
+        %tmp.3 = getv ? :AppStorage;
+        %tmp.4 = getv function %tmp.3 :getSetting;
+        %tmp.5 = "wheelName_p1";
+        %tmp.6 = invoke %tmp.3 %tmp.4(%tmp.5);
+        %tmp.7 = dup %tmp.1;
+        %tmp.8 = aputv %tmp.7 0 %tmp.6;
+        %tmp.10 = getv ? :AppStorage;
+        %tmp.11 = getv function %tmp.10 :getSetting;
+        %tmp.12 = "wheelName_p2";
+        %tmp.13 = invoke %tmp.10 %tmp.11(%tmp.12);
+        %tmp.14 = dup %tmp.8;
+        %tmp.15 = aputv %tmp.14 1 %tmp.13;
+        %tmp.17 = getv ? :AppStorage;
+        %tmp.18 = getv function %tmp.17 :getSetting;
+        %tmp.19 = "wheelName_p3";
+        %tmp.20 = invoke %tmp.17 %tmp.18(%tmp.19);
+        %tmp.21 = dup %tmp.15;
+        %tmp.22 = aputv %tmp.21 2 %tmp.20;
+        ret %tmp.22;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_129_28_135_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 136; ]
+    function pickProfile(profileName) {
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_136_36_299_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 137 4 ]
+        [ "_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_136_36_299_2_start" "_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_136_36_299_2_stop" ]
+        %profiles.1 = local;
+        %tmp.1 = self;
+        %tmp.2 = getv function %tmp.1 :getProfileList;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %profiles.1 %tmp.3;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 139 4 ]
+        %tmp.4 = lgetv %profiles.1;
+        %tmp.5 = getv function %tmp.4 :indexOf;
+        %tmp.7 = lgetv %profileName;
+        %tmp.8 = invoke %tmp.4 %tmp.5(%tmp.7);
+        %tmp.9 = 1;
+        %tmp.10 = add %tmp.8 %tmp.9;
+        putv self :profileNb %tmp.10;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 141 4 ]
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_141_4_298_4_if_stmt:
+        %tmp.12 = getv ? :profileNb;
+        %tmp.13 = 1;
+        %tmp.14 = eq %tmp.12 %tmp.13;
+        bf %tmp.14 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_141_4_298_4_if_false;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_141_4_298_4_if_true:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_141_24_193_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 142 6 ]
+        %tmp.15 = getv self :eucData;
+        %tmp.17 = getv ? :AppStorage;
+        %tmp.18 = getv function %tmp.17 :getSetting;
+        %tmp.19 = "maxSpeed_p1";
+        %tmp.20 = invoke %tmp.17 %tmp.18(%tmp.19);
+        putv %tmp.15 :maxDisplayedSpeed %tmp.20;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 143 6 ]
+        %tmp.21 = getv self :eucData;
+        %tmp.23 = getv ? :AppStorage;
+        %tmp.24 = getv function %tmp.23 :getSetting;
+        %tmp.25 = "mainNumber_p1";
+        %tmp.26 = invoke %tmp.23 %tmp.24(%tmp.25);
+        putv %tmp.21 :mainNumber %tmp.26;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 144 6 ]
+        %tmp.27 = getv self :eucData;
+        %tmp.29 = getv ? :AppStorage;
+        %tmp.30 = getv function %tmp.29 :getSetting;
+        %tmp.31 = "topBar_p1";
+        %tmp.32 = invoke %tmp.29 %tmp.30(%tmp.31);
+        putv %tmp.27 :topBar %tmp.32;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 145 6 ]
+        %tmp.33 = getv self :eucData;
+        %tmp.35 = getv ? :AppStorage;
+        %tmp.36 = getv function %tmp.35 :getSetting;
+        %tmp.37 = "begodeCF_p1";
+        %tmp.38 = invoke %tmp.35 %tmp.36(%tmp.37);
+        putv %tmp.33 :gothPWN %tmp.38;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 147 6 ]
+        %tmp.39 = getv self :eucData;
+        %tmp.41 = getv ? :AppStorage;
+        %tmp.42 = getv function %tmp.41 :getSetting;
+        %tmp.43 = "orangeColoringThreshold_p1";
+        %tmp.44 = invoke %tmp.41 %tmp.42(%tmp.43);
+        putv %tmp.39 :orangeColoringThreshold %tmp.44;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 150 6 ]
+        %tmp.45 = getv self :eucData;
+        %tmp.47 = getv ? :AppStorage;
+        %tmp.48 = getv function %tmp.47 :getSetting;
+        %tmp.49 = "redColoringThreshold_p1";
+        %tmp.50 = invoke %tmp.47 %tmp.48(%tmp.49);
+        putv %tmp.45 :redColoringThreshold %tmp.50;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 154 6 ]
+        %tmp.51 = getv self :eucData;
+        %tmp.53 = getv ? :AppStorage;
+        %tmp.54 = getv function %tmp.53 :getSetting;
+        %tmp.55 = "currentCorrection_p1";
+        %tmp.56 = invoke %tmp.53 %tmp.54(%tmp.55);
+        putv %tmp.51 :currentCorrection %tmp.56;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 155 6 ]
+        %tmp.57 = getv self :eucData;
+        %tmp.59 = getv ? :AppStorage;
+        %tmp.60 = getv function %tmp.59 :getSetting;
+        %tmp.61 = "maxTemperature_p1";
+        %tmp.62 = invoke %tmp.59 %tmp.60(%tmp.61);
+        putv %tmp.57 :maxTemperature %tmp.62;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 157 6 ]
+        %tmp.63 = getv self :eucData;
+        %tmp.65 = getv ? :AppStorage;
+        %tmp.66 = getv function %tmp.65 :getSetting;
+        %tmp.67 = "rotationSpeed_PWM_p1";
+        %tmp.68 = invoke %tmp.65 %tmp.66(%tmp.67);
+        putv %tmp.63 :rotationSpeed %tmp.68;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 158 6 ]
+        %tmp.69 = getv self :eucData;
+        %tmp.71 = getv ? :AppStorage;
+        %tmp.72 = getv function %tmp.71 :getSetting;
+        %tmp.73 = "rotationVoltage_PWM_p1";
+        %tmp.74 = invoke %tmp.71 %tmp.72(%tmp.73);
+        putv %tmp.69 :rotationVoltage %tmp.74;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 159 6 ]
+        %tmp.75 = getv self :eucData;
+        %tmp.77 = getv ? :AppStorage;
+        %tmp.78 = getv function %tmp.77 :getSetting;
+        %tmp.79 = "powerFactor_PWM_p1";
+        %tmp.80 = invoke %tmp.77 %tmp.78(%tmp.79);
+        putv %tmp.75 :powerFactor %tmp.80;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 160 6 ]
+        %tmp.81 = getv self :eucData;
+        %tmp.83 = getv ? :AppStorage;
+        %tmp.84 = getv function %tmp.83 :getSetting;
+        %tmp.85 = "voltageCorrectionFactor_p1";
+        %tmp.86 = invoke %tmp.83 %tmp.84(%tmp.85);
+        putv %tmp.81 :voltage_scaling %tmp.86;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 163 6 ]
+        %tmp.87 = getv self :eucData;
+        %tmp.89 = getv ? :AppStorage;
+        %tmp.90 = getv function %tmp.89 :getSetting;
+        %tmp.91 = "voltageSagIndicatorThresh_p1";
+        %tmp.92 = invoke %tmp.89 %tmp.90(%tmp.91);
+        putv %tmp.87 :sagThreshold %tmp.92;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 166 6 ]
+        %tmp.93 = getv self :eucData;
+        %tmp.95 = getv ? :AppStorage;
+        %tmp.96 = getv function %tmp.95 :getSetting;
+        %tmp.97 = "speedCorrectionFactor_p1";
+        %tmp.98 = invoke %tmp.95 %tmp.96(%tmp.97);
+        putv %tmp.93 :speedCorrectionFactor %tmp.98;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 170 6 ]
+        %tmp.99 = getv self :eucData;
+        %tmp.101 = getv ? :AppStorage;
+        %tmp.102 = getv function %tmp.101 :getSetting;
+        %tmp.103 = "alarmThreshold_PWM_p1";
+        %tmp.104 = invoke %tmp.101 %tmp.102(%tmp.103);
+        putv %tmp.99 :alarmThreshold_PWM %tmp.104;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 173 6 ]
+        %tmp.105 = getv self :eucData;
+        %tmp.107 = getv ? :AppStorage;
+        %tmp.108 = getv function %tmp.107 :getSetting;
+        %tmp.109 = "alarmThreshold_speed_p1";
+        %tmp.110 = invoke %tmp.107 %tmp.108(%tmp.109);
+        putv %tmp.105 :alarmThreshold_speed %tmp.110;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 176 6 ]
+        %tmp.111 = getv self :eucData;
+        %tmp.113 = getv ? :AppStorage;
+        %tmp.114 = getv function %tmp.113 :getSetting;
+        %tmp.115 = "alarmThreshold_temp_p1";
+        %tmp.116 = invoke %tmp.113 %tmp.114(%tmp.115);
+        putv %tmp.111 :alarmThreshold_temp %tmp.116;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 179 6 ]
+        %tmp.117 = getv self :eucData;
+        %tmp.119 = getv ? :AppStorage;
+        %tmp.120 = getv function %tmp.119 :getSetting;
+        %tmp.121 = "wheelBrand_p1";
+        %tmp.122 = invoke %tmp.119 %tmp.120(%tmp.121);
+        putv %tmp.117 :wheelBrand %tmp.122;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 181 6 ]
+        %tmp.123 = getv self :actionButtonTrigger;
+        %tmp.125 = getv ? :AppStorage;
+        %tmp.126 = getv function %tmp.125 :getSetting;
+        %tmp.127 = "recordActivityButtonMap_p1";
+        %tmp.128 = invoke %tmp.125 %tmp.126(%tmp.127);
+        putv %tmp.123 :recordActivityButton %tmp.128;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 184 6 ]
+        %tmp.129 = getv self :actionButtonTrigger;
+        %tmp.131 = getv ? :AppStorage;
+        %tmp.132 = getv function %tmp.131 :getSetting;
+        %tmp.133 = "cycleLightButtonMap_p1";
+        %tmp.134 = invoke %tmp.131 %tmp.132(%tmp.133);
+        putv %tmp.129 :cycleLightButton %tmp.134;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 187 6 ]
+        %tmp.135 = getv self :actionButtonTrigger;
+        %tmp.137 = getv ? :AppStorage;
+        %tmp.138 = getv function %tmp.137 :getSetting;
+        %tmp.139 = "beepButtonMap_p1";
+        %tmp.140 = invoke %tmp.137 %tmp.138(%tmp.139);
+        putv %tmp.135 :beepButton %tmp.140;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 189 6 ]
+        %tmp.141 = getv self :actionButtonTrigger;
+        %tmp.143 = getv ? :AppStorage;
+        %tmp.144 = getv function %tmp.143 :getSetting;
+        %tmp.145 = "actionQueueDelay_p1";
+        %tmp.146 = invoke %tmp.143 %tmp.144(%tmp.145);
+        putv %tmp.141 :delay %tmp.146;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 190 6 ]
+        %tmp.147 = getv self :eucData;
+        %tmp.149 = getv ? :AppStorage;
+        %tmp.150 = getv function %tmp.149 :getSetting;
+        %tmp.151 = "wheelName_p1";
+        %tmp.152 = invoke %tmp.149 %tmp.150(%tmp.151);
+        putv %tmp.147 :wheelName %tmp.152;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 191 6 ]
+        %tmp.153 = getm $.Toybox.Application.Storage;
+        %tmp.154 = getv function %tmp.153 :setValue;
+        %tmp.155 = "lastProfile";
+        %tmp.157 = lgetv %profileName;
+        invoke %tmp.153 %tmp.154(%tmp.155, %tmp.157);
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 192 6 ]
+        %tmp.158 = true;
+        ret %tmp.158;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_141_24_193_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_141_4_298_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_141_4_298_4_if_false:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 193 11 ]
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_193_11_298_4_if_stmt:
+        %tmp.160 = getv ? :profileNb;
+        %tmp.161 = 2;
+        %tmp.162 = eq %tmp.160 %tmp.161;
+        bf %tmp.162 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_193_11_298_4_if_false;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_193_11_298_4_if_true:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_193_31_244_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 194 6 ]
+        %tmp.163 = getv self :eucData;
+        %tmp.165 = getv ? :AppStorage;
+        %tmp.166 = getv function %tmp.165 :getSetting;
+        %tmp.167 = "maxSpeed_p2";
+        %tmp.168 = invoke %tmp.165 %tmp.166(%tmp.167);
+        putv %tmp.163 :maxDisplayedSpeed %tmp.168;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 195 6 ]
+        %tmp.169 = getv self :eucData;
+        %tmp.171 = getv ? :AppStorage;
+        %tmp.172 = getv function %tmp.171 :getSetting;
+        %tmp.173 = "mainNumber_p2";
+        %tmp.174 = invoke %tmp.171 %tmp.172(%tmp.173);
+        putv %tmp.169 :mainNumber %tmp.174;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 196 6 ]
+        %tmp.175 = getv self :eucData;
+        %tmp.177 = getv ? :AppStorage;
+        %tmp.178 = getv function %tmp.177 :getSetting;
+        %tmp.179 = "topBar_p2";
+        %tmp.180 = invoke %tmp.177 %tmp.178(%tmp.179);
+        putv %tmp.175 :topBar %tmp.180;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 197 6 ]
+        %tmp.181 = getv self :eucData;
+        %tmp.183 = getv ? :AppStorage;
+        %tmp.184 = getv function %tmp.183 :getSetting;
+        %tmp.185 = "begodeCF_p2";
+        %tmp.186 = invoke %tmp.183 %tmp.184(%tmp.185);
+        putv %tmp.181 :gothPWN %tmp.186;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 199 6 ]
+        %tmp.187 = getv self :eucData;
+        %tmp.189 = getv ? :AppStorage;
+        %tmp.190 = getv function %tmp.189 :getSetting;
+        %tmp.191 = "orangeColoringThreshold_p2";
+        %tmp.192 = invoke %tmp.189 %tmp.190(%tmp.191);
+        putv %tmp.187 :orangeColoringThreshold %tmp.192;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 202 6 ]
+        %tmp.193 = getv self :eucData;
+        %tmp.195 = getv ? :AppStorage;
+        %tmp.196 = getv function %tmp.195 :getSetting;
+        %tmp.197 = "redColoringThreshold_p2";
+        %tmp.198 = invoke %tmp.195 %tmp.196(%tmp.197);
+        putv %tmp.193 :redColoringThreshold %tmp.198;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 206 6 ]
+        %tmp.199 = getv self :eucData;
+        %tmp.201 = getv ? :AppStorage;
+        %tmp.202 = getv function %tmp.201 :getSetting;
+        %tmp.203 = "currentCorrection_p2";
+        %tmp.204 = invoke %tmp.201 %tmp.202(%tmp.203);
+        putv %tmp.199 :currentCorrection %tmp.204;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 207 6 ]
+        %tmp.205 = getv self :eucData;
+        %tmp.207 = getv ? :AppStorage;
+        %tmp.208 = getv function %tmp.207 :getSetting;
+        %tmp.209 = "maxTemperature_p2";
+        %tmp.210 = invoke %tmp.207 %tmp.208(%tmp.209);
+        putv %tmp.205 :maxTemperature %tmp.210;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 208 6 ]
+        %tmp.211 = getv self :eucData;
+        %tmp.213 = getv ? :AppStorage;
+        %tmp.214 = getv function %tmp.213 :getSetting;
+        %tmp.215 = "rotationSpeed_PWM_p2";
+        %tmp.216 = invoke %tmp.213 %tmp.214(%tmp.215);
+        putv %tmp.211 :rotationSpeed %tmp.216;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 209 6 ]
+        %tmp.217 = getv self :eucData;
+        %tmp.219 = getv ? :AppStorage;
+        %tmp.220 = getv function %tmp.219 :getSetting;
+        %tmp.221 = "rotationVoltage_PWM_p2";
+        %tmp.222 = invoke %tmp.219 %tmp.220(%tmp.221);
+        putv %tmp.217 :rotationVoltage %tmp.222;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 210 6 ]
+        %tmp.223 = getv self :eucData;
+        %tmp.225 = getv ? :AppStorage;
+        %tmp.226 = getv function %tmp.225 :getSetting;
+        %tmp.227 = "powerFactor_PWM_p2";
+        %tmp.228 = invoke %tmp.225 %tmp.226(%tmp.227);
+        putv %tmp.223 :powerFactor %tmp.228;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 211 6 ]
+        %tmp.229 = getv self :eucData;
+        %tmp.231 = getv ? :AppStorage;
+        %tmp.232 = getv function %tmp.231 :getSetting;
+        %tmp.233 = "voltageCorrectionFactor_p2";
+        %tmp.234 = invoke %tmp.231 %tmp.232(%tmp.233);
+        putv %tmp.229 :voltage_scaling %tmp.234;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 214 6 ]
+        %tmp.235 = getv self :eucData;
+        %tmp.237 = getv ? :AppStorage;
+        %tmp.238 = getv function %tmp.237 :getSetting;
+        %tmp.239 = "voltageSagIndicatorThresh_p2";
+        %tmp.240 = invoke %tmp.237 %tmp.238(%tmp.239);
+        putv %tmp.235 :sagThreshold %tmp.240;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 217 6 ]
+        %tmp.241 = getv self :eucData;
+        %tmp.243 = getv ? :AppStorage;
+        %tmp.244 = getv function %tmp.243 :getSetting;
+        %tmp.245 = "speedCorrectionFactor_p2";
+        %tmp.246 = invoke %tmp.243 %tmp.244(%tmp.245);
+        putv %tmp.241 :speedCorrectionFactor %tmp.246;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 221 6 ]
+        %tmp.247 = getv self :eucData;
+        %tmp.249 = getv ? :AppStorage;
+        %tmp.250 = getv function %tmp.249 :getSetting;
+        %tmp.251 = "alarmThreshold_PWM_p2";
+        %tmp.252 = invoke %tmp.249 %tmp.250(%tmp.251);
+        putv %tmp.247 :alarmThreshold_PWM %tmp.252;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 224 6 ]
+        %tmp.253 = getv self :eucData;
+        %tmp.255 = getv ? :AppStorage;
+        %tmp.256 = getv function %tmp.255 :getSetting;
+        %tmp.257 = "alarmThreshold_speed_p2";
+        %tmp.258 = invoke %tmp.255 %tmp.256(%tmp.257);
+        putv %tmp.253 :alarmThreshold_speed %tmp.258;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 227 6 ]
+        %tmp.259 = getv self :eucData;
+        %tmp.261 = getv ? :AppStorage;
+        %tmp.262 = getv function %tmp.261 :getSetting;
+        %tmp.263 = "alarmThreshold_temp_p2";
+        %tmp.264 = invoke %tmp.261 %tmp.262(%tmp.263);
+        putv %tmp.259 :alarmThreshold_temp %tmp.264;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 230 6 ]
+        %tmp.265 = getv self :eucData;
+        %tmp.267 = getv ? :AppStorage;
+        %tmp.268 = getv function %tmp.267 :getSetting;
+        %tmp.269 = "wheelBrand_p2";
+        %tmp.270 = invoke %tmp.267 %tmp.268(%tmp.269);
+        putv %tmp.265 :wheelBrand %tmp.270;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 232 6 ]
+        %tmp.271 = getv self :actionButtonTrigger;
+        %tmp.273 = getv ? :AppStorage;
+        %tmp.274 = getv function %tmp.273 :getSetting;
+        %tmp.275 = "recordActivityButtonMap_p2";
+        %tmp.276 = invoke %tmp.273 %tmp.274(%tmp.275);
+        putv %tmp.271 :recordActivityButton %tmp.276;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 235 6 ]
+        %tmp.277 = getv self :actionButtonTrigger;
+        %tmp.279 = getv ? :AppStorage;
+        %tmp.280 = getv function %tmp.279 :getSetting;
+        %tmp.281 = "cycleLightButtonMap_p2";
+        %tmp.282 = invoke %tmp.279 %tmp.280(%tmp.281);
+        putv %tmp.277 :cycleLightButton %tmp.282;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 238 6 ]
+        %tmp.283 = getv self :actionButtonTrigger;
+        %tmp.285 = getv ? :AppStorage;
+        %tmp.286 = getv function %tmp.285 :getSetting;
+        %tmp.287 = "beepButtonMap_p2";
+        %tmp.288 = invoke %tmp.285 %tmp.286(%tmp.287);
+        putv %tmp.283 :beepButton %tmp.288;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 240 6 ]
+        %tmp.289 = getv self :actionButtonTrigger;
+        %tmp.291 = getv ? :AppStorage;
+        %tmp.292 = getv function %tmp.291 :getSetting;
+        %tmp.293 = "actionQueueDelay_p2";
+        %tmp.294 = invoke %tmp.291 %tmp.292(%tmp.293);
+        putv %tmp.289 :delay %tmp.294;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 241 6 ]
+        %tmp.295 = getv self :eucData;
+        %tmp.297 = getv ? :AppStorage;
+        %tmp.298 = getv function %tmp.297 :getSetting;
+        %tmp.299 = "wheelName_p2";
+        %tmp.300 = invoke %tmp.297 %tmp.298(%tmp.299);
+        putv %tmp.295 :wheelName %tmp.300;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 242 6 ]
+        %tmp.301 = getm $.Toybox.Application.Storage;
+        %tmp.302 = getv function %tmp.301 :setValue;
+        %tmp.303 = "lastProfile";
+        %tmp.305 = lgetv %profileName;
+        invoke %tmp.301 %tmp.302(%tmp.303, %tmp.305);
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 243 6 ]
+        %tmp.306 = true;
+        ret %tmp.306;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_193_31_244_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_193_11_298_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_193_11_298_4_if_false:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 244 11 ]
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_244_11_298_4_if_stmt:
+        %tmp.308 = getv ? :profileNb;
+        %tmp.309 = 3;
+        %tmp.310 = eq %tmp.308 %tmp.309;
+        bf %tmp.310 @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_244_11_298_4_if_false;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_244_11_298_4_if_true:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_244_31_296_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 245 6 ]
+        %tmp.311 = getv self :eucData;
+        %tmp.313 = getv ? :AppStorage;
+        %tmp.314 = getv function %tmp.313 :getSetting;
+        %tmp.315 = "maxSpeed_p3";
+        %tmp.316 = invoke %tmp.313 %tmp.314(%tmp.315);
+        putv %tmp.311 :maxDisplayedSpeed %tmp.316;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 246 6 ]
+        %tmp.317 = getv self :eucData;
+        %tmp.319 = getv ? :AppStorage;
+        %tmp.320 = getv function %tmp.319 :getSetting;
+        %tmp.321 = "mainNumber_p3";
+        %tmp.322 = invoke %tmp.319 %tmp.320(%tmp.321);
+        putv %tmp.317 :mainNumber %tmp.322;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 247 6 ]
+        %tmp.323 = getv self :eucData;
+        %tmp.325 = getv ? :AppStorage;
+        %tmp.326 = getv function %tmp.325 :getSetting;
+        %tmp.327 = "topBar_p3";
+        %tmp.328 = invoke %tmp.325 %tmp.326(%tmp.327);
+        putv %tmp.323 :topBar %tmp.328;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 248 6 ]
+        %tmp.329 = getv self :eucData;
+        %tmp.331 = getv ? :AppStorage;
+        %tmp.332 = getv function %tmp.331 :getSetting;
+        %tmp.333 = "begodeCF_p3";
+        %tmp.334 = invoke %tmp.331 %tmp.332(%tmp.333);
+        putv %tmp.329 :gothPWN %tmp.334;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 250 6 ]
+        %tmp.335 = getv self :eucData;
+        %tmp.337 = getv ? :AppStorage;
+        %tmp.338 = getv function %tmp.337 :getSetting;
+        %tmp.339 = "orangeColoringThreshold_p3";
+        %tmp.340 = invoke %tmp.337 %tmp.338(%tmp.339);
+        putv %tmp.335 :orangeColoringThreshold %tmp.340;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 253 6 ]
+        %tmp.341 = getv self :eucData;
+        %tmp.343 = getv ? :AppStorage;
+        %tmp.344 = getv function %tmp.343 :getSetting;
+        %tmp.345 = "redColoringThreshold_p3";
+        %tmp.346 = invoke %tmp.343 %tmp.344(%tmp.345);
+        putv %tmp.341 :redColoringThreshold %tmp.346;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 257 6 ]
+        %tmp.347 = getv self :eucData;
+        %tmp.349 = getv ? :AppStorage;
+        %tmp.350 = getv function %tmp.349 :getSetting;
+        %tmp.351 = "currentCorrection_p3";
+        %tmp.352 = invoke %tmp.349 %tmp.350(%tmp.351);
+        putv %tmp.347 :currentCorrection %tmp.352;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 258 6 ]
+        %tmp.353 = getv self :eucData;
+        %tmp.355 = getv ? :AppStorage;
+        %tmp.356 = getv function %tmp.355 :getSetting;
+        %tmp.357 = "maxTemperature_p3";
+        %tmp.358 = invoke %tmp.355 %tmp.356(%tmp.357);
+        putv %tmp.353 :maxTemperature %tmp.358;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 260 6 ]
+        %tmp.359 = getv self :eucData;
+        %tmp.361 = getv ? :AppStorage;
+        %tmp.362 = getv function %tmp.361 :getSetting;
+        %tmp.363 = "rotationSpeed_PWM_p3";
+        %tmp.364 = invoke %tmp.361 %tmp.362(%tmp.363);
+        putv %tmp.359 :rotationSpeed %tmp.364;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 261 6 ]
+        %tmp.365 = getv self :eucData;
+        %tmp.367 = getv ? :AppStorage;
+        %tmp.368 = getv function %tmp.367 :getSetting;
+        %tmp.369 = "rotationVoltage_PWM_p3";
+        %tmp.370 = invoke %tmp.367 %tmp.368(%tmp.369);
+        putv %tmp.365 :rotationVoltage %tmp.370;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 262 6 ]
+        %tmp.371 = getv self :eucData;
+        %tmp.373 = getv ? :AppStorage;
+        %tmp.374 = getv function %tmp.373 :getSetting;
+        %tmp.375 = "powerFactor_PWM_p3";
+        %tmp.376 = invoke %tmp.373 %tmp.374(%tmp.375);
+        putv %tmp.371 :powerFactor %tmp.376;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 263 6 ]
+        %tmp.377 = getv self :eucData;
+        %tmp.379 = getv ? :AppStorage;
+        %tmp.380 = getv function %tmp.379 :getSetting;
+        %tmp.381 = "voltageCorrectionFactor_p3";
+        %tmp.382 = invoke %tmp.379 %tmp.380(%tmp.381);
+        putv %tmp.377 :voltage_scaling %tmp.382;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 266 6 ]
+        %tmp.383 = getv self :eucData;
+        %tmp.385 = getv ? :AppStorage;
+        %tmp.386 = getv function %tmp.385 :getSetting;
+        %tmp.387 = "voltageSagIndicatorThresh_p3";
+        %tmp.388 = invoke %tmp.385 %tmp.386(%tmp.387);
+        putv %tmp.383 :sagThreshold %tmp.388;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 269 6 ]
+        %tmp.389 = getv self :eucData;
+        %tmp.391 = getv ? :AppStorage;
+        %tmp.392 = getv function %tmp.391 :getSetting;
+        %tmp.393 = "speedCorrectionFactor_p3";
+        %tmp.394 = invoke %tmp.391 %tmp.392(%tmp.393);
+        putv %tmp.389 :speedCorrectionFactor %tmp.394;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 273 6 ]
+        %tmp.395 = getv self :eucData;
+        %tmp.397 = getv ? :AppStorage;
+        %tmp.398 = getv function %tmp.397 :getSetting;
+        %tmp.399 = "alarmThreshold_PWM_p3";
+        %tmp.400 = invoke %tmp.397 %tmp.398(%tmp.399);
+        putv %tmp.395 :alarmThreshold_PWM %tmp.400;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 276 6 ]
+        %tmp.401 = getv self :eucData;
+        %tmp.403 = getv ? :AppStorage;
+        %tmp.404 = getv function %tmp.403 :getSetting;
+        %tmp.405 = "alarmThreshold_speed_p3";
+        %tmp.406 = invoke %tmp.403 %tmp.404(%tmp.405);
+        putv %tmp.401 :alarmThreshold_speed %tmp.406;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 279 6 ]
+        %tmp.407 = getv self :eucData;
+        %tmp.409 = getv ? :AppStorage;
+        %tmp.410 = getv function %tmp.409 :getSetting;
+        %tmp.411 = "alarmThreshold_temp_p3";
+        %tmp.412 = invoke %tmp.409 %tmp.410(%tmp.411);
+        putv %tmp.407 :alarmThreshold_temp %tmp.412;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 282 6 ]
+        %tmp.413 = getv self :eucData;
+        %tmp.415 = getv ? :AppStorage;
+        %tmp.416 = getv function %tmp.415 :getSetting;
+        %tmp.417 = "wheelBrand_p3";
+        %tmp.418 = invoke %tmp.415 %tmp.416(%tmp.417);
+        putv %tmp.413 :wheelBrand %tmp.418;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 284 6 ]
+        %tmp.419 = getv self :actionButtonTrigger;
+        %tmp.421 = getv ? :AppStorage;
+        %tmp.422 = getv function %tmp.421 :getSetting;
+        %tmp.423 = "recordActivityButtonMap_p3";
+        %tmp.424 = invoke %tmp.421 %tmp.422(%tmp.423);
+        putv %tmp.419 :recordActivityButton %tmp.424;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 287 6 ]
+        %tmp.425 = getv self :actionButtonTrigger;
+        %tmp.427 = getv ? :AppStorage;
+        %tmp.428 = getv function %tmp.427 :getSetting;
+        %tmp.429 = "cycleLightButtonMap_p3";
+        %tmp.430 = invoke %tmp.427 %tmp.428(%tmp.429);
+        putv %tmp.425 :cycleLightButton %tmp.430;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 290 6 ]
+        %tmp.431 = getv self :actionButtonTrigger;
+        %tmp.433 = getv ? :AppStorage;
+        %tmp.434 = getv function %tmp.433 :getSetting;
+        %tmp.435 = "beepButtonMap_p3";
+        %tmp.436 = invoke %tmp.433 %tmp.434(%tmp.435);
+        putv %tmp.431 :beepButton %tmp.436;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 292 6 ]
+        %tmp.437 = getv self :actionButtonTrigger;
+        %tmp.439 = getv ? :AppStorage;
+        %tmp.440 = getv function %tmp.439 :getSetting;
+        %tmp.441 = "actionQueueDelay_p3";
+        %tmp.442 = invoke %tmp.439 %tmp.440(%tmp.441);
+        putv %tmp.437 :delay %tmp.442;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 293 6 ]
+        %tmp.443 = getv self :eucData;
+        %tmp.445 = getv ? :AppStorage;
+        %tmp.446 = getv function %tmp.445 :getSetting;
+        %tmp.447 = "wheelName_p3";
+        %tmp.448 = invoke %tmp.445 %tmp.446(%tmp.447);
+        putv %tmp.443 :wheelName %tmp.448;
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 294 6 ]
+        %tmp.449 = getm $.Toybox.Application.Storage;
+        %tmp.450 = getv function %tmp.449 :setValue;
+        %tmp.451 = "lastProfile";
+        %tmp.453 = lgetv %profileName;
+        invoke %tmp.449 %tmp.450(%tmp.451, %tmp.453);
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 295 6 ]
+        %tmp.454 = true;
+        ret %tmp.454;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_244_31_296_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_244_11_298_4_if_end;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_244_11_298_4_if_false:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_296_11_298_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc" 297 6 ]
+        %tmp.455 = false;
+        ret %tmp.455;
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_296_11_298_4_stop:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_244_11_298_4_if_end:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_193_11_298_4_if_end:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_141_4_298_4_if_end:
+_home_tritbool_workspace_WheelDash_source_util_PSMenuDelegate_mc_136_36_299_2_stop:
+    }
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/util/PSMenuDelegate.mc"; @line = 1; ]
+<init> {
+}
