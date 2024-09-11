@@ -183,7 +183,7 @@
     <string id="speed_units_mph">mph</string>
     <string id="pwm_graph_label">PWM</string>
     <string id="pwm_label">PWM</string>
-    <string id="pwm_units"></string>
+    <string id="pwm_units">%</string>
     <string id="voltage_graph_label">Voltage</string>
     <string id="voltage_label">Voltage</string>
     <string id="voltage_units">V</string>

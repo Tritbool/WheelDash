@@ -1,12 +1,14 @@
 using Toybox.System as Sys;
 using Toybox.BluetoothLowEnergy as Ble;
 using Toybox.WatchUi as Ui;
+import Toybox.Lang;
 
 class BleQueue {
   var commDelay = 200;
   var delayTimer = null;
   var run_id = 0;
-  enum {
+
+  enum BleCom{
     D_READ,
     D_WRITE,
     C_READ,
@@ -15,6 +17,7 @@ class BleQueue {
     UPDATE,
   }
 
+  //var queue as Array<BleCom> = [];
   var queue = [];
   var isRunning = false;
   var reqLiveData;
