@@ -1,3 +1,5 @@
 bin
 *.prg
 *.iq
+mir
+gen
