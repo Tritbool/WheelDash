@@ -1,0 +1,1 @@
+ java -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true -jar /mnt/c/Users/finnt/AppData/Roaming/Garmin/ConnectIQ/Sdks/connectiq-sdk-win-7.3.0-2024-08-27-36488f6f5/bin/monkeybrains.jar -o WheelDash.iq -f monkey.jungle -y /mnt/c/Users/finnt/Documents/developer_key  -w -r -e -O 3

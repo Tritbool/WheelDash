@@ -1,0 +1,387 @@
+[ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 1; ]
+import Toybox.Lang;
+[ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 2; ]
+using Toybox.WatchUi;
+[ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 3; ]
+using Toybox.WatchUi as :Ui;
+[ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 4; ]
+using Toybox.Graphics;
+[ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 5; ]
+using Toybox.Graphics as :Gfx;
+[ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 7; ]
+module Rez {
+    [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 8; ]
+    module Drawables {
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 8; ]
+        <init> {
+        }
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 9; @position = 27; initialized = true; ]
+        var BackgroundImg as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 10; @position = 27; initialized = true; ]
+        var LauncherIcon as ResourceId;
+    }
+    [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 13; ]
+    module Strings {
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 13; ]
+        <init> {
+        }
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 14; @position = 27; initialized = true; ]
+        var watchBatteryStatistic as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 15; @position = 27; initialized = true; ]
+        var maxTemperature_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 16; @position = 27; initialized = true; ]
+        var voltage_units as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 17; @position = 27; initialized = true; ]
+        var avgCurrent_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 18; @position = 27; initialized = true; ]
+        var connectedStr as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 19; @position = 27; initialized = true; ]
+        var none as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 20; @position = 27; initialized = true; ]
+        var rotationSpeed_PWM_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 21; @position = 27; initialized = true; ]
+        var voltage_graph_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 22; @position = 27; initialized = true; ]
+        var voltage_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 23; @position = 27; initialized = true; ]
+        var current_units as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 24; @position = 27; initialized = true; ]
+        var current_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 25; @position = 27; initialized = true; ]
+        var percentage_units as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 26; @position = 27; initialized = true; ]
+        var wheelSettings as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 27; @position = 27; initialized = true; ]
+        var temperature_graph_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 28; @position = 27; initialized = true; ]
+        var maxTemperature_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 29; @position = 27; initialized = true; ]
+        var maxTemperature_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 30; @position = 27; initialized = true; ]
+        var maxTemperature_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 31; @position = 27; initialized = true; ]
+        var activityRecordingOnStartup as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 32; @position = 27; initialized = true; ]
+        var speed_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 33; @position = 27; initialized = true; ]
+        var maxSpeed_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 34; @position = 27; initialized = true; ]
+        var maxPower_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 35; @position = 27; initialized = true; ]
+        var maxSpeed_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 36; @position = 27; initialized = true; ]
+        var maxSpeed_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 37; @position = 27; initialized = true; ]
+        var maxCurrent_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 38; @position = 27; initialized = true; ]
+        var speed_str as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 39; @position = 27; initialized = true; ]
+        var alarmThreshold_speed_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 40; @position = 27; initialized = true; ]
+        var alarmThreshold_temp_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 41; @position = 27; initialized = true; ]
+        var powerFactor_PWM_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 42; @position = 27; initialized = true; ]
+        var defaultProfile as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 43; @position = 27; initialized = true; ]
+        var powerFactor_PWM_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 44; @position = 27; initialized = true; ]
+        var powerFactor_PWM_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 45; @position = 27; initialized = true; ]
+        var distanceUnits_km as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 46; @position = 27; initialized = true; ]
+        var startStopButton as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 47; @position = 27; initialized = true; ]
+        var recordActivityButtonMap_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 48; @position = 27; initialized = true; ]
+        var recordActivityButtonMap_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 49; @position = 27; initialized = true; ]
+        var PWMSettings as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 50; @position = 27; initialized = true; ]
+        var runningTime_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 51; @position = 27; initialized = true; ]
+        var battPerc_str as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 52; @position = 27; initialized = true; ]
+        var temperature_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 53; @position = 27; initialized = true; ]
+        var useProfileSelector as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 54; @position = 27; initialized = true; ]
+        var recordActivityButtonMap_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 55; @position = 27; initialized = true; ]
+        var temperature_units as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 56; @position = 27; initialized = true; ]
+        var profileName as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 57; @position = 27; initialized = true; ]
+        var actionQueueDelay_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 58; @position = 27; initialized = true; ]
+        var speedCorrectionFactor_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 59; @position = 27; initialized = true; ]
+        var activity as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 60; @position = 27; initialized = true; ]
+        var downButton as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 61; @position = 27; initialized = true; ]
+        var wheelName_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 62; @position = 27; initialized = true; ]
+        var PWM_str as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 63; @position = 27; initialized = true; ]
+        var wheelName_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 64; @position = 27; initialized = true; ]
+        var wheelName_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 65; @position = 27; initialized = true; ]
+        var UIsettingsDescription as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 66; @position = 27; initialized = true; ]
+        var runnintTime_units as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 67; @position = 27; initialized = true; ]
+        var pwm_units as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 68; @position = 27; initialized = true; ]
+        var maxVoltage_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 69; @position = 27; initialized = true; ]
+        var powerFactor_PWM_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 70; @position = 27; initialized = true; ]
+        var alarmsDescription as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 71; @position = 27; initialized = true; ]
+        var maxSpeed_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 72; @position = 27; initialized = true; ]
+        var cycleLightButtonMap_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 73; @position = 27; initialized = true; ]
+        var wheelName_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 74; @position = 27; initialized = true; ]
+        var cycleLightButtonMap_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 75; @position = 27; initialized = true; ]
+        var rideStats as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 76; @position = 27; initialized = true; ]
+        var pwm_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 77; @position = 27; initialized = true; ]
+        var power_units as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 78; @position = 27; initialized = true; ]
+        var rotationVoltage_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 79; @position = 27; initialized = true; ]
+        var firstConnStr as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 80; @position = 27; initialized = true; ]
+        var PWMSettingsDescription as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 81; @position = 27; initialized = true; ]
+        var currentCorrection_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 82; @position = 27; initialized = true; ]
+        var minVoltage_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 83; @position = 27; initialized = true; ]
+        var currentCorrection_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 84; @position = 27; initialized = true; ]
+        var cycleLightButtonMap_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 85; @position = 27; initialized = true; ]
+        var currentCorrection_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 86; @position = 27; initialized = true; ]
+        var lockButtonMap_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 87; @position = 27; initialized = true; ]
+        var updateDelay as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 88; @position = 27; initialized = true; ]
+        var power_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 89; @position = 27; initialized = true; ]
+        var updateDelay_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 90; @position = 27; initialized = true; ]
+        var rideStatsDescription as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 91; @position = 27; initialized = true; ]
+        var imHornSound as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 92; @position = 27; initialized = true; ]
+        var rotationSpeed_PWM_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 93; @position = 27; initialized = true; ]
+        var rotationSpeed_PWM_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 94; @position = 27; initialized = true; ]
+        var rotationSpeed_PWM_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 95; @position = 27; initialized = true; ]
+        var mainNumber_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 96; @position = 27; initialized = true; ]
+        var mainNumber_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 97; @position = 27; initialized = true; ]
+        var wheelBrand_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 98; @position = 27; initialized = true; ]
+        var wheelBrand_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 99; @position = 27; initialized = true; ]
+        var wheelBrand_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 100; @position = 27; initialized = true; ]
+        var alarmThreshold_PWM_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 101; @position = 27; initialized = true; ]
+        var alarmThreshold_PWM_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 102; @position = 27; initialized = true; ]
+        var empty as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 103; @position = 27; initialized = true; ]
+        var rotationVoltage_PWM_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 104; @position = 27; initialized = true; ]
+        var rotationVoltage_PWM_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 105; @position = 27; initialized = true; ]
+        var rotationVoltage_PWM_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 106; @position = 27; initialized = true; ]
+        var voltageStatistic as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 107; @position = 27; initialized = true; ]
+        var currentCorrection1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 108; @position = 27; initialized = true; ]
+        var maxTemperature_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 109; @position = 27; initialized = true; ]
+        var currentCorrection2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 110; @position = 27; initialized = true; ]
+        var currentCorrection0 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 111; @position = 27; initialized = true; ]
+        var redColoringThreshold_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 112; @position = 27; initialized = true; ]
+        var voltageSagIndicatorThresh_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 113; @position = 27; initialized = true; ]
+        var alarmThreshold_PWM_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 114; @position = 27; initialized = true; ]
+        var redColoringThreshold_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 115; @position = 27; initialized = true; ]
+        var redColoringThreshold_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 116; @position = 27; initialized = true; ]
+        var speed_units_kmh as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 117; @position = 27; initialized = true; ]
+        var alarmThreshold_speed_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 118; @position = 27; initialized = true; ]
+        var alarmThreshold_speed_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 119; @position = 27; initialized = true; ]
+        var minTemperature_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 120; @position = 27; initialized = true; ]
+        var avgPower_units as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 121; @position = 27; initialized = true; ]
+        var tripDistance_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 122; @position = 27; initialized = true; ]
+        var topBar_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 123; @position = 27; initialized = true; ]
+        var avgPower_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 124; @position = 27; initialized = true; ]
+        var topBar_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 125; @position = 27; initialized = true; ]
+        var topSpeedStatistic as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 126; @position = 27; initialized = true; ]
+        var minBattery_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 127; @position = 27; initialized = true; ]
+        var maxSpeed_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 128; @position = 27; initialized = true; ]
+        var maxPWM_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 129; @position = 27; initialized = true; ]
+        var topBar_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 130; @position = 27; initialized = true; ]
+        var distanceUnits_miles as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 131; @position = 27; initialized = true; ]
+        var maxBattery_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 132; @position = 27; initialized = true; ]
+        var coloringThreshold_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 133; @position = 27; initialized = true; ]
+        var voltageCorrectionFactor_ErrorMessage as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 134; @position = 27; initialized = true; ]
+        var begodeCF_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 135; @position = 27; initialized = true; ]
+        var begodeCF_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 136; @position = 27; initialized = true; ]
+        var begodeCF_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 137; @position = 27; initialized = true; ]
+        var activityDescription as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 138; @position = 27; initialized = true; ]
+        var actionQueueDelay_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 139; @position = 27; initialized = true; ]
+        var speed_units_mph as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 140; @position = 27; initialized = true; ]
+        var debugMode as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 141; @position = 27; initialized = true; ]
+        var current_graph_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 142; @position = 27; initialized = true; ]
+        var actionQueueDelay_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 143; @position = 27; initialized = true; ]
+        var actionQueueDelay_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 144; @position = 27; initialized = true; ]
+        var power_graph_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 145; @position = 27; initialized = true; ]
+        var AppName as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 146; @position = 27; initialized = true; ]
+        var middleButton as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 147; @position = 27; initialized = true; ]
+        var voltageSagIndicatorThresh_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 148; @position = 27; initialized = true; ]
+        var totalDistanceStatistic as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 149; @position = 27; initialized = true; ]
+        var voltageSagIndicatorThresh_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 150; @position = 27; initialized = true; ]
+        var voltageSagIndicatorThresh_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 151; @position = 27; initialized = true; ]
+        var activitySavingOnExit as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 152; @position = 27; initialized = true; ]
+        var tripDistanceStatistic as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 153; @position = 27; initialized = true; ]
+        var voltageCorrectionFactor_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 154; @position = 27; initialized = true; ]
+        var voltageCorrectionFactor_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 155; @position = 27; initialized = true; ]
+        var voltageCorrectionFactor_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 156; @position = 27; initialized = true; ]
+        var averageMovingSpeedStatistic as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 157; @position = 27; initialized = true; ]
+        var alarmThreshold_speed_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 158; @position = 27; initialized = true; ]
+        var UIsettings as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 159; @position = 27; initialized = true; ]
+        var speedCorrectionFactor_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 160; @position = 27; initialized = true; ]
+        var profile0 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 161; @position = 27; initialized = true; ]
+        var speedCorrectionFactor_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 162; @position = 27; initialized = true; ]
+        var alarmThreshold_temp_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 163; @position = 27; initialized = true; ]
+        var speedCorrectionFactor_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 164; @position = 27; initialized = true; ]
+        var alarmThreshold_temp_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 165; @position = 27; initialized = true; ]
+        var alarms as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 166; @position = 27; initialized = true; ]
+        var profile3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 167; @position = 27; initialized = true; ]
+        var alarmThreshold_temp_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 168; @position = 27; initialized = true; ]
+        var profile1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 169; @position = 27; initialized = true; ]
+        var profile2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 170; @position = 27; initialized = true; ]
+        var orangeColoringThreshold_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 171; @position = 27; initialized = true; ]
+        var beepButtonMap_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 172; @position = 27; initialized = true; ]
+        var orangeColoringThreshold_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 173; @position = 27; initialized = true; ]
+        var alarmThreshold_PWM_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 174; @position = 27; initialized = true; ]
+        var speed_graph_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 175; @position = 27; initialized = true; ]
+        var pwm_graph_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 176; @position = 27; initialized = true; ]
+        var beepButtonMap_p2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 177; @position = 27; initialized = true; ]
+        var watchBatteryConsumptionStatistic as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 178; @position = 27; initialized = true; ]
+        var beepButtonMap_p1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 179; @position = 27; initialized = true; ]
+        var wheelSettingsDescription as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 180; @position = 27; initialized = true; ]
+        var wheelBrand0 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 181; @position = 27; initialized = true; ]
+        var wheelBrand1 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 182; @position = 27; initialized = true; ]
+        var wheelBrand2 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 183; @position = 27; initialized = true; ]
+        var orangeColoringThreshold_p3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 184; @position = 27; initialized = true; ]
+        var wheelBrand3 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 185; @position = 27; initialized = true; ]
+        var avgCurrent_units as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 186; @position = 27; initialized = true; ]
+        var wheelBrand4 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 187; @position = 27; initialized = true; ]
+        var wheelBrand5 as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 188; @position = 27; initialized = true; ]
+        var avgSpeed_label as ResourceId;
+        [ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 189; @position = 27; initialized = true; ]
+        var mainNumber_p3 as ResourceId;
+    }
+}
+[ @file = "/home/michel/workspace/WheelDash/gen/no-device/source/Rez.mcgen"; @line = 1; ]
+<init> {
+}

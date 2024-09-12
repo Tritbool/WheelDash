@@ -1,0 +1,1817 @@
+[ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 1; ]
+import Toybox.Lang;
+[ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 2; ]
+import Toybox.System;
+[ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 3; ]
+import Toybox.Graphics;
+[ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 4; ]
+import Toybox.WatchUi;
+[ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 5; ]
+import Toybox.Timer;
+[ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 7; ]
+class GarminEUCMenu2Delegate_generic extends WatchUi.Menu2InputDelegate{
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 7; ]
+    <init> {
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 14 14 ]
+        %tmp.1 = 2000;
+        %tmp.3 = getv ? :eucData;
+        %tmp.4 = getv %tmp.3 :updateDelay;
+        %tmp.5 = div %tmp.1 %tmp.4;
+        putv self :subLabelsRefreshDuration %tmp.5;
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 7; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 8; @position = 14; ]
+    private
+    var eucBleDelegate = null;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 9; @position = 14; ]
+    private
+    var queue = null;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 10; @position = 14; ]
+    private
+    var parent_menu = null;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 11; @position = 14; ]
+    private
+    var menu as CheckboxMenu or Null;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 12; @position = 14; ]
+    private
+    var delay = 200;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 13; @position = 6; ]
+    var requestSubLabelsUpdate = false;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 14; @position = 14; ]
+    private
+    var subLabelsRefreshDuration;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 15; @position = 6; ]
+    var main_view;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 16; @position = 6; ]
+    var EUCSettingsDict;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 17; @position = 6; ]
+    var EUCConfig;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 18; @position = 6; ]
+    var EUCStatus;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 19; @position = 6; ]
+    var EUCStatusLabels;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 20; @position = 6; ]
+    var EUCConfigLabels;
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 22; ]
+    function initialize(current_menu, current_eucBleDelegate, q, m_view, _EUCSettingsDict) as Void {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_28_4_41_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 29 4 ]
+        %tmp.2 = lgetv %_EUCSettingsDict;
+        putv self :EUCSettingsDict %tmp.2;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 30 4 ]
+        %tmp.4 = getv ? :EUCSettingsDict;
+        %tmp.5 = getv function %tmp.4 :getConfigWithStatusDict;
+        %tmp.6 = invoke %tmp.4 %tmp.5();
+        putv self :EUCStatus %tmp.6;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 31 4 ]
+        %tmp.8 = getv ? :EUCSettingsDict;
+        %tmp.9 = getv function %tmp.8 :getConfigWithStatusLabels;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        putv self :EUCStatusLabels %tmp.10;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 32 4 ]
+        %tmp.12 = getv ? :EUCSettingsDict;
+        %tmp.13 = getv function %tmp.12 :getConfig;
+        %tmp.14 = invoke %tmp.12 %tmp.13();
+        putv self :EUCConfig %tmp.14;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 33 4 ]
+        %tmp.16 = getv ? :EUCSettingsDict;
+        %tmp.17 = getv function %tmp.16 :getConfigLabels;
+        %tmp.18 = invoke %tmp.16 %tmp.17();
+        putv self :EUCConfigLabels %tmp.18;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 35 4 ]
+        %tmp.20 = lgetv %current_menu;
+        putv self :parent_menu %tmp.20;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 36 4 ]
+        %tmp.22 = lgetv %current_eucBleDelegate;
+        putv self :eucBleDelegate %tmp.22;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 37 4 ]
+        %tmp.24 = lgetv %q;
+        putv self :queue %tmp.24;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 38 4 ]
+        %tmp.26 = getv ? :Menu2InputDelegate;
+        %tmp.27 = getv function %tmp.26 :initialize;
+        invoke %tmp.26 %tmp.27();
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 39 4 ]
+        %tmp.29 = lgetv %m_view;
+        putv self :main_view %tmp.29;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 40 4 ]
+        %tmp.30 = self;
+        %tmp.31 = getv function %tmp.30 :updateSublabels;
+        invoke %tmp.30 %tmp.31();
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_28_4_41_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 43; ]
+    function onBack() {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_43_20_46_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 44 4 ]
+        %tmp.1 = false;
+        putv self :requestSubLabelsUpdate %tmp.1;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 45 4 ]
+        %tmp.2 = getm $.Toybox.WatchUi;
+        %tmp.3 = getv function %tmp.2 :popView;
+        %tmp.4 = getm $.Toybox.WatchUi;
+        %tmp.5 = getv %tmp.4 :SLIDE_DOWN;
+        invoke %tmp.2 %tmp.3(%tmp.5);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_43_20_46_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 47; ]
+    function onSelect(item) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_47_26_57_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 48 4 ]
+        for @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_test @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_incr @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_init:
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_begin" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_end" ]
+        %i.1 = local;
+        %tmp.1 = 0;
+        lputv %i.1 %tmp.1;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_test:
+        %tmp.3 = lgetv %i.1;
+        %tmp.5 = getv ? :EUCConfig;
+        %tmp.6 = getv function %tmp.5 :size;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        %tmp.8 = lt %tmp.3 %tmp.7;
+        bf %tmp.8 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_begin:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_47_55_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 51 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_51_6_54_6_if_stmt:
+        %tmp.9 = lgetv %item;
+        %tmp.10 = getv function %tmp.9 :getLabel;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        %tmp.12 = getv function %tmp.11 :toString;
+        %tmp.13 = invoke %tmp.11 %tmp.12();
+        %tmp.14 = getv function %tmp.13 :equals;
+        %tmp.16 = getv ? :EUCConfigLabels;
+        %tmp.18 = lgetv %i.1;
+        %tmp.19 = agetv %tmp.16 %tmp.18;
+        %tmp.20 = invoke %tmp.13 %tmp.14(%tmp.19);
+        bf %tmp.20 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_51_6_54_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_51_6_54_6_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_51_65_54_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 53 8 ]
+        %tmp.21 = self;
+        %tmp.22 = getv function %tmp.21 :nestedMenu;
+        %tmp.24 = getv ? :EUCConfigLabels;
+        %tmp.26 = lgetv %i.1;
+        %tmp.27 = agetv %tmp.24 %tmp.26;
+        %tmp.29 = getv ? :EUCConfig;
+        %tmp.31 = lgetv %i.1;
+        %tmp.32 = agetv %tmp.29 %tmp.31;
+        invoke %tmp.21 %tmp.22(%tmp.27, %tmp.32);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_51_65_54_6_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_51_6_54_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_51_6_54_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_47_55_4_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_incr:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 48 ]
+        %tmp.35 = lgetv %i.1;
+        %tmp.36 = add %tmp.35 1;
+        lputv %i.1 %tmp.36;
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_test;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_48_4_55_4_for_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_47_26_57_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 59; ]
+    function nestedMenu(title, paramsdict) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_59_41_80_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 61 4 ]
+        %tmp.3 = getm $.Toybox.WatchUi;
+        %tmp.4 = getv function ? %tmp.3 :CheckboxMenu;
+        %tmp.5 = newd 1;
+        %tmp.7 = const :title;
+        %tmp.9 = lgetv %title;
+        %tmp.10 = dup %tmp.5;
+        %tmp.11 = aputv %tmp.10 %tmp.7 %tmp.9;
+        %tmp.1 = newc %tmp.4 (%tmp.11);
+        putv self :menu %tmp.1;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 62 4 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_59_41_80_2_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_59_41_80_2_stop" ]
+        %delegate.1 = local;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 63 4 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_59_41_80_2_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_59_41_80_2_stop" ]
+        %menuKeys.2 = local;
+        %tmp.12 = lgetv %paramsdict;
+        %tmp.13 = getv function %tmp.12 :keys;
+        %tmp.14 = invoke %tmp.12 %tmp.13();
+        lputv %menuKeys.2 %tmp.14;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 64 4 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_59_41_80_2_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_59_41_80_2_stop" ]
+        %menuVals.3 = local;
+        %tmp.15 = lgetv %paramsdict;
+        %tmp.16 = getv function %tmp.15 :values;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        lputv %menuVals.3 %tmp.17;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 65 4 ]
+        for @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_test @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_incr @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_init:
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_begin" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_end" ]
+        %i.4 = local;
+        %tmp.18 = 0;
+        lputv %i.4 %tmp.18;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_test:
+        %tmp.20 = lgetv %i.4;
+        %tmp.21 = lgetv %paramsdict;
+        %tmp.22 = getv function %tmp.21 :size;
+        %tmp.23 = invoke %tmp.21 %tmp.22();
+        %tmp.24 = lt %tmp.20 %tmp.23;
+        bf %tmp.24 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_begin:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_48_69_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 66 6 ]
+        %tmp.26 = getv ? :menu;
+        %tmp.27 = getv function %tmp.26 :addItem;
+        %tmp.31 = getv ? :CheckboxMenuItem;
+        %tmp.33 = lgetv %menuKeys.2;
+        %tmp.35 = lgetv %i.4;
+        %tmp.36 = agetv %tmp.33 %tmp.35;
+        %tmp.37 = "";
+        %tmp.39 = lgetv %menuVals.3;
+        %tmp.41 = lgetv %i.4;
+        %tmp.42 = agetv %tmp.39 %tmp.41;
+        %tmp.43 = false;
+        %tmp.44 = newd 0;
+        %tmp.28 = newc %tmp.31 (%tmp.36, %tmp.37, %tmp.42, %tmp.43, %tmp.44);
+        invoke %tmp.26 %tmp.27(%tmp.28);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_48_69_4_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_incr:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 65 ]
+        %tmp.47 = lgetv %i.4;
+        %tmp.48 = add %tmp.47 1;
+        lputv %i.4 %tmp.48;
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_test;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_65_4_69_4_for_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 70 4 ]
+        %tmp.52 = getv ? :GarminEUCsubMenu2Delegate;
+        %tmp.54 = lgetv %title;
+        %tmp.56 = getv ? :parent_menu;
+        %tmp.58 = self;
+        %tmp.60 = getv ? :eucBleDelegate;
+        %tmp.62 = getv ? :queue;
+        %tmp.49 = newc %tmp.52 (%tmp.54, %tmp.56, %tmp.58, %tmp.60, %tmp.62);
+        lputv %delegate.1 %tmp.49;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 77 4 ]
+        %tmp.63 = getm $.Toybox.WatchUi;
+        %tmp.64 = getv function %tmp.63 :pushView;
+        %tmp.66 = getv ? :menu;
+        %tmp.68 = lgetv %delegate.1;
+        %tmp.69 = getm $.Toybox.WatchUi;
+        %tmp.70 = getv %tmp.69 :SLIDE_IMMEDIATE;
+        invoke %tmp.63 %tmp.64(%tmp.66, %tmp.68, %tmp.70);
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 79 4 ]
+        %tmp.71 = true;
+        ret %tmp.71;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_59_41_80_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 82; ]
+    function updateSublabels() {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_82_29_112_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 83 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_83_4_86_4_if_stmt:
+        %tmp.2 = getv ? :EUCStatus;
+        %tmp.3 = null;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_83_4_86_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_83_4_86_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_83_27_86_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 85 6 ]
+        ret ?;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_83_27_86_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_83_4_86_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_83_4_86_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 87 4 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_82_29_112_2_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_82_29_112_2_stop" ]
+        %menuToUpdate.1 = local;
+        %tmp.6 = getv ? :parent_menu;
+        lputv %menuToUpdate.1 %tmp.6;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 89 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_89_4_106_4_if_stmt:
+        %tmp.8 = lgetv %menuToUpdate.1;
+        %tmp.9 = null;
+        %tmp.10 = ne %tmp.8 %tmp.9;
+        bf %tmp.10 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_89_4_106_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_89_4_106_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_89_30_106_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 90 6 ]
+        for @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_test @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_incr @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_init:
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_begin" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_end" ]
+        %i.2 = local;
+        %tmp.11 = 0;
+        lputv %i.2 %tmp.11;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_test:
+        %tmp.13 = lgetv %i.2;
+        %tmp.15 = getv ? :EUCConfigLabels;
+        %tmp.16 = getv function %tmp.15 :size;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        %tmp.18 = lt %tmp.13 %tmp.17;
+        bf %tmp.18 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_begin:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_55_105_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 91 8 ]
+        for @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_test @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_incr @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_init:
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_begin" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_end" ]
+        %j.3 = local;
+        %tmp.19 = 0;
+        lputv %j.3 %tmp.19;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_test:
+        %tmp.21 = lgetv %j.3;
+        %tmp.23 = getv ? :EUCStatusLabels;
+        %tmp.24 = getv function %tmp.23 :size;
+        %tmp.25 = invoke %tmp.23 %tmp.24();
+        %tmp.26 = lt %tmp.21 %tmp.25;
+        bf %tmp.26 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_begin:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_57_104_8_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 92 10 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_92_10_103_10_if_stmt:
+        %tmp.27 = lgetv %menuToUpdate.1;
+        %tmp.28 = as %tmp.27 { (!Null) };
+        %tmp.29 = getv function %tmp.28 :getItem;
+        %tmp.31 = lgetv %i.2;
+        %tmp.32 = invoke %tmp.28 %tmp.29(%tmp.31);
+        %tmp.33 = getv function %tmp.32 :getLabel;
+        %tmp.34 = invoke %tmp.32 %tmp.33();
+        %tmp.35 = getv function %tmp.34 :equals;
+        %tmp.37 = getv ? :EUCStatusLabels;
+        %tmp.39 = lgetv %j.3;
+        %tmp.40 = agetv %tmp.37 %tmp.39;
+        %tmp.41 = invoke %tmp.34 %tmp.35(%tmp.40);
+        bf %tmp.41 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_92_10_103_10_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_92_10_103_10_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_92_77_103_10_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 94 12 ]
+        %tmp.42 = lgetv %menuToUpdate.1;
+        %tmp.43 = as %tmp.42 { (!Null) };
+        %tmp.44 = getv function %tmp.43 :getItem;
+        %tmp.46 = lgetv %i.2;
+        %tmp.47 = invoke %tmp.43 %tmp.44(%tmp.46);
+        %tmp.48 = getv function %tmp.47 :setSubLabel;
+        %tmp.50 = getv ? :EUCStatus;
+        %tmp.52 = lgetv %j.3;
+        %tmp.53 = agetv %tmp.50 %tmp.52;
+        %tmp.54 = getv function %tmp.53 :keys;
+        %tmp.55 = invoke %tmp.53 %tmp.54();
+        %tmp.57 = getv ? :EUCStatus;
+        %tmp.59 = lgetv %j.3;
+        %tmp.60 = agetv %tmp.57 %tmp.59;
+        %tmp.61 = getv function %tmp.60 :values;
+        %tmp.62 = invoke %tmp.60 %tmp.61();
+        %tmp.63 = getv function %tmp.62 :indexOf;
+        %tmp.65 = getv ? :EUCSettingsDict;
+        %tmp.66 = getv function %tmp.65 :getWheelSettingsStatus;
+        %tmp.67 = invoke %tmp.65 %tmp.66();
+        %tmp.69 = lgetv %j.3;
+        %tmp.70 = agetv %tmp.67 %tmp.69;
+        %tmp.71 = invoke %tmp.62 %tmp.63(%tmp.70);
+        %tmp.72 = agetv %tmp.55 %tmp.71;
+        invoke %tmp.47 %tmp.48(%tmp.72);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_92_77_103_10_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_92_10_103_10_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_92_10_103_10_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_57_104_8_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_incr:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 91 ]
+        %tmp.75 = lgetv %j.3;
+        %tmp.76 = add %tmp.75 1;
+        lputv %j.3 %tmp.76;
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_test;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_91_8_104_8_for_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_55_105_6_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_incr:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 90 ]
+        %tmp.79 = lgetv %i.2;
+        %tmp.80 = add %tmp.79 1;
+        lputv %i.2 %tmp.80;
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_test;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_90_6_105_6_for_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_89_30_106_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_89_4_106_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_89_4_106_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 107 4 ]
+        %tmp.83 = getv ? :subLabelsRefreshDuration;
+        %tmp.84 = sub %tmp.83 1;
+        putv self :subLabelsRefreshDuration dup %tmp.84;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 108 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_108_4_111_4_if_stmt:
+        %tmp.86 = getv ? :subLabelsRefreshDuration;
+        %tmp.87 = 0;
+        %tmp.88 = lte %tmp.86 %tmp.87;
+        bf %tmp.88 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_108_4_111_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_108_4_111_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_108_39_111_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 109 6 ]
+        %tmp.89 = 20;
+        putv self :subLabelsRefreshDuration %tmp.89;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 110 6 ]
+        %tmp.90 = false;
+        putv self :requestSubLabelsUpdate %tmp.90;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_108_39_111_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_108_4_111_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_108_4_111_4_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_82_29_112_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 113; ]
+    function uniqueCheck(parentMenuTitle, item) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_113_46_120_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 115 4 ]
+        for @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_test @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_incr @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_init:
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_begin" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_end" ]
+        %i.1 = local;
+        %tmp.1 = 0;
+        lputv %i.1 %tmp.1;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_test:
+        %tmp.3 = lgetv %i.1;
+        %tmp.5 = getv ? :EUCConfig;
+        %tmp.6 = getv function %tmp.5 :size;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        %tmp.8 = lt %tmp.3 %tmp.7;
+        bf %tmp.8 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_begin:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_47_119_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 116 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_116_6_118_6_if_stmt:
+        %tmp.9 = lgetv %parentMenuTitle;
+        %tmp.10 = getv function %tmp.9 :equals;
+        %tmp.12 = getv ? :EUCConfigLabels;
+        %tmp.14 = lgetv %i.1;
+        %tmp.15 = agetv %tmp.12 %tmp.14;
+        %tmp.16 = invoke %tmp.9 %tmp.10(%tmp.15);
+        bf %tmp.16 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_116_6_118_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_116_6_118_6_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_116_54_118_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 117 8 ]
+        %tmp.17 = self;
+        %tmp.18 = getv function %tmp.17 :uncheckExeptItem;
+        %tmp.20 = lgetv %item;
+        %tmp.22 = getv ? :EUCConfig;
+        %tmp.24 = lgetv %i.1;
+        %tmp.25 = agetv %tmp.22 %tmp.24;
+        invoke %tmp.17 %tmp.18(%tmp.20, %tmp.25);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_116_54_118_6_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_116_6_118_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_116_6_118_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_47_119_4_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_incr:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 115 ]
+        %tmp.28 = lgetv %i.1;
+        %tmp.29 = add %tmp.28 1;
+        lputv %i.1 %tmp.29;
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_test;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_115_4_119_4_for_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_113_46_120_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 121; ]
+    function uncheckExeptItem(item, paramsdict) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_121_46_128_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 122 4 ]
+        for @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_test @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_incr @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_init:
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_begin" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_end" ]
+        %i.1 = local;
+        %tmp.1 = 0;
+        lputv %i.1 %tmp.1;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_test:
+        %tmp.3 = lgetv %i.1;
+        %tmp.4 = lgetv %paramsdict;
+        %tmp.5 = getv function %tmp.4 :size;
+        %tmp.6 = invoke %tmp.4 %tmp.5();
+        %tmp.7 = lt %tmp.3 %tmp.6;
+        bf %tmp.7 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_begin:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_48_127_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 123 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_123_6_126_6_if_stmt:
+        %tmp.9 = lgetv %item;
+        %tmp.11 = getv ? :menu;
+        %tmp.12 = getv function %tmp.11 :getItem;
+        %tmp.14 = lgetv %i.1;
+        %tmp.15 = invoke %tmp.11 %tmp.12(%tmp.14);
+        %tmp.16 = ne %tmp.9 %tmp.15;
+        bf %tmp.16 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_123_6_126_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_123_6_126_6_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_123_35_126_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 124 8 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_123_35_126_6_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_123_35_126_6_stop" ]
+        %tempItem.2 = local;
+        %tmp.18 = getv ? :menu;
+        %tmp.19 = getv function %tmp.18 :getItem;
+        %tmp.21 = lgetv %i.1;
+        %tmp.22 = invoke %tmp.18 %tmp.19(%tmp.21);
+        %tmp.23 = as %tmp.22 CheckboxMenuItem;
+        lputv %tempItem.2 %tmp.23;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 125 8 ]
+        %tmp.24 = lgetv %tempItem.2;
+        %tmp.25 = getv function %tmp.24 :setChecked;
+        %tmp.26 = false;
+        invoke %tmp.24 %tmp.25(%tmp.26);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_123_35_126_6_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_123_6_126_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_123_6_126_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_48_127_4_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_incr:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 122 ]
+        %tmp.29 = lgetv %i.1;
+        %tmp.30 = add %tmp.29 1;
+        lputv %i.1 %tmp.30;
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_test;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_122_4_127_4_for_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_121_46_128_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 129; ]
+    function execute(parentMenuTitle) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_129_36_135_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 130 4 ]
+        for @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_test @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_incr @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_init:
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_begin" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_end" ]
+        %i.1 = local;
+        %tmp.1 = 0;
+        lputv %i.1 %tmp.1;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_test:
+        %tmp.3 = lgetv %i.1;
+        %tmp.5 = getv ? :EUCConfig;
+        %tmp.6 = getv function %tmp.5 :size;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        %tmp.8 = lt %tmp.3 %tmp.7;
+        bf %tmp.8 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_begin:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_47_134_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 131 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_131_6_133_6_if_stmt:
+        %tmp.9 = lgetv %parentMenuTitle;
+        %tmp.10 = getv function %tmp.9 :equals;
+        %tmp.12 = getv ? :EUCConfigLabels;
+        %tmp.14 = lgetv %i.1;
+        %tmp.15 = agetv %tmp.12 %tmp.14;
+        %tmp.16 = invoke %tmp.9 %tmp.10(%tmp.15);
+        bf %tmp.16 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_131_6_133_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_131_6_133_6_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_131_54_133_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 132 8 ]
+        %tmp.17 = self;
+        %tmp.18 = getv function %tmp.17 :findChecked;
+        %tmp.20 = lgetv %parentMenuTitle;
+        %tmp.22 = getv ? :EUCConfig;
+        %tmp.24 = lgetv %i.1;
+        %tmp.25 = agetv %tmp.22 %tmp.24;
+        invoke %tmp.17 %tmp.18(%tmp.20, %tmp.25);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_131_54_133_6_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_131_6_133_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_131_6_133_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_47_134_4_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_incr:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 130 ]
+        %tmp.28 = lgetv %i.1;
+        %tmp.29 = add %tmp.28 1;
+        lputv %i.1 %tmp.29;
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_test;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_130_4_134_4_for_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_129_36_135_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 137; ]
+    function findChecked(parentMenuTitle, paramsdict) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_137_52_144_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 138 4 ]
+        for @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_test @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_incr @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_init:
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_begin" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_end" ]
+        %i.1 = local;
+        %tmp.1 = 0;
+        lputv %i.1 %tmp.1;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_test:
+        %tmp.3 = lgetv %i.1;
+        %tmp.4 = lgetv %paramsdict;
+        %tmp.5 = getv function %tmp.4 :size;
+        %tmp.6 = invoke %tmp.4 %tmp.5();
+        %tmp.7 = lt %tmp.3 %tmp.6;
+        bf %tmp.7 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_begin:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_48_143_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 139 6 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_48_143_4_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_48_143_4_stop" ]
+        %tempItem.2 = local;
+        %tmp.9 = getv ? :menu;
+        %tmp.10 = getv function %tmp.9 :getItem;
+        %tmp.12 = lgetv %i.1;
+        %tmp.13 = invoke %tmp.9 %tmp.10(%tmp.12);
+        %tmp.14 = as %tmp.13 CheckboxMenuItem;
+        lputv %tempItem.2 %tmp.14;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 140 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_140_6_142_6_if_stmt:
+        %tmp.15 = lgetv %tempItem.2;
+        %tmp.16 = getv function %tmp.15 :isChecked;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        bf %tmp.17 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_140_6_142_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_140_6_142_6_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_140_32_142_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 141 8 ]
+        %tmp.18 = self;
+        %tmp.19 = getv function %tmp.18 :sendCommand;
+        %tmp.21 = lgetv %parentMenuTitle;
+        %tmp.22 = lgetv %tempItem.2;
+        %tmp.23 = getv function %tmp.22 :getId;
+        %tmp.24 = invoke %tmp.22 %tmp.23();
+        %tmp.25 = getv function %tmp.24 :toString;
+        %tmp.26 = invoke %tmp.24 %tmp.25();
+        invoke %tmp.18 %tmp.19(%tmp.21, %tmp.26);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_140_32_142_6_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_140_6_142_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_140_6_142_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_48_143_4_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_incr:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 138 ]
+        %tmp.29 = lgetv %i.1;
+        %tmp.30 = add %tmp.29 1;
+        lputv %i.1 %tmp.30;
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_test;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_138_4_143_4_for_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_137_52_144_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 145; ]
+    function sendCommand(fromMenu, cmd) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_145_38_214_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 147 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_147_4_162_4_if_stmt:
+        %tmp.2 = getv ? :eucData;
+        %tmp.3 = getv %tmp.2 :wheelBrand;
+        %tmp.4 = 0;
+        %tmp.5 = eq %tmp.3 %tmp.4;
+        bf %tmp.5 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_147_4_162_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_147_4_162_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_147_33_162_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 148 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_148_6_161_6_if_stmt:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_149_8_150_33_begin:
+        %tmp.7 = getv ? :EUCSettingsDict;
+        %tmp.8 = getv function %tmp.7 :getConfigToLock;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        %tmp.10 = getv function %tmp.9 :indexOf;
+        %tmp.12 = lgetv %fromMenu;
+        %tmp.13 = invoke %tmp.9 %tmp.10(%tmp.12);
+        %tmp.14 = -1;
+        %tmp.15 = ne %tmp.13 %tmp.14;
+        bf %tmp.15 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_148_6_161_6_if_false;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_150_8_150_33_true:
+        %tmp.17 = getv ? :eucData;
+        %tmp.18 = getv %tmp.17 :correctedSpeed;
+        %tmp.19 = 2;
+        %tmp.20 = gt %tmp.18 %tmp.19;
+        push %tmp.20;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_150_8_150_33_end:
+        %tmp.21 = phi [%tmp.15 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_149_8_150_33_begin] [%tmp.20 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_150_8_150_33_true] [%tmp.21 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_150_8_150_33_end];
+        bf %tmp.21 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_148_6_161_6_if_false;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_148_6_161_6_if_true:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_148_6_161_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_148_6_161_6_if_false:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_153_13_161_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 154 8 ]
+        %tmp.22 = self;
+        %tmp.23 = getv function %tmp.22 :gotwayMenuCmd;
+        %tmp.25 = lgetv %fromMenu;
+        %tmp.27 = lgetv %cmd;
+        invoke %tmp.22 %tmp.23(%tmp.25, %tmp.27);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_153_13_161_6_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_148_6_161_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_147_33_162_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_147_4_162_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_147_4_162_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 163 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_163_4_178_4_if_stmt:
+        %tmp.29 = getv ? :eucData;
+        %tmp.30 = getv %tmp.29 :wheelBrand;
+        %tmp.31 = 1;
+        %tmp.32 = eq %tmp.30 %tmp.31;
+        bf %tmp.32 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_163_4_178_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_163_4_178_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_163_33_178_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 164 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_164_6_177_6_if_stmt:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_165_8_166_33_begin:
+        %tmp.34 = getv ? :EUCSettingsDict;
+        %tmp.35 = getv function %tmp.34 :getConfigToLock;
+        %tmp.36 = invoke %tmp.34 %tmp.35();
+        %tmp.37 = getv function %tmp.36 :indexOf;
+        %tmp.39 = lgetv %fromMenu;
+        %tmp.40 = invoke %tmp.36 %tmp.37(%tmp.39);
+        %tmp.41 = -1;
+        %tmp.42 = ne %tmp.40 %tmp.41;
+        bf %tmp.42 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_164_6_177_6_if_false;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_166_8_166_33_true:
+        %tmp.44 = getv ? :eucData;
+        %tmp.45 = getv %tmp.44 :correctedSpeed;
+        %tmp.46 = 2;
+        %tmp.47 = gt %tmp.45 %tmp.46;
+        push %tmp.47;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_166_8_166_33_end:
+        %tmp.48 = phi [%tmp.42 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_165_8_166_33_begin] [%tmp.47 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_166_8_166_33_true] [%tmp.48 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_166_8_166_33_end];
+        bf %tmp.48 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_164_6_177_6_if_false;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_164_6_177_6_if_true:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_164_6_177_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_164_6_177_6_if_false:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_169_13_177_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 170 8 ]
+        %tmp.50 = getv ? :eucBleDelegate;
+        %tmp.51 = getv function %tmp.50 :sendCmd;
+        %tmp.53 = lgetv %cmd;
+        invoke %tmp.50 %tmp.51(%tmp.53);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_169_13_177_6_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_164_6_177_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_163_33_178_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_163_4_178_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_163_4_178_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 180 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_4_195_4_if_stmt:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_8_180_57_begin:
+        %tmp.55 = getv ? :eucData;
+        %tmp.56 = getv %tmp.55 :wheelBrand;
+        %tmp.57 = 2;
+        %tmp.58 = eq %tmp.56 %tmp.57;
+        bt %tmp.58 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_4_195_4_if_true;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_35_180_57_false:
+        %tmp.60 = getv ? :eucData;
+        %tmp.61 = getv %tmp.60 :wheelBrand;
+        %tmp.62 = 3;
+        %tmp.63 = eq %tmp.61 %tmp.62;
+        push %tmp.63;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_35_180_57_end:
+        %tmp.64 = phi [%tmp.58 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_8_180_57_begin] [%tmp.63 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_35_180_57_false] [%tmp.64 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_35_180_57_end];
+        bf %tmp.64 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_4_195_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_4_195_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_60_195_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 181 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_181_6_194_6_if_stmt:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_182_8_183_33_begin:
+        %tmp.66 = getv ? :EUCSettingsDict;
+        %tmp.67 = getv function %tmp.66 :getConfigToLock;
+        %tmp.68 = invoke %tmp.66 %tmp.67();
+        %tmp.69 = getv function %tmp.68 :indexOf;
+        %tmp.71 = lgetv %fromMenu;
+        %tmp.72 = invoke %tmp.68 %tmp.69(%tmp.71);
+        %tmp.73 = -1;
+        %tmp.74 = ne %tmp.72 %tmp.73;
+        bf %tmp.74 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_181_6_194_6_if_false;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_183_8_183_33_true:
+        %tmp.76 = getv ? :eucData;
+        %tmp.77 = getv %tmp.76 :correctedSpeed;
+        %tmp.78 = 2;
+        %tmp.79 = gt %tmp.77 %tmp.78;
+        push %tmp.79;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_183_8_183_33_end:
+        %tmp.80 = phi [%tmp.74 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_182_8_183_33_begin] [%tmp.79 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_183_8_183_33_true] [%tmp.80 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_183_8_183_33_end];
+        bf %tmp.80 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_181_6_194_6_if_false;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_181_6_194_6_if_true:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_181_6_194_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_181_6_194_6_if_false:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_186_13_194_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 187 8 ]
+        %tmp.81 = self;
+        %tmp.82 = getv function %tmp.81 :kingsongMenuCmd;
+        %tmp.84 = lgetv %fromMenu;
+        %tmp.86 = lgetv %cmd;
+        invoke %tmp.81 %tmp.82(%tmp.84, %tmp.86);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_186_13_194_6_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_181_6_194_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_60_195_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_4_195_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_180_4_195_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 196 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_196_4_211_4_if_stmt:
+        %tmp.88 = getv ? :eucData;
+        %tmp.89 = getv %tmp.88 :wheelBrand;
+        %tmp.90 = 4;
+        %tmp.91 = eq %tmp.89 %tmp.90;
+        bf %tmp.91 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_196_4_211_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_196_4_211_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_196_33_211_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 197 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_197_6_210_6_if_stmt:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_198_8_199_33_begin:
+        %tmp.93 = getv ? :EUCSettingsDict;
+        %tmp.94 = getv function %tmp.93 :getConfigToLock;
+        %tmp.95 = invoke %tmp.93 %tmp.94();
+        %tmp.96 = getv function %tmp.95 :indexOf;
+        %tmp.98 = lgetv %fromMenu;
+        %tmp.99 = invoke %tmp.95 %tmp.96(%tmp.98);
+        %tmp.100 = -1;
+        %tmp.101 = ne %tmp.99 %tmp.100;
+        bf %tmp.101 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_197_6_210_6_if_false;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_199_8_199_33_true:
+        %tmp.103 = getv ? :eucData;
+        %tmp.104 = getv %tmp.103 :correctedSpeed;
+        %tmp.105 = 2;
+        %tmp.106 = gt %tmp.104 %tmp.105;
+        push %tmp.106;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_199_8_199_33_end:
+        %tmp.107 = phi [%tmp.101 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_198_8_199_33_begin] [%tmp.106 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_199_8_199_33_true] [%tmp.107 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_199_8_199_33_end];
+        bf %tmp.107 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_197_6_210_6_if_false;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_197_6_210_6_if_true:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_197_6_210_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_197_6_210_6_if_false:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_202_13_210_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 203 8 ]
+        %tmp.108 = self;
+        %tmp.109 = getv function %tmp.108 :inmotionMenuCmd;
+        %tmp.111 = lgetv %fromMenu;
+        %tmp.113 = lgetv %cmd;
+        invoke %tmp.108 %tmp.109(%tmp.111, %tmp.113);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_202_13_210_6_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_197_6_210_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_196_33_211_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_196_4_211_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_196_4_211_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 212 4 ]
+        %tmp.115 = getv ? :queue;
+        %tmp.116 = getv %tmp.115 :delayTimer;
+        %tmp.117 = getv function %tmp.116 :start;
+        %tmp.118 = self;
+        %tmp.119 = getv function %tmp.118 :method;
+        %tmp.121 = const :timerCallback;
+        %tmp.122 = invoke %tmp.118 %tmp.119(%tmp.121);
+        %tmp.124 = getv ? :delay;
+        %tmp.125 = true;
+        invoke %tmp.116 %tmp.117(%tmp.122, %tmp.124, %tmp.125);
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 213 4 ]
+        %tmp.126 = true;
+        putv self :requestSubLabelsUpdate %tmp.126;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_145_38_214_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 216; ]
+    function gotwayMenuCmd(parentMenu, cmd) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_216_42_265_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 217 4 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_216_42_265_2_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_216_42_265_2_stop" ]
+        %command.1 = local;
+        %tmp.1 = null;
+        lputv %command.1 %tmp.1;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 218 4 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_216_42_265_2_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_216_42_265_2_stop" ]
+        %enc_cmd.2 = local;
+        %tmp.2 = null;
+        lputv %enc_cmd.2 %tmp.2;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 219 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_219_4_240_4_if_stmt:
+        %tmp.3 = lgetv %parentMenu;
+        %tmp.4 = getv function %tmp.3 :equals;
+        %tmp.5 = "Leds Mode";
+        %tmp.6 = invoke %tmp.3 %tmp.4(%tmp.5);
+        bf %tmp.6 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_219_4_240_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_219_4_240_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_219_40_240_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 220 6 ]
+        %tmp.7 = "W";
+        lputv %command.1 %tmp.7;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 221 6 ]
+        %tmp.8 = self;
+        %tmp.9 = getv function %tmp.8 :string_to_byte_array;
+        %tmp.11 = lgetv %command.1;
+        %tmp.12 = as %tmp.11 String;
+        %tmp.13 = invoke %tmp.8 %tmp.9(%tmp.12);
+        lputv %enc_cmd.2 %tmp.13;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 223 6 ]
+        %tmp.15 = getv ? :queue;
+        %tmp.16 = getv function %tmp.15 :add;
+        %tmp.17 = newa 3;
+        %tmp.19 = getv ? :eucBleDelegate;
+        %tmp.20 = getv function %tmp.19 :getChar;
+        %tmp.21 = invoke %tmp.19 %tmp.20();
+        %tmp.22 = dup %tmp.17;
+        %tmp.23 = aputv %tmp.22 0 %tmp.21;
+        %tmp.25 = getv ? :queue;
+        %tmp.26 = getv %tmp.25 :C_WRITENR;
+        %tmp.27 = dup %tmp.23;
+        %tmp.28 = aputv %tmp.27 1 %tmp.26;
+        %tmp.30 = lgetv %enc_cmd.2;
+        %tmp.31 = dup %tmp.28;
+        %tmp.32 = aputv %tmp.31 2 %tmp.30;
+        %tmp.34 = getv ? :eucBleDelegate;
+        %tmp.35 = getv function %tmp.34 :getPMService;
+        %tmp.36 = invoke %tmp.34 %tmp.35();
+        invoke %tmp.15 %tmp.16(%tmp.32, %tmp.36);
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 227 6 ]
+        %tmp.37 = "M";
+        lputv %command.1 %tmp.37;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 228 6 ]
+        %tmp.38 = self;
+        %tmp.39 = getv function %tmp.38 :string_to_byte_array;
+        %tmp.41 = lgetv %command.1;
+        %tmp.42 = as %tmp.41 String;
+        %tmp.43 = invoke %tmp.38 %tmp.39(%tmp.42);
+        lputv %enc_cmd.2 %tmp.43;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 230 6 ]
+        %tmp.45 = getv ? :queue;
+        %tmp.46 = getv function %tmp.45 :add;
+        %tmp.47 = newa 3;
+        %tmp.49 = getv ? :eucBleDelegate;
+        %tmp.50 = getv function %tmp.49 :getChar;
+        %tmp.51 = invoke %tmp.49 %tmp.50();
+        %tmp.52 = dup %tmp.47;
+        %tmp.53 = aputv %tmp.52 0 %tmp.51;
+        %tmp.55 = getv ? :queue;
+        %tmp.56 = getv %tmp.55 :C_WRITENR;
+        %tmp.57 = dup %tmp.53;
+        %tmp.58 = aputv %tmp.57 1 %tmp.56;
+        %tmp.60 = lgetv %enc_cmd.2;
+        %tmp.61 = dup %tmp.58;
+        %tmp.62 = aputv %tmp.61 2 %tmp.60;
+        %tmp.64 = getv ? :eucBleDelegate;
+        %tmp.65 = getv function %tmp.64 :getPMService;
+        %tmp.66 = invoke %tmp.64 %tmp.65();
+        invoke %tmp.45 %tmp.46(%tmp.62, %tmp.66);
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 234 6 ]
+        %tmp.68 = lgetv %cmd;
+        lputv %command.1 %tmp.68;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 235 6 ]
+        %tmp.69 = self;
+        %tmp.70 = getv function %tmp.69 :string_to_byte_array;
+        %tmp.72 = lgetv %command.1;
+        %tmp.73 = as %tmp.72 String;
+        %tmp.74 = invoke %tmp.69 %tmp.70(%tmp.73);
+        lputv %enc_cmd.2 %tmp.74;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 236 6 ]
+        %tmp.76 = getv ? :queue;
+        %tmp.77 = getv function %tmp.76 :add;
+        %tmp.78 = newa 3;
+        %tmp.80 = getv ? :eucBleDelegate;
+        %tmp.81 = getv function %tmp.80 :getChar;
+        %tmp.82 = invoke %tmp.80 %tmp.81();
+        %tmp.83 = dup %tmp.78;
+        %tmp.84 = aputv %tmp.83 0 %tmp.82;
+        %tmp.86 = getv ? :queue;
+        %tmp.87 = getv %tmp.86 :C_WRITENR;
+        %tmp.88 = dup %tmp.84;
+        %tmp.89 = aputv %tmp.88 1 %tmp.87;
+        %tmp.91 = lgetv %enc_cmd.2;
+        %tmp.92 = dup %tmp.89;
+        %tmp.93 = aputv %tmp.92 2 %tmp.91;
+        %tmp.95 = getv ? :eucBleDelegate;
+        %tmp.96 = getv function %tmp.95 :getPMService;
+        %tmp.97 = invoke %tmp.95 %tmp.96();
+        invoke %tmp.76 %tmp.77(%tmp.93, %tmp.97);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_219_40_240_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_219_4_240_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_219_4_240_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 241 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_241_4_264_4_if_stmt:
+        %tmp.98 = lgetv %parentMenu;
+        %tmp.99 = getv function %tmp.98 :equals;
+        %tmp.100 = "Beep Volume";
+        %tmp.101 = invoke %tmp.98 %tmp.99(%tmp.100);
+        bf %tmp.101 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_241_4_264_4_if_false;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_241_4_264_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_241_42_262_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 242 6 ]
+        %tmp.102 = "W";
+        lputv %command.1 %tmp.102;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 243 6 ]
+        %tmp.103 = self;
+        %tmp.104 = getv function %tmp.103 :string_to_byte_array;
+        %tmp.106 = lgetv %command.1;
+        %tmp.107 = as %tmp.106 String;
+        %tmp.108 = invoke %tmp.103 %tmp.104(%tmp.107);
+        lputv %enc_cmd.2 %tmp.108;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 245 6 ]
+        %tmp.110 = getv ? :queue;
+        %tmp.111 = getv function %tmp.110 :add;
+        %tmp.112 = newa 3;
+        %tmp.114 = getv ? :eucBleDelegate;
+        %tmp.115 = getv function %tmp.114 :getChar;
+        %tmp.116 = invoke %tmp.114 %tmp.115();
+        %tmp.117 = dup %tmp.112;
+        %tmp.118 = aputv %tmp.117 0 %tmp.116;
+        %tmp.120 = getv ? :queue;
+        %tmp.121 = getv %tmp.120 :C_WRITENR;
+        %tmp.122 = dup %tmp.118;
+        %tmp.123 = aputv %tmp.122 1 %tmp.121;
+        %tmp.125 = lgetv %enc_cmd.2;
+        %tmp.126 = dup %tmp.123;
+        %tmp.127 = aputv %tmp.126 2 %tmp.125;
+        %tmp.129 = getv ? :eucBleDelegate;
+        %tmp.130 = getv function %tmp.129 :getPMService;
+        %tmp.131 = invoke %tmp.129 %tmp.130();
+        invoke %tmp.110 %tmp.111(%tmp.127, %tmp.131);
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 249 6 ]
+        %tmp.132 = "B";
+        lputv %command.1 %tmp.132;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 250 6 ]
+        %tmp.133 = self;
+        %tmp.134 = getv function %tmp.133 :string_to_byte_array;
+        %tmp.136 = lgetv %command.1;
+        %tmp.137 = as %tmp.136 String;
+        %tmp.138 = invoke %tmp.133 %tmp.134(%tmp.137);
+        lputv %enc_cmd.2 %tmp.138;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 252 6 ]
+        %tmp.140 = getv ? :queue;
+        %tmp.141 = getv function %tmp.140 :add;
+        %tmp.142 = newa 3;
+        %tmp.144 = getv ? :eucBleDelegate;
+        %tmp.145 = getv function %tmp.144 :getChar;
+        %tmp.146 = invoke %tmp.144 %tmp.145();
+        %tmp.147 = dup %tmp.142;
+        %tmp.148 = aputv %tmp.147 0 %tmp.146;
+        %tmp.150 = getv ? :queue;
+        %tmp.151 = getv %tmp.150 :C_WRITENR;
+        %tmp.152 = dup %tmp.148;
+        %tmp.153 = aputv %tmp.152 1 %tmp.151;
+        %tmp.155 = lgetv %enc_cmd.2;
+        %tmp.156 = dup %tmp.153;
+        %tmp.157 = aputv %tmp.156 2 %tmp.155;
+        %tmp.159 = getv ? :eucBleDelegate;
+        %tmp.160 = getv function %tmp.159 :getPMService;
+        %tmp.161 = invoke %tmp.159 %tmp.160();
+        invoke %tmp.140 %tmp.141(%tmp.157, %tmp.161);
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 256 6 ]
+        %tmp.163 = lgetv %cmd;
+        lputv %command.1 %tmp.163;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 257 6 ]
+        %tmp.164 = self;
+        %tmp.165 = getv function %tmp.164 :string_to_byte_array;
+        %tmp.167 = lgetv %command.1;
+        %tmp.168 = as %tmp.167 String;
+        %tmp.169 = invoke %tmp.164 %tmp.165(%tmp.168);
+        lputv %enc_cmd.2 %tmp.169;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 258 6 ]
+        %tmp.171 = getv ? :queue;
+        %tmp.172 = getv function %tmp.171 :add;
+        %tmp.173 = newa 3;
+        %tmp.175 = getv ? :eucBleDelegate;
+        %tmp.176 = getv function %tmp.175 :getChar;
+        %tmp.177 = invoke %tmp.175 %tmp.176();
+        %tmp.178 = dup %tmp.173;
+        %tmp.179 = aputv %tmp.178 0 %tmp.177;
+        %tmp.181 = getv ? :queue;
+        %tmp.182 = getv %tmp.181 :C_WRITENR;
+        %tmp.183 = dup %tmp.179;
+        %tmp.184 = aputv %tmp.183 1 %tmp.182;
+        %tmp.186 = lgetv %enc_cmd.2;
+        %tmp.187 = dup %tmp.184;
+        %tmp.188 = aputv %tmp.187 2 %tmp.186;
+        %tmp.190 = getv ? :eucBleDelegate;
+        %tmp.191 = getv function %tmp.190 :getPMService;
+        %tmp.192 = invoke %tmp.190 %tmp.191();
+        invoke %tmp.171 %tmp.172(%tmp.188, %tmp.192);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_241_42_262_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_241_4_264_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_241_4_264_4_if_false:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_262_11_264_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 263 6 ]
+        %tmp.194 = getv ? :eucBleDelegate;
+        %tmp.195 = getv function %tmp.194 :sendCmd;
+        %tmp.197 = lgetv %cmd;
+        invoke %tmp.194 %tmp.195(%tmp.197);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_262_11_264_4_stop:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_241_4_264_4_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_216_42_265_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 267; ]
+    function kingsongMenuCmd(parentMenu, cmd) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_267_44_298_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 269 4 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_267_44_298_2_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_267_44_298_2_stop" ]
+        %cmd_frame.1 = local;
+        %tmp.1 = newba 20;
+        %tmp.2 = 0xaa;
+        %tmp.3 = dup %tmp.1;
+        %tmp.4 = aputv %tmp.3 0 %tmp.2;
+        %tmp.5 = 0x55;
+        %tmp.6 = dup %tmp.4;
+        %tmp.7 = aputv %tmp.6 1 %tmp.5;
+        %tmp.8 = 0x00;
+        %tmp.9 = dup %tmp.7;
+        %tmp.10 = aputv %tmp.9 2 %tmp.8;
+        %tmp.11 = 0x00;
+        %tmp.12 = dup %tmp.10;
+        %tmp.13 = aputv %tmp.12 3 %tmp.11;
+        %tmp.14 = 0x00;
+        %tmp.15 = dup %tmp.13;
+        %tmp.16 = aputv %tmp.15 4 %tmp.14;
+        %tmp.17 = 0x00;
+        %tmp.18 = dup %tmp.16;
+        %tmp.19 = aputv %tmp.18 5 %tmp.17;
+        %tmp.20 = 0x00;
+        %tmp.21 = dup %tmp.19;
+        %tmp.22 = aputv %tmp.21 6 %tmp.20;
+        %tmp.23 = 0x00;
+        %tmp.24 = dup %tmp.22;
+        %tmp.25 = aputv %tmp.24 7 %tmp.23;
+        %tmp.26 = 0x00;
+        %tmp.27 = dup %tmp.25;
+        %tmp.28 = aputv %tmp.27 8 %tmp.26;
+        %tmp.29 = 0x00;
+        %tmp.30 = dup %tmp.28;
+        %tmp.31 = aputv %tmp.30 9 %tmp.29;
+        %tmp.32 = 0x00;
+        %tmp.33 = dup %tmp.31;
+        %tmp.34 = aputv %tmp.33 10 %tmp.32;
+        %tmp.35 = 0x00;
+        %tmp.36 = dup %tmp.34;
+        %tmp.37 = aputv %tmp.36 11 %tmp.35;
+        %tmp.38 = 0x00;
+        %tmp.39 = dup %tmp.37;
+        %tmp.40 = aputv %tmp.39 12 %tmp.38;
+        %tmp.41 = 0x00;
+        %tmp.42 = dup %tmp.40;
+        %tmp.43 = aputv %tmp.42 13 %tmp.41;
+        %tmp.44 = 0x00;
+        %tmp.45 = dup %tmp.43;
+        %tmp.46 = aputv %tmp.45 14 %tmp.44;
+        %tmp.47 = 0x00;
+        %tmp.48 = dup %tmp.46;
+        %tmp.49 = aputv %tmp.48 15 %tmp.47;
+        %tmp.50 = 0x00;
+        %tmp.51 = dup %tmp.49;
+        %tmp.52 = aputv %tmp.51 16 %tmp.50;
+        %tmp.53 = 0x14;
+        %tmp.54 = dup %tmp.52;
+        %tmp.55 = aputv %tmp.54 17 %tmp.53;
+        %tmp.56 = 0x5a;
+        %tmp.57 = dup %tmp.55;
+        %tmp.58 = aputv %tmp.57 18 %tmp.56;
+        %tmp.59 = 0x5a;
+        %tmp.60 = dup %tmp.58;
+        %tmp.61 = aputv %tmp.60 19 %tmp.59;
+        lputv %cmd_frame.1 %tmp.61;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 274 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_274_4_279_4_if_stmt:
+        %tmp.62 = lgetv %parentMenu;
+        %tmp.63 = getv function %tmp.62 :equals;
+        %tmp.64 = "Lights";
+        %tmp.65 = invoke %tmp.62 %tmp.63(%tmp.64);
+        bf %tmp.65 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_274_4_279_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_274_4_279_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_274_37_279_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 275 6 ]
+        %tmp.66 = lgetv %cmd_frame.1;
+        %tmp.67 = lgetv %cmd;
+        %tmp.68 = getv function %tmp.67 :toNumber;
+        %tmp.69 = invoke %tmp.67 %tmp.68();
+        %tmp.70 = 0x12;
+        %tmp.71 = add %tmp.69 %tmp.70;
+        %tmp.72 = 2;
+        aputv %tmp.66 %tmp.72 %tmp.71;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 276 6 ]
+        %tmp.73 = lgetv %cmd_frame.1;
+        %tmp.74 = 1;
+        %tmp.75 = 3;
+        aputv %tmp.73 %tmp.75 %tmp.74;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 277 6 ]
+        %tmp.76 = lgetv %cmd_frame.1;
+        %tmp.77 = 115;
+        %tmp.78 = 16;
+        aputv %tmp.76 %tmp.78 %tmp.77;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_274_37_279_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_274_4_279_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_274_4_279_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 280 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_280_4_284_4_if_stmt:
+        %tmp.79 = lgetv %parentMenu;
+        %tmp.80 = getv function %tmp.79 :equals;
+        %tmp.81 = "Strobe Mode";
+        %tmp.82 = invoke %tmp.79 %tmp.80(%tmp.81);
+        bf %tmp.82 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_280_4_284_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_280_4_284_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_280_42_284_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 281 6 ]
+        %tmp.83 = lgetv %cmd_frame.1;
+        %tmp.84 = lgetv %cmd;
+        %tmp.85 = getv function %tmp.84 :toNumber;
+        %tmp.86 = invoke %tmp.84 %tmp.85();
+        %tmp.87 = 2;
+        aputv %tmp.83 %tmp.87 %tmp.86;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 282 6 ]
+        %tmp.88 = lgetv %cmd_frame.1;
+        %tmp.89 = 83;
+        %tmp.90 = 16;
+        aputv %tmp.88 %tmp.90 %tmp.89;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_280_42_284_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_280_4_284_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_280_4_284_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 285 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_285_4_289_4_if_stmt:
+        %tmp.91 = lgetv %parentMenu;
+        %tmp.92 = getv function %tmp.91 :equals;
+        %tmp.93 = "Leds Mode";
+        %tmp.94 = invoke %tmp.91 %tmp.92(%tmp.93);
+        bf %tmp.94 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_285_4_289_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_285_4_289_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_285_40_289_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 286 6 ]
+        %tmp.95 = lgetv %cmd_frame.1;
+        %tmp.96 = lgetv %cmd;
+        %tmp.97 = getv function %tmp.96 :toNumber;
+        %tmp.98 = invoke %tmp.96 %tmp.97();
+        %tmp.99 = 2;
+        aputv %tmp.95 %tmp.99 %tmp.98;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 287 6 ]
+        %tmp.100 = lgetv %cmd_frame.1;
+        %tmp.101 = 108;
+        %tmp.102 = 16;
+        aputv %tmp.100 %tmp.102 %tmp.101;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_285_40_289_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_285_4_289_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_285_4_289_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 290 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_290_4_296_4_if_stmt:
+        %tmp.103 = lgetv %parentMenu;
+        %tmp.104 = getv function %tmp.103 :equals;
+        %tmp.105 = "Pedal Mode";
+        %tmp.106 = invoke %tmp.103 %tmp.104(%tmp.105);
+        bf %tmp.106 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_290_4_296_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_290_4_296_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_290_41_296_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 291 6 ]
+        %tmp.107 = lgetv %cmd_frame.1;
+        %tmp.108 = lgetv %cmd;
+        %tmp.109 = getv function %tmp.108 :toNumber;
+        %tmp.110 = invoke %tmp.108 %tmp.109();
+        %tmp.111 = 2;
+        aputv %tmp.107 %tmp.111 %tmp.110;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 292 6 ]
+        %tmp.112 = lgetv %cmd_frame.1;
+        %tmp.113 = 224;
+        %tmp.114 = 3;
+        aputv %tmp.112 %tmp.114 %tmp.113;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 293 6 ]
+        %tmp.115 = lgetv %cmd_frame.1;
+        %tmp.116 = 135;
+        %tmp.117 = 16;
+        aputv %tmp.115 %tmp.117 %tmp.116;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 294 6 ]
+        %tmp.118 = lgetv %cmd_frame.1;
+        %tmp.119 = 21;
+        %tmp.120 = 17;
+        aputv %tmp.118 %tmp.120 %tmp.119;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_290_41_296_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_290_4_296_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_290_4_296_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 297 4 ]
+        %tmp.122 = getv ? :eucBleDelegate;
+        %tmp.123 = getv function %tmp.122 :sendRawCmd;
+        %tmp.125 = lgetv %cmd_frame.1;
+        invoke %tmp.122 %tmp.123(%tmp.125);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_267_44_298_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 300; ]
+    function inmotionMenuCmd(parentMenu, cmd) {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_300_44_377_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 303 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_303_4_341_4_if_stmt:
+        %tmp.1 = lgetv %parentMenu;
+        %tmp.2 = getv function %tmp.1 :equals;
+        %tmp.3 = "Lights";
+        %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
+        bf %tmp.4 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_303_4_341_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_303_4_341_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_303_37_341_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 304 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_304_6_313_6_if_stmt:
+        %tmp.6 = getv ? :eucData;
+        %tmp.7 = getv %tmp.6 :model;
+        %tmp.8 = getv function %tmp.7 :equals;
+        %tmp.9 = "V11";
+        %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
+        bf %tmp.10 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_304_6_313_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_304_6_313_6_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_304_39_313_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 305 8 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_304_39_313_6_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_304_39_313_6_stop" ]
+        %data.1 = local;
+        %tmp.11 = newba 8;
+        %tmp.12 = 0xaa;
+        %tmp.13 = dup %tmp.11;
+        %tmp.14 = aputv %tmp.13 0 %tmp.12;
+        %tmp.15 = 0xaa;
+        %tmp.16 = dup %tmp.14;
+        %tmp.17 = aputv %tmp.16 1 %tmp.15;
+        %tmp.18 = 0x14;
+        %tmp.19 = dup %tmp.17;
+        %tmp.20 = aputv %tmp.19 2 %tmp.18;
+        %tmp.21 = 0x03;
+        %tmp.22 = dup %tmp.20;
+        %tmp.23 = aputv %tmp.22 3 %tmp.21;
+        %tmp.24 = 0x60;
+        %tmp.25 = dup %tmp.23;
+        %tmp.26 = aputv %tmp.25 4 %tmp.24;
+        %tmp.27 = 0x50;
+        %tmp.28 = dup %tmp.26;
+        %tmp.29 = aputv %tmp.28 5 %tmp.27;
+        %tmp.30 = 0x00;
+        %tmp.31 = dup %tmp.29;
+        %tmp.32 = aputv %tmp.31 6 %tmp.30;
+        %tmp.33 = 0x00;
+        %tmp.34 = dup %tmp.32;
+        %tmp.35 = aputv %tmp.34 7 %tmp.33;
+        lputv %data.1 %tmp.35;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 306 8 ]
+        %tmp.36 = lgetv %data.1;
+        %tmp.37 = lgetv %cmd;
+        %tmp.38 = getv function %tmp.37 :toNumber;
+        %tmp.39 = invoke %tmp.37 %tmp.38();
+        %tmp.40 = 6;
+        aputv %tmp.36 %tmp.40 %tmp.39;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 307 8 ]
+        %tmp.41 = lgetv %data.1;
+        %tmp.42 = self;
+        %tmp.43 = getv function %tmp.42 :xorChkSum;
+        %tmp.44 = lgetv %data.1;
+        %tmp.45 = getv function %tmp.44 :slice;
+        %tmp.46 = 0;
+        %tmp.47 = lgetv %data.1;
+        %tmp.48 = getv function %tmp.47 :size;
+        %tmp.49 = invoke %tmp.47 %tmp.48();
+        %tmp.50 = 1;
+        %tmp.51 = sub %tmp.49 %tmp.50;
+        %tmp.52 = invoke %tmp.44 %tmp.45(%tmp.46, %tmp.51);
+        %tmp.53 = invoke %tmp.42 %tmp.43(%tmp.52);
+        %tmp.54 = 7;
+        aputv %tmp.41 %tmp.54 %tmp.53;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 308 8 ]
+        %tmp.56 = getv ? :queue;
+        %tmp.57 = getv function %tmp.56 :flush;
+        invoke %tmp.56 %tmp.57();
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 309 8 ]
+        %tmp.59 = getv ? :queue;
+        %tmp.60 = getv function %tmp.59 :add;
+        %tmp.61 = newa 3;
+        %tmp.63 = getv ? :eucBleDelegate;
+        %tmp.64 = getv function %tmp.63 :getCharW;
+        %tmp.65 = invoke %tmp.63 %tmp.64();
+        %tmp.66 = dup %tmp.61;
+        %tmp.67 = aputv %tmp.66 0 %tmp.65;
+        %tmp.69 = getv ? :queue;
+        %tmp.70 = getv %tmp.69 :C_WRITENR;
+        %tmp.71 = dup %tmp.67;
+        %tmp.72 = aputv %tmp.71 1 %tmp.70;
+        %tmp.74 = lgetv %data.1;
+        %tmp.75 = dup %tmp.72;
+        %tmp.76 = aputv %tmp.75 2 %tmp.74;
+        %tmp.78 = getv ? :eucBleDelegate;
+        %tmp.79 = getv function %tmp.78 :getPMService;
+        %tmp.80 = invoke %tmp.78 %tmp.79();
+        invoke %tmp.59 %tmp.60(%tmp.76, %tmp.80);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_304_39_313_6_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_304_6_313_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_304_6_313_6_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 314 6 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_314_6_339_6_if_stmt:
+        %tmp.82 = getv ? :eucData;
+        %tmp.83 = getv %tmp.82 :model;
+        %tmp.84 = getv function %tmp.83 :equals;
+        %tmp.85 = "V12";
+        %tmp.86 = invoke %tmp.83 %tmp.84(%tmp.85);
+        bf %tmp.86 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_314_6_339_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_314_6_339_6_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_314_39_339_6_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 315 8 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_314_39_339_6_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_314_39_339_6_stop" ]
+        %data.2 = local;
+        %tmp.87 = newba 9;
+        %tmp.88 = 0xaa;
+        %tmp.89 = dup %tmp.87;
+        %tmp.90 = aputv %tmp.89 0 %tmp.88;
+        %tmp.91 = 0xaa;
+        %tmp.92 = dup %tmp.90;
+        %tmp.93 = aputv %tmp.92 1 %tmp.91;
+        %tmp.94 = 0x14;
+        %tmp.95 = dup %tmp.93;
+        %tmp.96 = aputv %tmp.95 2 %tmp.94;
+        %tmp.97 = 0x04;
+        %tmp.98 = dup %tmp.96;
+        %tmp.99 = aputv %tmp.98 3 %tmp.97;
+        %tmp.100 = 0x60;
+        %tmp.101 = dup %tmp.99;
+        %tmp.102 = aputv %tmp.101 4 %tmp.100;
+        %tmp.103 = 0x50;
+        %tmp.104 = dup %tmp.102;
+        %tmp.105 = aputv %tmp.104 5 %tmp.103;
+        %tmp.106 = 0x00;
+        %tmp.107 = dup %tmp.105;
+        %tmp.108 = aputv %tmp.107 6 %tmp.106;
+        %tmp.109 = 0x00;
+        %tmp.110 = dup %tmp.108;
+        %tmp.111 = aputv %tmp.110 7 %tmp.109;
+        %tmp.112 = 0x00;
+        %tmp.113 = dup %tmp.111;
+        %tmp.114 = aputv %tmp.113 8 %tmp.112;
+        lputv %data.2 %tmp.114;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 316 8 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_316_8_319_8_if_stmt:
+        %tmp.115 = lgetv %cmd;
+        %tmp.116 = getv function %tmp.115 :toNumber;
+        %tmp.117 = invoke %tmp.115 %tmp.116();
+        %tmp.118 = 0;
+        %tmp.119 = eq %tmp.117 %tmp.118;
+        bf %tmp.119 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_316_8_319_8_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_316_8_319_8_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_316_33_319_8_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 317 10 ]
+        %tmp.120 = lgetv %data.2;
+        %tmp.121 = 0x00;
+        %tmp.122 = 6;
+        aputv %tmp.120 %tmp.122 %tmp.121;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 318 10 ]
+        %tmp.123 = lgetv %data.2;
+        %tmp.124 = 0x00;
+        %tmp.125 = 7;
+        aputv %tmp.123 %tmp.125 %tmp.124;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_316_33_319_8_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_316_8_319_8_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_316_8_319_8_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 320 8 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_320_8_323_8_if_stmt:
+        %tmp.126 = lgetv %cmd;
+        %tmp.127 = getv function %tmp.126 :toNumber;
+        %tmp.128 = invoke %tmp.126 %tmp.127();
+        %tmp.129 = 1;
+        %tmp.130 = eq %tmp.128 %tmp.129;
+        bf %tmp.130 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_320_8_323_8_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_320_8_323_8_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_320_33_323_8_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 321 10 ]
+        %tmp.131 = lgetv %data.2;
+        %tmp.132 = 0x01;
+        %tmp.133 = 6;
+        aputv %tmp.131 %tmp.133 %tmp.132;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 322 10 ]
+        %tmp.134 = lgetv %data.2;
+        %tmp.135 = 0x00;
+        %tmp.136 = 7;
+        aputv %tmp.134 %tmp.136 %tmp.135;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_320_33_323_8_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_320_8_323_8_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_320_8_323_8_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 324 8 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_324_8_327_8_if_stmt:
+        %tmp.137 = lgetv %cmd;
+        %tmp.138 = getv function %tmp.137 :toNumber;
+        %tmp.139 = invoke %tmp.137 %tmp.138();
+        %tmp.140 = 2;
+        %tmp.141 = eq %tmp.139 %tmp.140;
+        bf %tmp.141 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_324_8_327_8_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_324_8_327_8_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_324_33_327_8_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 325 10 ]
+        %tmp.142 = lgetv %data.2;
+        %tmp.143 = 0x00;
+        %tmp.144 = 6;
+        aputv %tmp.142 %tmp.144 %tmp.143;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 326 10 ]
+        %tmp.145 = lgetv %data.2;
+        %tmp.146 = 0x01;
+        %tmp.147 = 7;
+        aputv %tmp.145 %tmp.147 %tmp.146;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_324_33_327_8_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_324_8_327_8_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_324_8_327_8_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 328 8 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_328_8_331_8_if_stmt:
+        %tmp.148 = lgetv %cmd;
+        %tmp.149 = getv function %tmp.148 :toNumber;
+        %tmp.150 = invoke %tmp.148 %tmp.149();
+        %tmp.151 = 3;
+        %tmp.152 = eq %tmp.150 %tmp.151;
+        bf %tmp.152 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_328_8_331_8_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_328_8_331_8_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_328_33_331_8_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 329 10 ]
+        %tmp.153 = lgetv %data.2;
+        %tmp.154 = 0x01;
+        %tmp.155 = 6;
+        aputv %tmp.153 %tmp.155 %tmp.154;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 330 10 ]
+        %tmp.156 = lgetv %data.2;
+        %tmp.157 = 0x01;
+        %tmp.158 = 7;
+        aputv %tmp.156 %tmp.158 %tmp.157;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_328_33_331_8_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_328_8_331_8_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_328_8_331_8_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 332 8 ]
+        %tmp.159 = lgetv %data.2;
+        %tmp.160 = self;
+        %tmp.161 = getv function %tmp.160 :xorChkSum;
+        %tmp.162 = lgetv %data.2;
+        %tmp.163 = getv function %tmp.162 :slice;
+        %tmp.164 = 0;
+        %tmp.165 = lgetv %data.2;
+        %tmp.166 = getv function %tmp.165 :size;
+        %tmp.167 = invoke %tmp.165 %tmp.166();
+        %tmp.168 = 1;
+        %tmp.169 = sub %tmp.167 %tmp.168;
+        %tmp.170 = invoke %tmp.162 %tmp.163(%tmp.164, %tmp.169);
+        %tmp.171 = invoke %tmp.160 %tmp.161(%tmp.170);
+        %tmp.172 = 8;
+        aputv %tmp.159 %tmp.172 %tmp.171;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 333 8 ]
+        %tmp.174 = getv ? :queue;
+        %tmp.175 = getv function %tmp.174 :flush;
+        invoke %tmp.174 %tmp.175();
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 334 8 ]
+        %tmp.177 = getv ? :queue;
+        %tmp.178 = getv function %tmp.177 :add;
+        %tmp.179 = newa 3;
+        %tmp.181 = getv ? :eucBleDelegate;
+        %tmp.182 = getv function %tmp.181 :getCharW;
+        %tmp.183 = invoke %tmp.181 %tmp.182();
+        %tmp.184 = dup %tmp.179;
+        %tmp.185 = aputv %tmp.184 0 %tmp.183;
+        %tmp.187 = getv ? :queue;
+        %tmp.188 = getv %tmp.187 :C_WRITENR;
+        %tmp.189 = dup %tmp.185;
+        %tmp.190 = aputv %tmp.189 1 %tmp.188;
+        %tmp.192 = lgetv %data.2;
+        %tmp.193 = dup %tmp.190;
+        %tmp.194 = aputv %tmp.193 2 %tmp.192;
+        %tmp.196 = getv ? :eucBleDelegate;
+        %tmp.197 = getv function %tmp.196 :getPMService;
+        %tmp.198 = invoke %tmp.196 %tmp.197();
+        invoke %tmp.177 %tmp.178(%tmp.194, %tmp.198);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_314_39_339_6_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_314_6_339_6_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_314_6_339_6_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_303_37_341_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_303_4_341_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_303_4_341_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 342 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_342_4_352_4_if_stmt:
+        %tmp.199 = lgetv %parentMenu;
+        %tmp.200 = getv function %tmp.199 :equals;
+        %tmp.201 = "DRL";
+        %tmp.202 = invoke %tmp.199 %tmp.200(%tmp.201);
+        bf %tmp.202 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_342_4_352_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_342_4_352_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_342_34_352_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 343 6 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_342_34_352_4_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_342_34_352_4_stop" ]
+        %data.3 = local;
+        %tmp.203 = newba 8;
+        %tmp.204 = 0xaa;
+        %tmp.205 = dup %tmp.203;
+        %tmp.206 = aputv %tmp.205 0 %tmp.204;
+        %tmp.207 = 0xaa;
+        %tmp.208 = dup %tmp.206;
+        %tmp.209 = aputv %tmp.208 1 %tmp.207;
+        %tmp.210 = 0x14;
+        %tmp.211 = dup %tmp.209;
+        %tmp.212 = aputv %tmp.211 2 %tmp.210;
+        %tmp.213 = 0x03;
+        %tmp.214 = dup %tmp.212;
+        %tmp.215 = aputv %tmp.214 3 %tmp.213;
+        %tmp.216 = 0x60;
+        %tmp.217 = dup %tmp.215;
+        %tmp.218 = aputv %tmp.217 4 %tmp.216;
+        %tmp.219 = 0x2d;
+        %tmp.220 = dup %tmp.218;
+        %tmp.221 = aputv %tmp.220 5 %tmp.219;
+        %tmp.222 = 0x00;
+        %tmp.223 = dup %tmp.221;
+        %tmp.224 = aputv %tmp.223 6 %tmp.222;
+        %tmp.225 = 0x00;
+        %tmp.226 = dup %tmp.224;
+        %tmp.227 = aputv %tmp.226 7 %tmp.225;
+        lputv %data.3 %tmp.227;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 344 6 ]
+        %tmp.228 = lgetv %data.3;
+        %tmp.229 = lgetv %cmd;
+        %tmp.230 = getv function %tmp.229 :toNumber;
+        %tmp.231 = invoke %tmp.229 %tmp.230();
+        %tmp.232 = 6;
+        aputv %tmp.228 %tmp.232 %tmp.231;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 345 6 ]
+        %tmp.233 = lgetv %data.3;
+        %tmp.234 = self;
+        %tmp.235 = getv function %tmp.234 :xorChkSum;
+        %tmp.236 = lgetv %data.3;
+        %tmp.237 = getv function %tmp.236 :slice;
+        %tmp.238 = 0;
+        %tmp.239 = lgetv %data.3;
+        %tmp.240 = getv function %tmp.239 :size;
+        %tmp.241 = invoke %tmp.239 %tmp.240();
+        %tmp.242 = 1;
+        %tmp.243 = sub %tmp.241 %tmp.242;
+        %tmp.244 = invoke %tmp.236 %tmp.237(%tmp.238, %tmp.243);
+        %tmp.245 = invoke %tmp.234 %tmp.235(%tmp.244);
+        %tmp.246 = 7;
+        aputv %tmp.233 %tmp.246 %tmp.245;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 346 6 ]
+        %tmp.248 = getv ? :queue;
+        %tmp.249 = getv function %tmp.248 :flush;
+        invoke %tmp.248 %tmp.249();
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 347 6 ]
+        %tmp.251 = getv ? :queue;
+        %tmp.252 = getv function %tmp.251 :add;
+        %tmp.253 = newa 3;
+        %tmp.255 = getv ? :eucBleDelegate;
+        %tmp.256 = getv function %tmp.255 :getCharW;
+        %tmp.257 = invoke %tmp.255 %tmp.256();
+        %tmp.258 = dup %tmp.253;
+        %tmp.259 = aputv %tmp.258 0 %tmp.257;
+        %tmp.261 = getv ? :queue;
+        %tmp.262 = getv %tmp.261 :C_WRITENR;
+        %tmp.263 = dup %tmp.259;
+        %tmp.264 = aputv %tmp.263 1 %tmp.262;
+        %tmp.266 = lgetv %data.3;
+        %tmp.267 = dup %tmp.264;
+        %tmp.268 = aputv %tmp.267 2 %tmp.266;
+        %tmp.270 = getv ? :eucBleDelegate;
+        %tmp.271 = getv function %tmp.270 :getPMService;
+        %tmp.272 = invoke %tmp.270 %tmp.271();
+        invoke %tmp.251 %tmp.252(%tmp.268, %tmp.272);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_342_34_352_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_342_4_352_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_342_4_352_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 353 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_353_4_364_4_if_stmt:
+        %tmp.273 = lgetv %parentMenu;
+        %tmp.274 = getv function %tmp.273 :equals;
+        %tmp.275 = "Ride Mode";
+        %tmp.276 = invoke %tmp.273 %tmp.274(%tmp.275);
+        bf %tmp.276 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_353_4_364_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_353_4_364_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_353_40_364_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 354 6 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_353_40_364_4_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_353_40_364_4_stop" ]
+        %data.4 = local;
+        %tmp.277 = newba 8;
+        %tmp.278 = 0xaa;
+        %tmp.279 = dup %tmp.277;
+        %tmp.280 = aputv %tmp.279 0 %tmp.278;
+        %tmp.281 = 0xaa;
+        %tmp.282 = dup %tmp.280;
+        %tmp.283 = aputv %tmp.282 1 %tmp.281;
+        %tmp.284 = 0x14;
+        %tmp.285 = dup %tmp.283;
+        %tmp.286 = aputv %tmp.285 2 %tmp.284;
+        %tmp.287 = 0x03;
+        %tmp.288 = dup %tmp.286;
+        %tmp.289 = aputv %tmp.288 3 %tmp.287;
+        %tmp.290 = 0x60;
+        %tmp.291 = dup %tmp.289;
+        %tmp.292 = aputv %tmp.291 4 %tmp.290;
+        %tmp.293 = 0x23;
+        %tmp.294 = dup %tmp.292;
+        %tmp.295 = aputv %tmp.294 5 %tmp.293;
+        %tmp.296 = 0x00;
+        %tmp.297 = dup %tmp.295;
+        %tmp.298 = aputv %tmp.297 6 %tmp.296;
+        %tmp.299 = 0x00;
+        %tmp.300 = dup %tmp.298;
+        %tmp.301 = aputv %tmp.300 7 %tmp.299;
+        lputv %data.4 %tmp.301;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 355 6 ]
+        %tmp.302 = lgetv %data.4;
+        %tmp.303 = lgetv %cmd;
+        %tmp.304 = getv function %tmp.303 :toNumber;
+        %tmp.305 = invoke %tmp.303 %tmp.304();
+        %tmp.306 = 6;
+        aputv %tmp.302 %tmp.306 %tmp.305;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 356 6 ]
+        %tmp.307 = lgetv %data.4;
+        %tmp.308 = self;
+        %tmp.309 = getv function %tmp.308 :xorChkSum;
+        %tmp.310 = lgetv %data.4;
+        %tmp.311 = getv function %tmp.310 :slice;
+        %tmp.312 = 0;
+        %tmp.313 = lgetv %data.4;
+        %tmp.314 = getv function %tmp.313 :size;
+        %tmp.315 = invoke %tmp.313 %tmp.314();
+        %tmp.316 = 1;
+        %tmp.317 = sub %tmp.315 %tmp.316;
+        %tmp.318 = invoke %tmp.310 %tmp.311(%tmp.312, %tmp.317);
+        %tmp.319 = invoke %tmp.308 %tmp.309(%tmp.318);
+        %tmp.320 = 7;
+        aputv %tmp.307 %tmp.320 %tmp.319;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 357 6 ]
+        %tmp.322 = getv ? :queue;
+        %tmp.323 = getv function %tmp.322 :flush;
+        invoke %tmp.322 %tmp.323();
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 358 6 ]
+        %tmp.325 = getv ? :queue;
+        %tmp.326 = getv function %tmp.325 :add;
+        %tmp.327 = newa 3;
+        %tmp.329 = getv ? :eucBleDelegate;
+        %tmp.330 = getv function %tmp.329 :getCharW;
+        %tmp.331 = invoke %tmp.329 %tmp.330();
+        %tmp.332 = dup %tmp.327;
+        %tmp.333 = aputv %tmp.332 0 %tmp.331;
+        %tmp.335 = getv ? :queue;
+        %tmp.336 = getv %tmp.335 :C_WRITENR;
+        %tmp.337 = dup %tmp.333;
+        %tmp.338 = aputv %tmp.337 1 %tmp.336;
+        %tmp.340 = lgetv %data.4;
+        %tmp.341 = dup %tmp.338;
+        %tmp.342 = aputv %tmp.341 2 %tmp.340;
+        %tmp.344 = getv ? :eucBleDelegate;
+        %tmp.345 = getv function %tmp.344 :getPMService;
+        %tmp.346 = invoke %tmp.344 %tmp.345();
+        invoke %tmp.325 %tmp.326(%tmp.342, %tmp.346);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_353_40_364_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_353_4_364_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_353_4_364_4_if_end:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 365 4 ]
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_365_4_376_4_if_stmt:
+        %tmp.347 = lgetv %parentMenu;
+        %tmp.348 = getv function %tmp.347 :equals;
+        %tmp.349 = "Performance Mode";
+        %tmp.350 = invoke %tmp.347 %tmp.348(%tmp.349);
+        bf %tmp.350 @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_365_4_376_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_365_4_376_4_if_true:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_365_47_376_4_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 366 6 ]
+        [ "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_365_47_376_4_start" "_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_365_47_376_4_stop" ]
+        %data.5 = local;
+        %tmp.351 = newba 8;
+        %tmp.352 = 0xaa;
+        %tmp.353 = dup %tmp.351;
+        %tmp.354 = aputv %tmp.353 0 %tmp.352;
+        %tmp.355 = 0xaa;
+        %tmp.356 = dup %tmp.354;
+        %tmp.357 = aputv %tmp.356 1 %tmp.355;
+        %tmp.358 = 0x14;
+        %tmp.359 = dup %tmp.357;
+        %tmp.360 = aputv %tmp.359 2 %tmp.358;
+        %tmp.361 = 0x03;
+        %tmp.362 = dup %tmp.360;
+        %tmp.363 = aputv %tmp.362 3 %tmp.361;
+        %tmp.364 = 0x60;
+        %tmp.365 = dup %tmp.363;
+        %tmp.366 = aputv %tmp.365 4 %tmp.364;
+        %tmp.367 = 0x24;
+        %tmp.368 = dup %tmp.366;
+        %tmp.369 = aputv %tmp.368 5 %tmp.367;
+        %tmp.370 = 0x00;
+        %tmp.371 = dup %tmp.369;
+        %tmp.372 = aputv %tmp.371 6 %tmp.370;
+        %tmp.373 = 0x00;
+        %tmp.374 = dup %tmp.372;
+        %tmp.375 = aputv %tmp.374 7 %tmp.373;
+        lputv %data.5 %tmp.375;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 367 6 ]
+        %tmp.376 = lgetv %data.5;
+        %tmp.377 = lgetv %cmd;
+        %tmp.378 = getv function %tmp.377 :toNumber;
+        %tmp.379 = invoke %tmp.377 %tmp.378();
+        %tmp.380 = 6;
+        aputv %tmp.376 %tmp.380 %tmp.379;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 368 6 ]
+        %tmp.381 = lgetv %data.5;
+        %tmp.382 = self;
+        %tmp.383 = getv function %tmp.382 :xorChkSum;
+        %tmp.384 = lgetv %data.5;
+        %tmp.385 = getv function %tmp.384 :slice;
+        %tmp.386 = 0;
+        %tmp.387 = lgetv %data.5;
+        %tmp.388 = getv function %tmp.387 :size;
+        %tmp.389 = invoke %tmp.387 %tmp.388();
+        %tmp.390 = 1;
+        %tmp.391 = sub %tmp.389 %tmp.390;
+        %tmp.392 = invoke %tmp.384 %tmp.385(%tmp.386, %tmp.391);
+        %tmp.393 = invoke %tmp.382 %tmp.383(%tmp.392);
+        %tmp.394 = 7;
+        aputv %tmp.381 %tmp.394 %tmp.393;
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 369 6 ]
+        %tmp.396 = getv ? :queue;
+        %tmp.397 = getv function %tmp.396 :flush;
+        invoke %tmp.396 %tmp.397();
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 370 6 ]
+        %tmp.399 = getv ? :queue;
+        %tmp.400 = getv function %tmp.399 :add;
+        %tmp.401 = newa 3;
+        %tmp.403 = getv ? :eucBleDelegate;
+        %tmp.404 = getv function %tmp.403 :getCharW;
+        %tmp.405 = invoke %tmp.403 %tmp.404();
+        %tmp.406 = dup %tmp.401;
+        %tmp.407 = aputv %tmp.406 0 %tmp.405;
+        %tmp.409 = getv ? :queue;
+        %tmp.410 = getv %tmp.409 :C_WRITENR;
+        %tmp.411 = dup %tmp.407;
+        %tmp.412 = aputv %tmp.411 1 %tmp.410;
+        %tmp.414 = lgetv %data.5;
+        %tmp.415 = dup %tmp.412;
+        %tmp.416 = aputv %tmp.415 2 %tmp.414;
+        %tmp.418 = getv ? :eucBleDelegate;
+        %tmp.419 = getv function %tmp.418 :getPMService;
+        %tmp.420 = invoke %tmp.418 %tmp.419();
+        invoke %tmp.399 %tmp.400(%tmp.416, %tmp.420);
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_365_47_376_4_stop:
+        goto @_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_365_4_376_4_if_end;
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_365_4_376_4_if_end:
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_300_44_377_2_stop:
+    }
+    [ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 379; ]
+    function timerCallback() {
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_379_27_381_2_start:
+[ "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc" 380 4 ]
+        %tmp.2 = getv ? :queue;
+        %tmp.3 = getv function %tmp.2 :run;
+        invoke %tmp.2 %tmp.3();
+_home_michel_workspace_WheelDash_source_GarminEUCMenu2Delegate_generic_mc_379_27_381_2_stop:
+    }
+}
+[ @file = "/home/michel/workspace/WheelDash/source/GarminEUCMenu2Delegate_generic.mc"; @line = 1; ]
+<init> {
+}
