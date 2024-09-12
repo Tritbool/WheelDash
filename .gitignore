@@ -3,3 +3,4 @@ bin
 *.iq
 mir
 gen
+internal-mir
