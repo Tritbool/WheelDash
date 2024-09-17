@@ -1,0 +1,1690 @@
+[ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 1; ]
+using Toybox.System;
+[ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 2; ]
+using Toybox.BluetoothLowEnergy as :Ble;
+[ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 3; ]
+using Toybox.WatchUi as :Ui;
+[ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 4; ]
+import Toybox.Lang;
+[ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 5; ]
+using Toybox.Application.Storage;
+[ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 7; ]
+class eucBLEDelegate extends Ble.BleDelegate{
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 7; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 8; @position = 6; ]
+    var profileManager = null;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 9; @position = 6; ]
+    var device = null;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 10; @position = 6; ]
+    var service = null;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 11; @position = 6; ]
+    var char = null;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 12; @position = 6; ]
+    var service_w = null;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 13; @position = 6; ]
+    var char_w = null;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 14; @position = 6; ]
+    var queue;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 15; @position = 6; ]
+    var decoder = null;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 16; @position = 6; ]
+    var isFirst = false;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 17; @position = 14; ]
+    private
+    var profileNb;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 18; @position = 6; ]
+    var message1 = "";
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 19; @position = 6; ]
+    var message2 = "";
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 20; @position = 6; ]
+    var message3 = "";
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 21; @position = 6; ]
+    var message4 = "";
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 22; @position = 6; ]
+    var message5 = "";
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 23; @position = 6; ]
+    var message6 = "";
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 24; @position = 6; ]
+    var message7 = "";
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 25; @position = 6; ]
+    var message8 = "";
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 26; @position = 6; ]
+    var message9 = "";
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 27; @position = 6; ]
+    var bleCharReadNb = 0;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 28; @position = 6; ]
+    var timeWhenConnected;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 35; ]
+    function initialize(pm, _profileNb, q, _decoder) as Void {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_35_51_93_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 36 4 ]
+        %tmp.1 = "initializeBle";
+        putv self :message1 %tmp.1;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 37 4 ]
+        %tmp.3 = getv ? :BleDelegate;
+        %tmp.4 = getv function %tmp.3 :initialize;
+        invoke %tmp.3 %tmp.4();
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 38 4 ]
+        %tmp.6 = lgetv %pm;
+        putv self :profileManager %tmp.6;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 39 4 ]
+        %tmp.8 = lgetv %_profileNb;
+        putv self :profileNb %tmp.8;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 40 4 ]
+        %tmp.10 = getv ? :profileManager;
+        %tmp.11 = getv %tmp.10 :EUC_CHAR;
+        putv self :char %tmp.11;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 41 4 ]
+        %tmp.13 = lgetv %q;
+        putv self :queue %tmp.13;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 42 4 ]
+        %tmp.15 = lgetv %_decoder;
+        putv self :decoder %tmp.15;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 91 4 ]
+        %tmp.16 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.17 = getv function %tmp.16 :setScanState;
+        %tmp.18 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.19 = getv %tmp.18 :SCAN_STATE_SCANNING;
+        invoke %tmp.16 %tmp.17(%tmp.19);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 92 4 ]
+        %tmp.20 = self;
+        %tmp.21 = getv function %tmp.20 :isFirstConnection;
+        %tmp.22 = invoke %tmp.20 %tmp.21();
+        putv self :isFirst %tmp.22;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_35_51_93_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 95; ]
+    function onConnectedStateChanged(device, state) {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_95_50_204_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 97 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_4_203_4_if_stmt:
+        %tmp.2 = lgetv %state;
+        %tmp.3 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.4 = getv %tmp.3 :CONNECTION_STATE_CONNECTED;
+        %tmp.5 = eq %tmp.2 %tmp.4;
+        bf %tmp.5 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_4_203_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_4_203_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_49_199_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 98 6 ]
+        %tmp.6 = "BLE connected";
+        putv self :message3 %tmp.6;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 99 6 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_49_199_4_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_49_199_4_stop" ]
+        %cccd.1 = local;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 100 6 ]
+        %tmp.7 = lgetv %device;
+        %tmp.8 = getv function %tmp.7 :getService;
+        %tmp.10 = getv ? :profileManager;
+        %tmp.11 = getv %tmp.10 :EUC_SERVICE;
+        %tmp.12 = invoke %tmp.7 %tmp.8(%tmp.11);
+        putv self :service %tmp.12;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 101 6 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_begin:
+        %tmp.14 = getv ? :service;
+        %tmp.15 = null;
+        %tmp.16 = ne %tmp.14 %tmp.15;
+        bf %tmp.16 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_true:
+        %tmp.18 = getv ? :service;
+        %tmp.19 = as %tmp.18 { (!Null) };
+        %tmp.20 = getv function %tmp.19 :getCharacteristic;
+        %tmp.22 = getv ? :profileManager;
+        %tmp.23 = getv %tmp.22 :EUC_CHAR;
+        %tmp.24 = invoke %tmp.19 %tmp.20(%tmp.23);
+        push %tmp.24;
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_false:
+        %tmp.25 = null;
+        push %tmp.25;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_end:
+        %tmp.26 = phi [%tmp.16 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_begin] [%tmp.24 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_true] [%tmp.25 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_false] [%tmp.26 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_102_8_104_12_end];
+        putv self :char %tmp.26;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 105 6 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_6_198_6_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_10_105_37_begin:
+        %tmp.28 = getv ? :service;
+        %tmp.29 = null;
+        %tmp.30 = ne %tmp.28 %tmp.29;
+        bf %tmp.30 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_6_198_6_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_29_105_37_true:
+        %tmp.32 = getv ? :char;
+        %tmp.33 = null;
+        %tmp.34 = ne %tmp.32 %tmp.33;
+        push %tmp.34;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_29_105_37_end:
+        %tmp.35 = phi [%tmp.30 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_10_105_37_begin] [%tmp.34 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_29_105_37_true] [%tmp.35 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_29_105_37_end];
+        bf %tmp.35 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_6_198_6_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_6_198_6_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_43_194_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 107 8 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_8_136_8_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_12_107_61_begin:
+        %tmp.37 = getv ? :eucData;
+        %tmp.38 = getv %tmp.37 :wheelBrand;
+        %tmp.39 = 2;
+        %tmp.40 = eq %tmp.38 %tmp.39;
+        bt %tmp.40 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_8_136_8_if_true;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_39_107_61_false:
+        %tmp.42 = getv ? :eucData;
+        %tmp.43 = getv %tmp.42 :wheelBrand;
+        %tmp.44 = 3;
+        %tmp.45 = eq %tmp.43 %tmp.44;
+        push %tmp.45;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_39_107_61_end:
+        %tmp.46 = phi [%tmp.40 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_12_107_61_begin] [%tmp.45 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_39_107_61_false] [%tmp.46 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_39_107_61_end];
+        bf %tmp.46 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_8_136_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_8_136_8_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_64_136_8_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 108 10 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_64_136_8_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_64_136_8_stop" ]
+        %reqModel.2 = local;
+        %tmp.47 = newba 20;
+        %tmp.48 = 0xaa;
+        %tmp.49 = dup %tmp.47;
+        %tmp.50 = aputv %tmp.49 0 %tmp.48;
+        %tmp.51 = 0x55;
+        %tmp.52 = dup %tmp.50;
+        %tmp.53 = aputv %tmp.52 1 %tmp.51;
+        %tmp.54 = 0x00;
+        %tmp.55 = dup %tmp.53;
+        %tmp.56 = aputv %tmp.55 2 %tmp.54;
+        %tmp.57 = 0x00;
+        %tmp.58 = dup %tmp.56;
+        %tmp.59 = aputv %tmp.58 3 %tmp.57;
+        %tmp.60 = 0x00;
+        %tmp.61 = dup %tmp.59;
+        %tmp.62 = aputv %tmp.61 4 %tmp.60;
+        %tmp.63 = 0x00;
+        %tmp.64 = dup %tmp.62;
+        %tmp.65 = aputv %tmp.64 5 %tmp.63;
+        %tmp.66 = 0x00;
+        %tmp.67 = dup %tmp.65;
+        %tmp.68 = aputv %tmp.67 6 %tmp.66;
+        %tmp.69 = 0x00;
+        %tmp.70 = dup %tmp.68;
+        %tmp.71 = aputv %tmp.70 7 %tmp.69;
+        %tmp.72 = 0x00;
+        %tmp.73 = dup %tmp.71;
+        %tmp.74 = aputv %tmp.73 8 %tmp.72;
+        %tmp.75 = 0x00;
+        %tmp.76 = dup %tmp.74;
+        %tmp.77 = aputv %tmp.76 9 %tmp.75;
+        %tmp.78 = 0x00;
+        %tmp.79 = dup %tmp.77;
+        %tmp.80 = aputv %tmp.79 10 %tmp.78;
+        %tmp.81 = 0x00;
+        %tmp.82 = dup %tmp.80;
+        %tmp.83 = aputv %tmp.82 11 %tmp.81;
+        %tmp.84 = 0x00;
+        %tmp.85 = dup %tmp.83;
+        %tmp.86 = aputv %tmp.85 12 %tmp.84;
+        %tmp.87 = 0x00;
+        %tmp.88 = dup %tmp.86;
+        %tmp.89 = aputv %tmp.88 13 %tmp.87;
+        %tmp.90 = 0x00;
+        %tmp.91 = dup %tmp.89;
+        %tmp.92 = aputv %tmp.91 14 %tmp.90;
+        %tmp.93 = 0x00;
+        %tmp.94 = dup %tmp.92;
+        %tmp.95 = aputv %tmp.94 15 %tmp.93;
+        %tmp.96 = 0x9b;
+        %tmp.97 = dup %tmp.95;
+        %tmp.98 = aputv %tmp.97 16 %tmp.96;
+        %tmp.99 = 0x14;
+        %tmp.100 = dup %tmp.98;
+        %tmp.101 = aputv %tmp.100 17 %tmp.99;
+        %tmp.102 = 0x5a;
+        %tmp.103 = dup %tmp.101;
+        %tmp.104 = aputv %tmp.103 18 %tmp.102;
+        %tmp.105 = 0x5a;
+        %tmp.106 = dup %tmp.104;
+        %tmp.107 = aputv %tmp.106 19 %tmp.105;
+        lputv %reqModel.2 %tmp.107;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 122 10 ]
+        %tmp.109 = getv ? :queue;
+        %tmp.110 = getv function %tmp.109 :add;
+        %tmp.111 = newa 3;
+        %tmp.113 = getv ? :char;
+        %tmp.114 = as %tmp.113 { (!Null) };
+        %tmp.115 = dup %tmp.111;
+        %tmp.116 = aputv %tmp.115 0 %tmp.114;
+        %tmp.118 = getv ? :queue;
+        %tmp.119 = getv %tmp.118 :C_WRITENR;
+        %tmp.120 = dup %tmp.116;
+        %tmp.121 = aputv %tmp.120 1 %tmp.119;
+        %tmp.123 = lgetv %reqModel.2;
+        %tmp.124 = dup %tmp.121;
+        %tmp.125 = aputv %tmp.124 2 %tmp.123;
+        %tmp.127 = getv ? :profileManager;
+        %tmp.128 = getv %tmp.127 :EUC_SERVICE;
+        invoke %tmp.109 %tmp.110(%tmp.125, %tmp.128);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_64_136_8_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_8_136_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_107_8_136_8_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 139 8 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_139_8_167_8_if_stmt:
+        %tmp.130 = getv ? :eucData;
+        %tmp.131 = getv %tmp.130 :wheelBrand;
+        %tmp.132 = 4;
+        %tmp.133 = eq %tmp.131 %tmp.132;
+        bf %tmp.133 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_139_8_167_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_139_8_167_8_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_139_37_167_8_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 140 10 ]
+        %tmp.135 = getv ? :service;
+        %tmp.136 = getv function %tmp.135 :getCharacteristic;
+        %tmp.138 = getv ? :profileManager;
+        %tmp.139 = getv %tmp.138 :EUC_CHAR_W;
+        %tmp.140 = invoke %tmp.135 %tmp.136(%tmp.139);
+        putv self :char_w %tmp.140;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 143 10 ]
+        %tmp.141 = getv self :queue;
+        %tmp.142 = newa 3;
+        %tmp.144 = getv ? :char_w;
+        %tmp.145 = dup %tmp.142;
+        %tmp.146 = aputv %tmp.145 0 %tmp.144;
+        %tmp.148 = getv ? :queue;
+        %tmp.149 = getv %tmp.148 :C_WRITENR;
+        %tmp.150 = dup %tmp.146;
+        %tmp.151 = aputv %tmp.150 1 %tmp.149;
+        %tmp.152 = newba 6;
+        %tmp.153 = 0xaa;
+        %tmp.154 = dup %tmp.152;
+        %tmp.155 = aputv %tmp.154 0 %tmp.153;
+        %tmp.156 = 0xaa;
+        %tmp.157 = dup %tmp.155;
+        %tmp.158 = aputv %tmp.157 1 %tmp.156;
+        %tmp.159 = 0x14;
+        %tmp.160 = dup %tmp.158;
+        %tmp.161 = aputv %tmp.160 2 %tmp.159;
+        %tmp.162 = 0x01;
+        %tmp.163 = dup %tmp.161;
+        %tmp.164 = aputv %tmp.163 3 %tmp.162;
+        %tmp.165 = 0x04;
+        %tmp.166 = dup %tmp.164;
+        %tmp.167 = aputv %tmp.166 4 %tmp.165;
+        %tmp.168 = 0x11;
+        %tmp.169 = dup %tmp.167;
+        %tmp.170 = aputv %tmp.169 5 %tmp.168;
+        %tmp.171 = dup %tmp.151;
+        %tmp.172 = aputv %tmp.171 2 %tmp.170;
+        putv %tmp.141 :reqLiveData %tmp.172;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 150 10 ]
+        %tmp.173 = getv self :queue;
+        %tmp.174 = newa 3;
+        %tmp.176 = getv ? :char_w;
+        %tmp.177 = dup %tmp.174;
+        %tmp.178 = aputv %tmp.177 0 %tmp.176;
+        %tmp.180 = getv ? :queue;
+        %tmp.181 = getv %tmp.180 :C_WRITENR;
+        %tmp.182 = dup %tmp.178;
+        %tmp.183 = aputv %tmp.182 1 %tmp.181;
+        %tmp.184 = newba 6;
+        %tmp.185 = 0xaa;
+        %tmp.186 = dup %tmp.184;
+        %tmp.187 = aputv %tmp.186 0 %tmp.185;
+        %tmp.188 = 0xaa;
+        %tmp.189 = dup %tmp.187;
+        %tmp.190 = aputv %tmp.189 1 %tmp.188;
+        %tmp.191 = 0x14;
+        %tmp.192 = dup %tmp.190;
+        %tmp.193 = aputv %tmp.192 2 %tmp.191;
+        %tmp.194 = 0x01;
+        %tmp.195 = dup %tmp.193;
+        %tmp.196 = aputv %tmp.195 3 %tmp.194;
+        %tmp.197 = 0x11;
+        %tmp.198 = dup %tmp.196;
+        %tmp.199 = aputv %tmp.198 4 %tmp.197;
+        %tmp.200 = 0x04;
+        %tmp.201 = dup %tmp.199;
+        %tmp.202 = aputv %tmp.201 5 %tmp.200;
+        %tmp.203 = dup %tmp.183;
+        %tmp.204 = aputv %tmp.203 2 %tmp.202;
+        putv %tmp.173 :reqStats %tmp.204;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 166 10 ]
+        %tmp.205 = getv self :queue;
+        %tmp.207 = getv ? :profileManager;
+        %tmp.208 = getv %tmp.207 :EUC_SERVICE;
+        putv %tmp.205 :UUID %tmp.208;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_139_37_167_8_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_139_8_167_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_139_8_167_8_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 169 8 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_169_8_179_8_if_stmt:
+        %tmp.210 = getv ? :eucData;
+        %tmp.211 = getv %tmp.210 :wheelBrand;
+        %tmp.212 = 5;
+        %tmp.213 = eq %tmp.211 %tmp.212;
+        bf %tmp.213 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_169_8_179_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_169_8_179_8_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_169_37_179_8_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 170 10 ]
+        %tmp.215 = getv ? :service;
+        %tmp.216 = getv function %tmp.215 :getCharacteristic;
+        %tmp.218 = getv ? :profileManager;
+        %tmp.219 = getv %tmp.218 :EUC_CHAR_W;
+        %tmp.220 = invoke %tmp.215 %tmp.216(%tmp.219);
+        putv self :char_w %tmp.220;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 173 10 ]
+        %tmp.221 = getv self :queue;
+        %tmp.222 = newa 3;
+        %tmp.224 = getv ? :char_w;
+        %tmp.225 = dup %tmp.222;
+        %tmp.226 = aputv %tmp.225 0 %tmp.224;
+        %tmp.228 = getv ? :queue;
+        %tmp.229 = getv %tmp.228 :C_WRITENR;
+        %tmp.230 = dup %tmp.226;
+        %tmp.231 = aputv %tmp.230 1 %tmp.229;
+        %tmp.232 = newba 6;
+        %tmp.233 = 0x02;
+        %tmp.234 = dup %tmp.232;
+        %tmp.235 = aputv %tmp.234 0 %tmp.233;
+        %tmp.236 = 0x01;
+        %tmp.237 = dup %tmp.235;
+        %tmp.238 = aputv %tmp.237 1 %tmp.236;
+        %tmp.239 = 0x2f;
+        %tmp.240 = dup %tmp.238;
+        %tmp.241 = aputv %tmp.240 2 %tmp.239;
+        %tmp.242 = 0xd5;
+        %tmp.243 = dup %tmp.241;
+        %tmp.244 = aputv %tmp.243 3 %tmp.242;
+        %tmp.245 = 0x8d;
+        %tmp.246 = dup %tmp.244;
+        %tmp.247 = aputv %tmp.246 4 %tmp.245;
+        %tmp.248 = 0x03;
+        %tmp.249 = dup %tmp.247;
+        %tmp.250 = aputv %tmp.249 5 %tmp.248;
+        %tmp.251 = dup %tmp.231;
+        %tmp.252 = aputv %tmp.251 2 %tmp.250;
+        putv %tmp.221 :reqLiveData %tmp.252;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 178 10 ]
+        %tmp.253 = getv self :queue;
+        %tmp.255 = getv ? :profileManager;
+        %tmp.256 = getv %tmp.255 :EUC_SERVICE;
+        putv %tmp.253 :UUID %tmp.256;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_169_37_179_8_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_169_8_179_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_169_8_179_8_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 181 8 ]
+        %tmp.258 = getv ? :char;
+        %tmp.259 = getv function %tmp.258 :getDescriptor;
+        %tmp.260 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.261 = getv function %tmp.260 :cccdUuid;
+        %tmp.262 = invoke %tmp.260 %tmp.261();
+        %tmp.263 = invoke %tmp.258 %tmp.259(%tmp.262);
+        lputv %cccd.1 %tmp.263;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 182 8 ]
+        %tmp.264 = lgetv %cccd.1;
+        %tmp.265 = getv function %tmp.264 :requestWrite;
+        %tmp.266 = newba 2;
+        %tmp.267 = 0x01;
+        %tmp.268 = dup %tmp.266;
+        %tmp.269 = aputv %tmp.268 0 %tmp.267;
+        %tmp.270 = 0x00;
+        %tmp.271 = dup %tmp.269;
+        %tmp.272 = aputv %tmp.271 1 %tmp.270;
+        invoke %tmp.264 %tmp.265(%tmp.272);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 183 8 ]
+        %tmp.273 = "characteristic notify enabled";
+        putv self :message4 %tmp.273;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 184 8 ]
+        %tmp.274 = getv self :eucData;
+        %tmp.275 = true;
+        putv %tmp.274 :paired %tmp.275;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 185 8 ]
+        %tmp.276 = "BLE paired";
+        putv self :message5 %tmp.276;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 186 8 ]
+        %tmp.277 = getv self :eucData;
+        %tmp.281 = getv ? :Time;
+        %tmp.282 = getv function ? %tmp.281 :Moment;
+        %tmp.284 = getv ? :Time;
+        %tmp.285 = getv function %tmp.284 :now;
+        %tmp.286 = invoke %tmp.284 %tmp.285();
+        %tmp.287 = getv function %tmp.286 :value;
+        %tmp.288 = invoke %tmp.286 %tmp.287();
+        %tmp.278 = newc %tmp.282 (%tmp.288);
+        putv %tmp.277 :timeWhenConnected %tmp.278;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_43_194_6_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_6_198_6_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_6_198_6_if_false:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_194_13_198_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 195 8 ]
+        %tmp.289 = "unable to pair";
+        putv self :message6 %tmp.289;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 196 8 ]
+        %tmp.290 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.291 = getv function %tmp.290 :unpairDevice;
+        %tmp.293 = lgetv %device;
+        invoke %tmp.290 %tmp.291(%tmp.293);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 197 8 ]
+        %tmp.294 = getv self :eucData;
+        %tmp.295 = false;
+        putv %tmp.294 :paired %tmp.295;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_194_13_198_6_stop:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_105_6_198_6_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_49_199_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_4_203_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_4_203_4_if_false:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_199_11_203_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 200 6 ]
+        %tmp.296 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.297 = getv function %tmp.296 :unpairDevice;
+        %tmp.299 = lgetv %device;
+        invoke %tmp.296 %tmp.297(%tmp.299);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 201 6 ]
+        %tmp.300 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.301 = getv function %tmp.300 :setScanState;
+        %tmp.302 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.303 = getv %tmp.302 :SCAN_STATE_SCANNING;
+        invoke %tmp.300 %tmp.301(%tmp.303);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 202 6 ]
+        %tmp.304 = getv self :eucData;
+        %tmp.305 = false;
+        putv %tmp.304 :paired %tmp.305;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_199_11_203_4_stop:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_97_4_203_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_95_50_204_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 205; ]
+    function isFirstConnection() {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_205_31_238_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 207 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_207_4_213_4_if_stmt:
+        %tmp.2 = getv ? :AppStorage;
+        %tmp.3 = getv function %tmp.2 :getSetting;
+        %tmp.4 = "wheelName_p1";
+        %tmp.5 = invoke %tmp.2 %tmp.3(%tmp.4);
+        %tmp.6 = getv function %tmp.5 :equals;
+        %tmp.7 = getm $.Toybox.Application.Storage;
+        %tmp.8 = getv function %tmp.7 :getValue;
+        %tmp.9 = "profile1Name";
+        %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
+        %tmp.11 = invoke %tmp.5 %tmp.6(%tmp.10);
+        %tmp.12 = not %tmp.11;
+        bf %tmp.12 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_207_4_213_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_207_4_213_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_211_6_213_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 212 6 ]
+        %tmp.13 = getm $.Toybox.Application.Storage;
+        %tmp.14 = getv function %tmp.13 :deleteValue;
+        %tmp.15 = "profile1Sr";
+        invoke %tmp.13 %tmp.14(%tmp.15);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_211_6_213_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_207_4_213_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_207_4_213_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 214 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_214_4_220_4_if_stmt:
+        %tmp.17 = getv ? :AppStorage;
+        %tmp.18 = getv function %tmp.17 :getSetting;
+        %tmp.19 = "wheelName_p2";
+        %tmp.20 = invoke %tmp.17 %tmp.18(%tmp.19);
+        %tmp.21 = getv function %tmp.20 :equals;
+        %tmp.22 = getm $.Toybox.Application.Storage;
+        %tmp.23 = getv function %tmp.22 :getValue;
+        %tmp.24 = "profile2Name";
+        %tmp.25 = invoke %tmp.22 %tmp.23(%tmp.24);
+        %tmp.26 = invoke %tmp.20 %tmp.21(%tmp.25);
+        %tmp.27 = not %tmp.26;
+        bf %tmp.27 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_214_4_220_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_214_4_220_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_218_6_220_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 219 6 ]
+        %tmp.28 = getm $.Toybox.Application.Storage;
+        %tmp.29 = getv function %tmp.28 :deleteValue;
+        %tmp.30 = "profile2Sr";
+        invoke %tmp.28 %tmp.29(%tmp.30);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_218_6_220_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_214_4_220_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_214_4_220_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 221 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_221_4_227_4_if_stmt:
+        %tmp.32 = getv ? :AppStorage;
+        %tmp.33 = getv function %tmp.32 :getSetting;
+        %tmp.34 = "wheelName_p3";
+        %tmp.35 = invoke %tmp.32 %tmp.33(%tmp.34);
+        %tmp.36 = getv function %tmp.35 :equals;
+        %tmp.37 = getm $.Toybox.Application.Storage;
+        %tmp.38 = getv function %tmp.37 :getValue;
+        %tmp.39 = "profile3Name";
+        %tmp.40 = invoke %tmp.37 %tmp.38(%tmp.39);
+        %tmp.41 = invoke %tmp.35 %tmp.36(%tmp.40);
+        %tmp.42 = not %tmp.41;
+        bf %tmp.42 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_221_4_227_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_221_4_227_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_225_6_227_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 226 6 ]
+        %tmp.43 = getm $.Toybox.Application.Storage;
+        %tmp.44 = getv function %tmp.43 :deleteValue;
+        %tmp.45 = "profile3Sr";
+        invoke %tmp.43 %tmp.44(%tmp.45);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_225_6_227_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_221_4_227_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_221_4_227_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 229 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_4_237_4_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_8_229_60_begin:
+        %tmp.47 = getv ? :profileNb;
+        %tmp.48 = 1;
+        %tmp.49 = eq %tmp.47 %tmp.48;
+        bf %tmp.49 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_4_237_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_26_229_60_true:
+        %tmp.50 = getm $.Toybox.Application.Storage;
+        %tmp.51 = getv function %tmp.50 :getValue;
+        %tmp.52 = "profile1Sr";
+        %tmp.53 = invoke %tmp.50 %tmp.51(%tmp.52);
+        %tmp.54 = null;
+        %tmp.55 = eq %tmp.53 %tmp.54;
+        push %tmp.55;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_26_229_60_end:
+        %tmp.56 = phi [%tmp.49 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_8_229_60_begin] [%tmp.55 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_26_229_60_true] [%tmp.56 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_26_229_60_end];
+        bf %tmp.56 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_4_237_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_4_237_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_66_231_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 230 6 ]
+        %tmp.57 = true;
+        ret %tmp.57;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_66_231_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_4_237_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_4_237_4_if_false:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 231 11 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_11_237_4_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_15_231_67_begin:
+        %tmp.59 = getv ? :profileNb;
+        %tmp.60 = 2;
+        %tmp.61 = eq %tmp.59 %tmp.60;
+        bf %tmp.61 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_11_237_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_33_231_67_true:
+        %tmp.62 = getm $.Toybox.Application.Storage;
+        %tmp.63 = getv function %tmp.62 :getValue;
+        %tmp.64 = "profile2Sr";
+        %tmp.65 = invoke %tmp.62 %tmp.63(%tmp.64);
+        %tmp.66 = null;
+        %tmp.67 = eq %tmp.65 %tmp.66;
+        push %tmp.67;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_33_231_67_end:
+        %tmp.68 = phi [%tmp.61 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_15_231_67_begin] [%tmp.67 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_33_231_67_true] [%tmp.68 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_33_231_67_end];
+        bf %tmp.68 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_11_237_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_11_237_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_73_233_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 232 6 ]
+        %tmp.69 = true;
+        ret %tmp.69;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_73_233_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_11_237_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_11_237_4_if_false:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 233 11 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_11_237_4_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_15_233_67_begin:
+        %tmp.71 = getv ? :profileNb;
+        %tmp.72 = 3;
+        %tmp.73 = eq %tmp.71 %tmp.72;
+        bf %tmp.73 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_11_237_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_33_233_67_true:
+        %tmp.74 = getm $.Toybox.Application.Storage;
+        %tmp.75 = getv function %tmp.74 :getValue;
+        %tmp.76 = "profile3Sr";
+        %tmp.77 = invoke %tmp.74 %tmp.75(%tmp.76);
+        %tmp.78 = null;
+        %tmp.79 = eq %tmp.77 %tmp.78;
+        push %tmp.79;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_33_233_67_end:
+        %tmp.80 = phi [%tmp.73 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_15_233_67_begin] [%tmp.79 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_33_233_67_true] [%tmp.80 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_33_233_67_end];
+        bf %tmp.80 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_11_237_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_11_237_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_73_235_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 234 6 ]
+        %tmp.81 = true;
+        ret %tmp.81;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_73_235_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_11_237_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_11_237_4_if_false:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_235_11_237_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 236 6 ]
+        %tmp.82 = false;
+        ret %tmp.82;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_235_11_237_4_stop:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_233_11_237_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_231_11_237_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_229_4_237_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_205_31_238_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 240; ]
+    function storeSR(sr) {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_240_23_251_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 241 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_241_4_250_4_if_stmt:
+        %tmp.2 = getv ? :profileNb;
+        %tmp.3 = 1;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_241_4_250_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_241_4_250_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_241_24_244_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 242 6 ]
+        %tmp.5 = getm $.Toybox.Application.Storage;
+        %tmp.6 = getv function %tmp.5 :setValue;
+        %tmp.7 = "profile1Sr";
+        %tmp.9 = lgetv %sr;
+        invoke %tmp.5 %tmp.6(%tmp.7, %tmp.9);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 243 6 ]
+        %tmp.10 = getm $.Toybox.Application.Storage;
+        %tmp.11 = getv function %tmp.10 :setValue;
+        %tmp.12 = "profile1Name";
+        %tmp.14 = getv ? :AppStorage;
+        %tmp.15 = getv function %tmp.14 :getSetting;
+        %tmp.16 = "wheelName_p1";
+        %tmp.17 = invoke %tmp.14 %tmp.15(%tmp.16);
+        invoke %tmp.10 %tmp.11(%tmp.12, %tmp.17);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_241_24_244_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_241_4_250_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_241_4_250_4_if_false:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 244 11 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_244_11_250_4_if_stmt:
+        %tmp.19 = getv ? :profileNb;
+        %tmp.20 = 2;
+        %tmp.21 = eq %tmp.19 %tmp.20;
+        bf %tmp.21 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_244_11_250_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_244_11_250_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_244_31_247_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 245 6 ]
+        %tmp.22 = getm $.Toybox.Application.Storage;
+        %tmp.23 = getv function %tmp.22 :setValue;
+        %tmp.24 = "profile2Sr";
+        %tmp.26 = lgetv %sr;
+        invoke %tmp.22 %tmp.23(%tmp.24, %tmp.26);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 246 6 ]
+        %tmp.27 = getm $.Toybox.Application.Storage;
+        %tmp.28 = getv function %tmp.27 :setValue;
+        %tmp.29 = "profile2Name";
+        %tmp.31 = getv ? :AppStorage;
+        %tmp.32 = getv function %tmp.31 :getSetting;
+        %tmp.33 = "wheelName_p2";
+        %tmp.34 = invoke %tmp.31 %tmp.32(%tmp.33);
+        invoke %tmp.27 %tmp.28(%tmp.29, %tmp.34);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_244_31_247_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_244_11_250_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_244_11_250_4_if_false:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 247 11 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_247_11_250_4_if_stmt:
+        %tmp.36 = getv ? :profileNb;
+        %tmp.37 = 3;
+        %tmp.38 = eq %tmp.36 %tmp.37;
+        bf %tmp.38 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_247_11_250_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_247_11_250_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_247_31_250_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 248 6 ]
+        %tmp.39 = getm $.Toybox.Application.Storage;
+        %tmp.40 = getv function %tmp.39 :setValue;
+        %tmp.41 = "profile3Sr";
+        %tmp.43 = lgetv %sr;
+        invoke %tmp.39 %tmp.40(%tmp.41, %tmp.43);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 249 6 ]
+        %tmp.44 = getm $.Toybox.Application.Storage;
+        %tmp.45 = getv function %tmp.44 :setValue;
+        %tmp.46 = "profile3Name";
+        %tmp.48 = getv ? :AppStorage;
+        %tmp.49 = getv function %tmp.48 :getSetting;
+        %tmp.50 = "wheelName_p3";
+        %tmp.51 = invoke %tmp.48 %tmp.49(%tmp.50);
+        invoke %tmp.44 %tmp.45(%tmp.46, %tmp.51);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_247_31_250_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_247_11_250_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_247_11_250_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_244_11_250_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_241_4_250_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_240_23_251_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 252; ]
+    function loadSR() {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_252_20_262_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 253 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_253_4_261_4_if_stmt:
+        %tmp.2 = getv ? :profileNb;
+        %tmp.3 = 1;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_253_4_261_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_253_4_261_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_253_24_255_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 254 6 ]
+        %tmp.5 = getm $.Toybox.Application.Storage;
+        %tmp.6 = getv function %tmp.5 :getValue;
+        %tmp.7 = "profile1Sr";
+        %tmp.8 = invoke %tmp.5 %tmp.6(%tmp.7);
+        ret %tmp.8;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_253_24_255_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_253_4_261_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_253_4_261_4_if_false:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 255 11 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_255_11_261_4_if_stmt:
+        %tmp.10 = getv ? :profileNb;
+        %tmp.11 = 2;
+        %tmp.12 = eq %tmp.10 %tmp.11;
+        bf %tmp.12 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_255_11_261_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_255_11_261_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_255_31_257_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 256 6 ]
+        %tmp.13 = getm $.Toybox.Application.Storage;
+        %tmp.14 = getv function %tmp.13 :getValue;
+        %tmp.15 = "profile2Sr";
+        %tmp.16 = invoke %tmp.13 %tmp.14(%tmp.15);
+        ret %tmp.16;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_255_31_257_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_255_11_261_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_255_11_261_4_if_false:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 257 11 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_257_11_261_4_if_stmt:
+        %tmp.18 = getv ? :profileNb;
+        %tmp.19 = 3;
+        %tmp.20 = eq %tmp.18 %tmp.19;
+        bf %tmp.20 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_257_11_261_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_257_11_261_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_257_31_259_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 258 6 ]
+        %tmp.21 = getm $.Toybox.Application.Storage;
+        %tmp.22 = getv function %tmp.21 :getValue;
+        %tmp.23 = "profile3Sr";
+        %tmp.24 = invoke %tmp.21 %tmp.22(%tmp.23);
+        ret %tmp.24;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_257_31_259_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_257_11_261_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_257_11_261_4_if_false:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_259_11_261_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 260 6 ]
+        %tmp.25 = false;
+        ret %tmp.25;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_259_11_261_4_stop:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_257_11_261_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_255_11_261_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_253_4_261_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_252_20_262_2_stop:
+    }
+    //! @param scanResults An iterator of new scan results
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 264; ]
+    function onScanResults(scanResults as Ble.Iterator) {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_264_54_343_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 265 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_4_342_4_if_stmt:
+        %tmp.2 = getv ? :isFirst;
+        bf %tmp.2 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_4_342_4_if_false;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_4_342_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_17_326_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 266 6 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_17_326_4_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_17_326_4_stop" ]
+        %wheelFound.1 = local;
+        %tmp.3 = false;
+        lputv %wheelFound.1 %tmp.3;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 267 6 ]
+        for @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_test @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_incr @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_init:
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_begin" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_end" ]
+        %result.2 = local;
+        %tmp.4 = lgetv %scanResults;
+        %tmp.5 = getv function %tmp.4 :next;
+        %tmp.6 = invoke %tmp.4 %tmp.5();
+        lputv %result.2 %tmp.6;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_test:
+        %tmp.8 = lgetv %result.2;
+        %tmp.9 = null;
+        %tmp.10 = ne %tmp.8 %tmp.9;
+        bf %tmp.10 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_begin:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_271_8_325_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 272 8 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_272_8_324_8_if_stmt:
+        %tmp.12 = lgetv %result.2;
+        %tmp.13 = as %tmp.12 { (!Null) };
+        %tmp.14 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.15 = getv %tmp.14 :ScanResult;
+        %tmp.16 = isa %tmp.13 %tmp.15;
+        bf %tmp.16 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_272_8_324_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_272_8_324_8_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_272_46_324_8_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 273 10 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_10_279_10_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_14_273_63_begin:
+        %tmp.18 = getv ? :eucData;
+        %tmp.19 = getv %tmp.18 :wheelBrand;
+        %tmp.20 = 0;
+        %tmp.21 = eq %tmp.19 %tmp.20;
+        bt %tmp.21 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_10_279_10_if_true;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_41_273_63_false:
+        %tmp.23 = getv ? :eucData;
+        %tmp.24 = getv %tmp.23 :wheelBrand;
+        %tmp.25 = 1;
+        %tmp.26 = eq %tmp.24 %tmp.25;
+        push %tmp.26;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_41_273_63_end:
+        %tmp.27 = phi [%tmp.21 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_14_273_63_begin] [%tmp.26 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_41_273_63_false] [%tmp.27 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_41_273_63_end];
+        bf %tmp.27 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_10_279_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_10_279_10_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_66_279_10_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 274 12 ]
+        %tmp.28 = self;
+        %tmp.29 = getv function %tmp.28 :contains;
+        %tmp.30 = lgetv %result.2;
+        %tmp.31 = as %tmp.30 { (Ble.ScanResult) && (!Null) };
+        %tmp.32 = getv function %tmp.31 :getServiceUuids;
+        %tmp.33 = invoke %tmp.31 %tmp.32();
+        %tmp.35 = getv ? :profileManager;
+        %tmp.36 = getv %tmp.35 :EUC_SERVICE;
+        %tmp.38 = lgetv %result.2;
+        %tmp.39 = as %tmp.38 { (Ble.ScanResult) && (!Null) };
+        %tmp.40 = invoke %tmp.28 %tmp.29(%tmp.33, %tmp.36, %tmp.39);
+        lputv %wheelFound.1 %tmp.40;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_66_279_10_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_10_279_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_273_10_279_10_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 280 10 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_280_10_289_10_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_281_12_282_49_begin:
+        %tmp.42 = getv ? :eucData;
+        %tmp.43 = getv %tmp.42 :wheelBrand;
+        %tmp.44 = 3;
+        %tmp.45 = eq %tmp.43 %tmp.44;
+        bf %tmp.45 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_280_10_289_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_282_12_282_49_true:
+        %tmp.47 = getv ? :profileManager;
+        %tmp.48 = getv %tmp.47 :OLD_KS_ADV_SERVICE;
+        %tmp.49 = null;
+        %tmp.50 = ne %tmp.48 %tmp.49;
+        push %tmp.50;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_282_12_282_49_end:
+        %tmp.51 = phi [%tmp.45 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_281_12_282_49_begin] [%tmp.50 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_282_12_282_49_true] [%tmp.51 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_282_12_282_49_end];
+        bf %tmp.51 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_280_10_289_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_280_10_289_10_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_283_12_289_10_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 284 12 ]
+        %tmp.52 = self;
+        %tmp.53 = getv function %tmp.52 :contains;
+        %tmp.54 = lgetv %result.2;
+        %tmp.55 = as %tmp.54 { (Ble.ScanResult) && (!Null) };
+        %tmp.56 = getv function %tmp.55 :getServiceUuids;
+        %tmp.57 = invoke %tmp.55 %tmp.56();
+        %tmp.59 = getv ? :profileManager;
+        %tmp.60 = getv %tmp.59 :OLD_KS_ADV_SERVICE;
+        %tmp.62 = lgetv %result.2;
+        %tmp.63 = as %tmp.62 { (Ble.ScanResult) && (!Null) };
+        %tmp.64 = invoke %tmp.52 %tmp.53(%tmp.57, %tmp.60, %tmp.63);
+        lputv %wheelFound.1 %tmp.64;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_283_12_289_10_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_280_10_289_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_280_10_289_10_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 290 10 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_290_10_297_10_if_stmt:
+        %tmp.66 = getv ? :eucData;
+        %tmp.67 = getv %tmp.66 :wheelBrand;
+        %tmp.68 = 2;
+        %tmp.69 = eq %tmp.67 %tmp.68;
+        bf %tmp.69 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_290_10_297_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_290_10_297_10_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_290_39_297_10_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 291 12 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_290_39_297_10_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_290_39_297_10_stop" ]
+        %advName.3 = local;
+        %tmp.70 = lgetv %result.2;
+        %tmp.71 = as %tmp.70 { (Ble.ScanResult) && (!Null) };
+        %tmp.72 = getv function %tmp.71 :getDeviceName;
+        %tmp.73 = invoke %tmp.71 %tmp.72();
+        lputv %advName.3 %tmp.73;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 292 12 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_292_12_296_12_if_stmt:
+        %tmp.75 = lgetv %advName.3;
+        %tmp.76 = null;
+        %tmp.77 = ne %tmp.75 %tmp.76;
+        bf %tmp.77 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_292_12_296_12_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_292_12_296_12_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_292_33_296_12_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 293 14 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_293_14_295_14_if_stmt:
+        %tmp.78 = lgetv %advName.3;
+        %tmp.79 = as %tmp.78 { (!Null) };
+        %tmp.80 = getv function %tmp.79 :substring;
+        %tmp.81 = 0;
+        %tmp.82 = 3;
+        %tmp.83 = invoke %tmp.79 %tmp.80(%tmp.81, %tmp.82);
+        %tmp.84 = getv function %tmp.83 :equals;
+        %tmp.85 = "KSN";
+        %tmp.86 = invoke %tmp.83 %tmp.84(%tmp.85);
+        bf %tmp.86 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_293_14_295_14_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_293_14_295_14_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_293_57_295_14_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 294 16 ]
+        %tmp.87 = true;
+        lputv %wheelFound.1 %tmp.87;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_293_57_295_14_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_293_14_295_14_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_293_14_295_14_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_292_33_296_12_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_292_12_296_12_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_292_12_296_12_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_290_39_297_10_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_290_10_297_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_290_10_297_10_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 298 10 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_298_10_309_10_if_stmt:
+        %tmp.89 = getv ? :eucData;
+        %tmp.90 = getv %tmp.89 :wheelBrand;
+        %tmp.91 = 4;
+        %tmp.92 = eq %tmp.90 %tmp.91;
+        bf %tmp.92 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_298_10_309_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_298_10_309_10_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_298_39_309_10_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 301 12 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_298_39_309_10_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_298_39_309_10_stop" ]
+        %advName.4 = local;
+        %tmp.93 = lgetv %result.2;
+        %tmp.94 = as %tmp.93 { (Ble.ScanResult) && (!Null) };
+        %tmp.95 = getv function %tmp.94 :getDeviceName;
+        %tmp.96 = invoke %tmp.94 %tmp.95();
+        lputv %advName.4 %tmp.96;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 302 12 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_302_12_308_12_if_stmt:
+        %tmp.98 = lgetv %advName.4;
+        %tmp.99 = null;
+        %tmp.100 = ne %tmp.98 %tmp.99;
+        bf %tmp.100 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_302_12_308_12_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_302_12_308_12_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_302_33_308_12_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 303 14 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_302_33_308_12_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_302_33_308_12_stop" ]
+        %advModel.5 = local;
+        %tmp.101 = lgetv %advName.4;
+        %tmp.102 = as %tmp.101 { (!Null) };
+        %tmp.103 = getv function %tmp.102 :substring;
+        %tmp.104 = 0;
+        %tmp.105 = 3;
+        %tmp.106 = invoke %tmp.102 %tmp.103(%tmp.104, %tmp.105);
+        lputv %advModel.5 %tmp.106;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 304 14 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_14_307_14_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_18_304_65_begin:
+        %tmp.107 = lgetv %advModel.5;
+        %tmp.108 = getv function %tmp.107 :equals;
+        %tmp.109 = "V11";
+        %tmp.110 = invoke %tmp.107 %tmp.108(%tmp.109);
+        bt %tmp.110 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_14_307_14_if_true;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_44_304_65_false:
+        %tmp.111 = lgetv %advModel.5;
+        %tmp.112 = getv function %tmp.111 :equals;
+        %tmp.113 = "V12";
+        %tmp.114 = invoke %tmp.111 %tmp.112(%tmp.113);
+        push %tmp.114;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_44_304_65_end:
+        %tmp.115 = phi [%tmp.110 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_18_304_65_begin] [%tmp.114 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_44_304_65_false] [%tmp.115 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_44_304_65_end];
+        bf %tmp.115 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_14_307_14_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_14_307_14_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_68_307_14_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 305 16 ]
+        %tmp.116 = getv self :eucData;
+        %tmp.118 = lgetv %advModel.5;
+        putv %tmp.116 :model %tmp.118;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 306 16 ]
+        %tmp.119 = true;
+        lputv %wheelFound.1 %tmp.119;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_68_307_14_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_14_307_14_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_304_14_307_14_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_302_33_308_12_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_302_12_308_12_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_302_12_308_12_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_298_39_309_10_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_298_10_309_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_298_10_309_10_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 310 10 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_310_10_318_10_if_stmt:
+        %tmp.121 = getv ? :eucData;
+        %tmp.122 = getv %tmp.121 :wheelBrand;
+        %tmp.123 = 5;
+        %tmp.124 = eq %tmp.122 %tmp.123;
+        bf %tmp.124 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_310_10_318_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_310_10_318_10_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_310_39_318_10_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 312 12 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_310_39_318_10_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_310_39_318_10_stop" ]
+        %advName.6 = local;
+        %tmp.125 = lgetv %result.2;
+        %tmp.126 = as %tmp.125 { (Ble.ScanResult) && (!Null) };
+        %tmp.127 = getv function %tmp.126 :getDeviceName;
+        %tmp.128 = invoke %tmp.126 %tmp.127();
+        lputv %advName.6 %tmp.128;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 313 12 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_313_12_317_12_if_stmt:
+        %tmp.130 = lgetv %advName.6;
+        %tmp.131 = null;
+        %tmp.132 = ne %tmp.130 %tmp.131;
+        bf %tmp.132 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_313_12_317_12_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_313_12_317_12_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_313_33_317_12_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 314 14 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_314_14_316_14_if_stmt:
+        %tmp.133 = lgetv %advName.6;
+        %tmp.134 = as %tmp.133 { (!Null) };
+        %tmp.135 = getv function %tmp.134 :substring;
+        %tmp.136 = 0;
+        %tmp.137 = 4;
+        %tmp.138 = invoke %tmp.134 %tmp.135(%tmp.136, %tmp.137);
+        %tmp.139 = getv function %tmp.138 :equals;
+        %tmp.140 = "VESC";
+        %tmp.141 = invoke %tmp.138 %tmp.139(%tmp.140);
+        bf %tmp.141 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_314_14_316_14_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_314_14_316_14_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_314_58_316_14_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 315 16 ]
+        %tmp.142 = true;
+        lputv %wheelFound.1 %tmp.142;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_314_58_316_14_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_314_14_316_14_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_314_14_316_14_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_313_33_317_12_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_313_12_317_12_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_313_12_317_12_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_310_39_318_10_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_310_10_318_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_310_10_318_10_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 319 10 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_319_10_323_10_if_stmt:
+        %tmp.144 = lgetv %wheelFound.1;
+        %tmp.145 = true;
+        %tmp.146 = eq %tmp.144 %tmp.145;
+        bf %tmp.146 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_319_10_323_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_319_10_323_10_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_319_34_323_10_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 320 12 ]
+        %tmp.147 = self;
+        %tmp.148 = getv function %tmp.147 :storeSR;
+        %tmp.150 = lgetv %result.2;
+        %tmp.151 = as %tmp.150 { (Ble.ScanResult) && (!Null) };
+        invoke %tmp.147 %tmp.148(%tmp.151);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 321 12 ]
+        %tmp.152 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.153 = getv function %tmp.152 :setScanState;
+        %tmp.154 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.155 = getv %tmp.154 :SCAN_STATE_OFF;
+        invoke %tmp.152 %tmp.153(%tmp.155);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 322 12 ]
+        %tmp.156 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.157 = getv function %tmp.156 :pairDevice;
+        %tmp.159 = lgetv %result.2;
+        %tmp.160 = as %tmp.159 { (Ble.ScanResult) && (!Null) };
+        %tmp.161 = as %tmp.160 Ble.ScanResult;
+        %tmp.162 = invoke %tmp.156 %tmp.157(%tmp.161);
+        putv self :device %tmp.162;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_319_34_323_10_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_319_10_323_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_319_10_323_10_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_272_46_324_8_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_272_8_324_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_272_8_324_8_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_271_8_325_6_stop:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_incr:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 270 ]
+        %tmp.163 = lgetv %scanResults;
+        %tmp.164 = getv function %tmp.163 :next;
+        %tmp.165 = invoke %tmp.163 %tmp.164();
+        lputv %result.2 %tmp.165;
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_test;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_267_6_325_6_for_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_17_326_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_4_342_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_4_342_4_if_false:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_326_11_342_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 327 6 ]
+        %tmp.166 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.167 = getv function %tmp.166 :setScanState;
+        %tmp.168 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.169 = getv %tmp.168 :SCAN_STATE_OFF;
+        invoke %tmp.166 %tmp.167(%tmp.169);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 328 6 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_326_11_342_4_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_326_11_342_4_stop" ]
+        %result.7 = local;
+        %tmp.170 = self;
+        %tmp.171 = getv function %tmp.170 :loadSR;
+        %tmp.172 = invoke %tmp.170 %tmp.171();
+        lputv %result.7 %tmp.172;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 329 6 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_329_6_341_6_if_stmt:
+        %tmp.174 = lgetv %result.7;
+        %tmp.175 = false;
+        %tmp.176 = ne %tmp.174 %tmp.175;
+        bf %tmp.176 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_329_6_341_6_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_329_6_341_6_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_329_27_341_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 330 8 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_330_8_339_8_if_stmt:
+        %tmp.178 = getv ? :eucData;
+        %tmp.179 = getv %tmp.178 :wheelBrand;
+        %tmp.180 = 4;
+        %tmp.181 = eq %tmp.179 %tmp.180;
+        bf %tmp.181 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_330_8_339_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_330_8_339_8_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_330_37_339_8_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 332 10 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_330_37_339_8_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_330_37_339_8_stop" ]
+        %advName.8 = local;
+        %tmp.182 = lgetv %result.7;
+        %tmp.183 = getv function %tmp.182 :getDeviceName;
+        %tmp.184 = invoke %tmp.182 %tmp.183();
+        lputv %advName.8 %tmp.184;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 333 10 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_333_10_338_10_if_stmt:
+        %tmp.186 = lgetv %advName.8;
+        %tmp.187 = null;
+        %tmp.188 = ne %tmp.186 %tmp.187;
+        bf %tmp.188 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_333_10_338_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_333_10_338_10_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_333_31_338_10_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 334 12 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_333_31_338_10_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_333_31_338_10_stop" ]
+        %advModel.9 = local;
+        %tmp.189 = lgetv %advName.8;
+        %tmp.190 = as %tmp.189 { (!Null) };
+        %tmp.191 = getv function %tmp.190 :substring;
+        %tmp.192 = 0;
+        %tmp.193 = 3;
+        %tmp.194 = invoke %tmp.190 %tmp.191(%tmp.192, %tmp.193);
+        lputv %advModel.9 %tmp.194;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 335 12 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_12_337_12_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_16_335_63_begin:
+        %tmp.195 = lgetv %advModel.9;
+        %tmp.196 = getv function %tmp.195 :equals;
+        %tmp.197 = "V11";
+        %tmp.198 = invoke %tmp.195 %tmp.196(%tmp.197);
+        bt %tmp.198 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_12_337_12_if_true;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_42_335_63_false:
+        %tmp.199 = lgetv %advModel.9;
+        %tmp.200 = getv function %tmp.199 :equals;
+        %tmp.201 = "V12";
+        %tmp.202 = invoke %tmp.199 %tmp.200(%tmp.201);
+        push %tmp.202;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_42_335_63_end:
+        %tmp.203 = phi [%tmp.198 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_16_335_63_begin] [%tmp.202 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_42_335_63_false] [%tmp.203 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_42_335_63_end];
+        bf %tmp.203 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_12_337_12_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_12_337_12_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_66_337_12_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 336 14 ]
+        %tmp.204 = getv self :eucData;
+        %tmp.206 = lgetv %advModel.9;
+        putv %tmp.204 :model %tmp.206;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_66_337_12_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_12_337_12_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_335_12_337_12_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_333_31_338_10_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_333_10_338_10_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_333_10_338_10_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_330_37_339_8_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_330_8_339_8_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_330_8_339_8_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 340 8 ]
+        %tmp.207 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.208 = getv function %tmp.207 :pairDevice;
+        %tmp.210 = lgetv %result.7;
+        %tmp.211 = invoke %tmp.207 %tmp.208(%tmp.210);
+        putv self :device %tmp.211;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_329_27_341_6_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_329_6_341_6_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_329_6_341_6_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_326_11_342_4_stop:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_265_4_342_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_264_54_343_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 345; ]
+    function timerCallback() {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_345_27_347_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 346 4 ]
+        %tmp.2 = getv ? :queue;
+        %tmp.3 = getv function %tmp.2 :run;
+        invoke %tmp.2 %tmp.3();
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_345_27_347_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 348; ]
+    function onDescriptorWrite(desc, status) {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_348_43_363_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 349 4 ]
+        %tmp.1 = "descWrite";
+        putv self :message7 %tmp.1;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 352 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_4_354_4_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_8_352_72_begin:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_9_352_58_begin:
+        %tmp.3 = getv ? :eucData;
+        %tmp.4 = getv %tmp.3 :wheelBrand;
+        %tmp.5 = 2;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        bt %tmp.6 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_64_352_72_true;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_36_352_58_false:
+        %tmp.8 = getv ? :eucData;
+        %tmp.9 = getv %tmp.8 :wheelBrand;
+        %tmp.10 = 3;
+        %tmp.11 = eq %tmp.9 %tmp.10;
+        push %tmp.11;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_36_352_58_end:
+        %tmp.12 = phi [%tmp.6 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_9_352_58_begin] [%tmp.11 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_36_352_58_false] [%tmp.12 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_36_352_58_end];
+        bf %tmp.12 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_4_354_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_64_352_72_true:
+        %tmp.14 = getv ? :char;
+        %tmp.15 = null;
+        %tmp.16 = ne %tmp.14 %tmp.15;
+        push %tmp.16;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_64_352_72_end:
+        %tmp.17 = phi [%tmp.12 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_8_352_72_begin] [%tmp.16 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_64_352_72_true] [%tmp.17 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_64_352_72_end];
+        bf %tmp.17 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_4_354_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_4_354_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_78_354_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 353 6 ]
+        %tmp.19 = getv ? :queue;
+        %tmp.20 = getv %tmp.19 :delayTimer;
+        %tmp.21 = getv function %tmp.20 :start;
+        %tmp.22 = self;
+        %tmp.23 = getv function %tmp.22 :method;
+        %tmp.25 = const :timerCallback;
+        %tmp.26 = invoke %tmp.22 %tmp.23(%tmp.25);
+        %tmp.27 = 200;
+        %tmp.28 = true;
+        invoke %tmp.20 %tmp.21(%tmp.26, %tmp.27, %tmp.28);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_78_354_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_4_354_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_352_4_354_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 356 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_4_358_4_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_8_356_43_begin:
+        %tmp.30 = getv ? :eucData;
+        %tmp.31 = getv %tmp.30 :wheelBrand;
+        %tmp.32 = 4;
+        %tmp.33 = eq %tmp.31 %tmp.32;
+        bf %tmp.33 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_4_358_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_35_356_43_true:
+        %tmp.35 = getv ? :char;
+        %tmp.36 = null;
+        %tmp.37 = ne %tmp.35 %tmp.36;
+        push %tmp.37;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_35_356_43_end:
+        %tmp.38 = phi [%tmp.33 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_8_356_43_begin] [%tmp.37 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_35_356_43_true] [%tmp.38 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_35_356_43_end];
+        bf %tmp.38 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_4_358_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_4_358_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_49_358_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 357 6 ]
+        %tmp.40 = getv ? :queue;
+        %tmp.41 = getv %tmp.40 :delayTimer;
+        %tmp.42 = getv function %tmp.41 :start;
+        %tmp.43 = self;
+        %tmp.44 = getv function %tmp.43 :method;
+        %tmp.46 = const :timerCallback;
+        %tmp.47 = invoke %tmp.43 %tmp.44(%tmp.46);
+        %tmp.48 = 200;
+        %tmp.49 = true;
+        invoke %tmp.41 %tmp.42(%tmp.47, %tmp.48, %tmp.49);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_49_358_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_4_358_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_356_4_358_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 359 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_4_362_4_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_8_359_43_begin:
+        %tmp.51 = getv ? :eucData;
+        %tmp.52 = getv %tmp.51 :wheelBrand;
+        %tmp.53 = 5;
+        %tmp.54 = eq %tmp.52 %tmp.53;
+        bf %tmp.54 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_4_362_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_35_359_43_true:
+        %tmp.56 = getv ? :char;
+        %tmp.57 = null;
+        %tmp.58 = ne %tmp.56 %tmp.57;
+        push %tmp.58;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_35_359_43_end:
+        %tmp.59 = phi [%tmp.54 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_8_359_43_begin] [%tmp.58 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_35_359_43_true] [%tmp.59 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_35_359_43_end];
+        bf %tmp.59 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_4_362_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_4_362_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_49_362_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 360 6 ]
+        %tmp.61 = getv ? :queue;
+        %tmp.62 = getv %tmp.61 :delayTimer;
+        %tmp.63 = getv function %tmp.62 :start;
+        %tmp.64 = self;
+        %tmp.65 = getv function %tmp.64 :method;
+        %tmp.67 = const :timerCallback;
+        %tmp.68 = invoke %tmp.64 %tmp.65(%tmp.67);
+        %tmp.69 = 200;
+        %tmp.70 = false;
+        invoke %tmp.62 %tmp.63(%tmp.68, %tmp.69, %tmp.70);
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 361 6 ]
+        %tmp.72 = getv ? :queue;
+        %tmp.73 = getv %tmp.72 :delayTimer;
+        %tmp.74 = getv function %tmp.73 :start;
+        %tmp.75 = self;
+        %tmp.76 = getv function %tmp.75 :method;
+        %tmp.78 = const :timerCallback;
+        %tmp.79 = invoke %tmp.75 %tmp.76(%tmp.78);
+        %tmp.80 = 200;
+        %tmp.81 = false;
+        invoke %tmp.73 %tmp.74(%tmp.79, %tmp.80, %tmp.81);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_49_362_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_4_362_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_359_4_362_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_348_43_363_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 365; ]
+    function onCharacteristicWrite(desc, status) {
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 367; ]
+    function onCharacteristicChanged(char, value) {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_367_48_407_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 369 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_369_4_374_4_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_370_6_371_57_begin:
+        %tmp.2 = getv ? :decoder;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_369_4_374_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_6_371_57_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_7_371_56_begin:
+        %tmp.6 = getv ? :eucData;
+        %tmp.7 = getv %tmp.6 :wheelBrand;
+        %tmp.8 = 0;
+        %tmp.9 = eq %tmp.7 %tmp.8;
+        bt %tmp.9 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_369_4_374_4_if_true;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_34_371_56_false:
+        %tmp.11 = getv ? :eucData;
+        %tmp.12 = getv %tmp.11 :wheelBrand;
+        %tmp.13 = 1;
+        %tmp.14 = eq %tmp.12 %tmp.13;
+        push %tmp.14;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_34_371_56_end:
+        %tmp.15 = phi [%tmp.9 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_7_371_56_begin] [%tmp.14 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_34_371_56_false] [%tmp.15 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_34_371_56_end];
+        push %tmp.15;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_6_371_57_end:
+        %tmp.16 = phi [%tmp.4 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_370_6_371_57_begin] [%tmp.15 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_6_371_57_true] [%tmp.16 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_371_6_371_57_end];
+        bf %tmp.16 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_369_4_374_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_369_4_374_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_372_6_374_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 373 6 ]
+        %tmp.18 = getv ? :decoder;
+        %tmp.19 = as %tmp.18 { (!Null) };
+        %tmp.20 = getv function %tmp.19 :frameBuffer;
+        %tmp.22 = lgetv %value;
+        invoke %tmp.19 %tmp.20(%tmp.22);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_372_6_374_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_369_4_374_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_369_4_374_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 375 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_375_4_381_4_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_376_6_377_57_begin:
+        %tmp.24 = getv ? :decoder;
+        %tmp.25 = null;
+        %tmp.26 = ne %tmp.24 %tmp.25;
+        bf %tmp.26 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_375_4_381_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_6_377_57_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_7_377_56_begin:
+        %tmp.28 = getv ? :eucData;
+        %tmp.29 = getv %tmp.28 :wheelBrand;
+        %tmp.30 = 2;
+        %tmp.31 = eq %tmp.29 %tmp.30;
+        bt %tmp.31 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_375_4_381_4_if_true;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_34_377_56_false:
+        %tmp.33 = getv ? :eucData;
+        %tmp.34 = getv %tmp.33 :wheelBrand;
+        %tmp.35 = 3;
+        %tmp.36 = eq %tmp.34 %tmp.35;
+        push %tmp.36;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_34_377_56_end:
+        %tmp.37 = phi [%tmp.31 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_7_377_56_begin] [%tmp.36 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_34_377_56_false] [%tmp.37 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_34_377_56_end];
+        push %tmp.37;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_6_377_57_end:
+        %tmp.38 = phi [%tmp.26 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_376_6_377_57_begin] [%tmp.37 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_6_377_57_true] [%tmp.38 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_377_6_377_57_end];
+        bf %tmp.38 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_375_4_381_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_375_4_381_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_378_6_381_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 379 6 ]
+        %tmp.39 = "decoding";
+        putv self :message8 %tmp.39;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 380 6 ]
+        %tmp.41 = getv ? :decoder;
+        %tmp.42 = as %tmp.41 { (!Null) };
+        %tmp.43 = getv function %tmp.42 :processFrame;
+        %tmp.45 = lgetv %value;
+        invoke %tmp.42 %tmp.43(%tmp.45);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_378_6_381_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_375_4_381_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_375_4_381_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 382 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_382_4_400_4_if_stmt:
+        %tmp.47 = getv ? :eucData;
+        %tmp.48 = getv %tmp.47 :wheelBrand;
+        %tmp.49 = 4;
+        %tmp.50 = eq %tmp.48 %tmp.49;
+        bf %tmp.50 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_382_4_400_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_382_4_400_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_382_33_400_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 383 6 ]
+        %tmp.52 = getv ? :decoder;
+        %tmp.53 = getv function %tmp.52 :frameBuffer;
+        %tmp.55 = self;
+        %tmp.57 = lgetv %value;
+        invoke %tmp.52 %tmp.53(%tmp.55, %tmp.57);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_382_33_400_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_382_4_400_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_382_4_400_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 401 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_401_4_406_4_if_stmt:
+        %tmp.59 = getv ? :eucData;
+        %tmp.60 = getv %tmp.59 :wheelBrand;
+        %tmp.61 = 5;
+        %tmp.62 = eq %tmp.60 %tmp.61;
+        bf %tmp.62 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_401_4_406_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_401_4_406_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_401_33_406_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 402 6 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_402_6_404_6_if_stmt:
+        %tmp.64 = lgetv %value;
+        %tmp.65 = lgetv %value;
+        %tmp.66 = getv function %tmp.65 :size;
+        %tmp.67 = invoke %tmp.65 %tmp.66();
+        %tmp.68 = 1;
+        %tmp.69 = sub %tmp.67 %tmp.68;
+        %tmp.70 = agetv %tmp.64 %tmp.69;
+        %tmp.71 = 0x03;
+        %tmp.72 = eq %tmp.70 %tmp.71;
+        bf %tmp.72 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_402_6_404_6_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_402_6_404_6_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_402_43_404_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 403 8 ]
+        %tmp.74 = getv ? :queue;
+        %tmp.75 = getv %tmp.74 :delayTimer;
+        %tmp.76 = getv function %tmp.75 :start;
+        %tmp.77 = self;
+        %tmp.78 = getv function %tmp.77 :method;
+        %tmp.80 = const :timerCallback;
+        %tmp.81 = invoke %tmp.77 %tmp.78(%tmp.80);
+        %tmp.82 = 200;
+        %tmp.83 = false;
+        invoke %tmp.75 %tmp.76(%tmp.81, %tmp.82, %tmp.83);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_402_43_404_6_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_402_6_404_6_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_402_6_404_6_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 405 6 ]
+        %tmp.85 = getv ? :decoder;
+        %tmp.86 = getv function %tmp.85 :frameBuilder;
+        %tmp.88 = self;
+        %tmp.90 = lgetv %value;
+        invoke %tmp.85 %tmp.86(%tmp.88, %tmp.90);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_401_33_406_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_401_4_406_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_401_4_406_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_367_48_407_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 409; ]
+    function sendCmd(cmd) {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_409_24_418_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 412 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_4_417_4_if_stmt:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_8_412_50_begin:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_8_412_35_begin:
+        %tmp.2 = getv ? :service;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_4_417_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_27_412_35_true:
+        %tmp.6 = getv ? :char;
+        %tmp.7 = null;
+        %tmp.8 = ne %tmp.6 %tmp.7;
+        push %tmp.8;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_27_412_35_end:
+        %tmp.9 = phi [%tmp.4 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_8_412_35_begin] [%tmp.8 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_27_412_35_true] [%tmp.9 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_27_412_35_end];
+        bf %tmp.9 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_4_417_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_43_412_50_true:
+        %tmp.11 = lgetv %cmd;
+        %tmp.12 = "";
+        %tmp.13 = ne %tmp.11 %tmp.12;
+        push %tmp.13;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_43_412_50_end:
+        %tmp.14 = phi [%tmp.9 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_8_412_50_begin] [%tmp.13 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_43_412_50_true] [%tmp.14 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_43_412_50_end];
+        bf %tmp.14 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_4_417_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_4_417_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_54_417_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 413 6 ]
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_54_417_4_start" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_54_417_4_stop" ]
+        %enc_cmd.1 = local;
+        %tmp.15 = self;
+        %tmp.16 = getv function %tmp.15 :string_to_byte_array;
+        %tmp.18 = lgetv %cmd;
+        %tmp.19 = as %tmp.18 String;
+        %tmp.20 = invoke %tmp.15 %tmp.16(%tmp.19);
+        lputv %enc_cmd.1 %tmp.20;
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 415 6 ]
+        %tmp.22 = getv ? :char;
+        %tmp.23 = getv function %tmp.22 :requestWrite;
+        %tmp.25 = lgetv %enc_cmd.1;
+        %tmp.26 = newd 1;
+        %tmp.28 = const :writeType;
+        %tmp.29 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.30 = getv %tmp.29 :WRITE_TYPE_DEFAULT;
+        %tmp.31 = dup %tmp.26;
+        %tmp.32 = aputv %tmp.31 %tmp.28 %tmp.30;
+        invoke %tmp.22 %tmp.23(%tmp.25, %tmp.32);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_54_417_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_4_417_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_412_4_417_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_409_24_418_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 420; ]
+    function sendRawCmd(cmd) {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_420_27_424_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 422 4 ]
+        %tmp.2 = getv ? :char;
+        %tmp.3 = getv function %tmp.2 :requestWrite;
+        %tmp.5 = lgetv %cmd;
+        %tmp.6 = newd 1;
+        %tmp.8 = const :writeType;
+        %tmp.9 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.10 = getv %tmp.9 :WRITE_TYPE_DEFAULT;
+        %tmp.11 = dup %tmp.6;
+        %tmp.12 = aputv %tmp.11 %tmp.8 %tmp.10;
+        invoke %tmp.2 %tmp.3(%tmp.5, %tmp.12);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_420_27_424_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 426; ]
+    private
+    function contains(iter, obj, sr) {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_426_43_433_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 427 4 ]
+        for @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_test @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_incr @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_init:
+        [ "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_begin" "_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_end" ]
+        %uuid.1 = local;
+        %tmp.1 = lgetv %iter;
+        %tmp.2 = getv function %tmp.1 :next;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %uuid.1 %tmp.3;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_test:
+        %tmp.5 = lgetv %uuid.1;
+        %tmp.6 = null;
+        %tmp.7 = ne %tmp.5 %tmp.6;
+        bf %tmp.7 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_begin:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_67_431_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 428 6 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_428_6_430_6_if_stmt:
+        %tmp.8 = lgetv %uuid.1;
+        %tmp.9 = as %tmp.8 { (!Null) };
+        %tmp.10 = getv function %tmp.9 :equals;
+        %tmp.12 = lgetv %obj;
+        %tmp.13 = invoke %tmp.9 %tmp.10(%tmp.12);
+        bf %tmp.13 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_428_6_430_6_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_428_6_430_6_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_428_28_430_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 429 8 ]
+        %tmp.14 = true;
+        ret %tmp.14;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_428_28_430_6_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_428_6_430_6_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_428_6_430_6_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_67_431_4_stop:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_incr:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 427 ]
+        %tmp.15 = lgetv %iter;
+        %tmp.16 = getv function %tmp.15 :next;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        lputv %uuid.1 %tmp.17;
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_test;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_427_4_431_4_for_end:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 432 4 ]
+        %tmp.18 = false;
+        ret %tmp.18;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_426_43_433_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 450; ]
+    function getChar() {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_450_21_452_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 451 4 ]
+        %tmp.2 = getv ? :char;
+        ret %tmp.2;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_450_21_452_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 453; ]
+    function getCharW() {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_453_22_455_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 454 4 ]
+        %tmp.2 = getv ? :char_w;
+        ret %tmp.2;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_453_22_455_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 457; ]
+    function getPMService() {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_457_26_459_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 458 4 ]
+        %tmp.2 = getv ? :profileManager;
+        %tmp.3 = getv %tmp.2 :EUC_SERVICE;
+        ret %tmp.3;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_457_26_459_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 461; ]
+    function manualUnpair() {
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_461_26_465_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 462 4 ]
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_462_4_464_4_if_stmt:
+        %tmp.2 = getv ? :device;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_462_4_464_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_462_4_464_4_if_true:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_462_24_464_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc" 463 6 ]
+        %tmp.5 = getm $.Toybox.BluetoothLowEnergy;
+        %tmp.6 = getv function %tmp.5 :unpairDevice;
+        %tmp.8 = getv ? :device;
+        %tmp.9 = as %tmp.8 { (!Null) };
+        invoke %tmp.5 %tmp.6(%tmp.9);
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_462_24_464_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_462_4_464_4_if_end;
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_462_4_464_4_if_end:
+_home_tritbool_workspace_WheelDash_source_BLE_GarminEUCBleDelegate_mc_461_26_465_2_stop:
+    }
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/BLE/GarminEUCBleDelegate.mc"; @line = 1; ]
+<init> {
+}

@@ -9,7 +9,4 @@ module profileSelector {
       "Profile Selection"
     );
   }
-  function createPSDelegate() {
-    return new PSMenuDelegate();
-  }
 }

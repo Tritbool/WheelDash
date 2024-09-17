@@ -28,6 +28,7 @@ class GarminEUCApp extends Application.AppBase {
   }
 
   // onStart() is called on application start up
+  // @CRAP Above comment is useless
   function onStart(state as Dictionary?) as Void {
     // Sandbox zone
     // Varia.targetObject = fakeVaria(3);
@@ -74,7 +75,7 @@ class GarminEUCApp extends Application.AppBase {
   // Return the initial view of your application here
   function getInitialView() {
     view = profileSelector.createPSMenu();
-    delegate = profileSelector.createPSDelegate();
+    delegate = new PSMenuDelegate();
     if (!usePS) {
       var profile = AppStorage.getSetting("defaultProfile");
       //System.println(profile);

@@ -1,0 +1,221 @@
+[ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 1; ]
+import Toybox.Graphics;
+[ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 2; ]
+import Toybox.WatchUi;
+[ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 3; ]
+using Toybox.Timer;
+[ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 5; ]
+using Toybox.System;
+[ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 6; ]
+class connectionView extends WatchUi.View{
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 6; ]
+    <init> {
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 13 14 ]
+        %tmp.1 = newd 0;
+        putv self :cStrings %tmp.1;
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 6; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 7; @position = 6; ]
+    var BleDelegate;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 8; @position = 6; ]
+    var textToDisplay;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 9; @position = 6; ]
+    var profileNb;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 10; @position = 6; ]
+    var popViewDelay = 2000;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 11; @position = 6; ]
+    var isDone = false;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 12; @position = 6; ]
+    var psDelegate;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 13; @position = 14; ]
+    private
+    var cStrings;
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 14; ]
+    function initialize(_BleDelegate, _profileNb, _psDelegate) as Void {
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_14_61_26_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 15 4 ]
+        %tmp.2 = lgetv %_BleDelegate;
+        putv self :BleDelegate %tmp.2;
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 16 4 ]
+        %tmp.4 = lgetv %_profileNb;
+        putv self :profileNb %tmp.4;
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 17 4 ]
+        %tmp.6 = lgetv %_psDelegate;
+        putv self :psDelegate %tmp.6;
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 25 4 ]
+        %tmp.8 = getv ? :View;
+        %tmp.9 = getv function %tmp.8 :initialize;
+        invoke %tmp.8 %tmp.9();
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_14_61_26_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 28; ]
+    function onLayout(dc) {
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_28_24_40_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 29 4 ]
+        %tmp.1 = getv self :cStrings;
+        %tmp.2 = getm $.Toybox.WatchUi;
+        %tmp.3 = getv function %tmp.2 :loadResource;
+        %tmp.5 = getv ? :Rez;
+        %tmp.6 = getv %tmp.5 :Strings;
+        %tmp.7 = getv %tmp.6 :firstConnStr;
+        %tmp.8 = invoke %tmp.2 %tmp.3(%tmp.7);
+        %tmp.10 = const :firstConn;
+        aputv %tmp.1 %tmp.10 %tmp.8;
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 30 4 ]
+        %tmp.11 = getv self :cStrings;
+        %tmp.12 = getm $.Toybox.WatchUi;
+        %tmp.13 = getv function %tmp.12 :loadResource;
+        %tmp.15 = getv ? :Rez;
+        %tmp.16 = getv %tmp.15 :Strings;
+        %tmp.17 = getv %tmp.16 :connectedStr;
+        %tmp.18 = invoke %tmp.12 %tmp.13(%tmp.17);
+        %tmp.20 = const :connected;
+        aputv %tmp.11 %tmp.20 %tmp.18;
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 31 4 ]
+        %tmp.23 = getm $.Toybox.WatchUi;
+        %tmp.24 = getv function ? %tmp.23 :Text;
+        %tmp.25 = newd 6;
+        %tmp.27 = const :text;
+        %tmp.29 = getv ? :Lang;
+        %tmp.30 = getv function %tmp.29 :format;
+        %tmp.32 = getv ? :cStrings;
+        %tmp.34 = const :firstConn;
+        %tmp.35 = agetv %tmp.32 %tmp.34;
+        %tmp.36 = newa 1;
+        %tmp.38 = getv ? :profileNb;
+        %tmp.39 = dup %tmp.36;
+        %tmp.40 = aputv %tmp.39 0 %tmp.38;
+        %tmp.41 = invoke %tmp.29 %tmp.30(%tmp.35, %tmp.40);
+        %tmp.42 = dup %tmp.25;
+        %tmp.43 = aputv %tmp.42 %tmp.27 %tmp.41;
+        %tmp.45 = const :color;
+        %tmp.46 = getm $.Toybox.Graphics;
+        %tmp.47 = getv %tmp.46 :COLOR_WHITE;
+        %tmp.48 = dup %tmp.43;
+        %tmp.49 = aputv %tmp.48 %tmp.45 %tmp.47;
+        %tmp.51 = const :font;
+        %tmp.52 = getm $.Toybox.Graphics;
+        %tmp.53 = getv %tmp.52 :FONT_XTINY;
+        %tmp.54 = dup %tmp.49;
+        %tmp.55 = aputv %tmp.54 %tmp.51 %tmp.53;
+        %tmp.57 = const :locX;
+        %tmp.58 = lgetv %dc;
+        %tmp.59 = getv function %tmp.58 :getWidth;
+        %tmp.60 = invoke %tmp.58 %tmp.59();
+        %tmp.61 = 2;
+        %tmp.62 = div %tmp.60 %tmp.61;
+        %tmp.63 = dup %tmp.55;
+        %tmp.64 = aputv %tmp.63 %tmp.57 %tmp.62;
+        %tmp.66 = const :locY;
+        %tmp.67 = lgetv %dc;
+        %tmp.68 = getv function %tmp.67 :getHeight;
+        %tmp.69 = invoke %tmp.67 %tmp.68();
+        %tmp.70 = 2;
+        %tmp.71 = div %tmp.69 %tmp.70;
+        %tmp.72 = dup %tmp.64;
+        %tmp.73 = aputv %tmp.72 %tmp.66 %tmp.71;
+        %tmp.75 = const :justification;
+        %tmp.76 = getm $.Toybox.Graphics;
+        %tmp.77 = getv %tmp.76 :TEXT_JUSTIFY_CENTER;
+        %tmp.78 = getm $.Toybox.Graphics;
+        %tmp.79 = getv %tmp.78 :TEXT_JUSTIFY_VCENTER;
+        %tmp.80 = bitor %tmp.77 %tmp.79;
+        %tmp.81 = dup %tmp.73;
+        %tmp.82 = aputv %tmp.81 %tmp.75 %tmp.80;
+        %tmp.21 = newc %tmp.24 (%tmp.82);
+        putv self :textToDisplay %tmp.21;
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_28_24_40_2_stop:
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 44; ]
+    function onShow() {
+    }
+    [ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 47; ]
+    function onUpdate(dc) {
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_47_24_82_2_start:
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 49 4 ]
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_49_4_67_4_if_stmt:
+        %tmp.2 = getv ? :eucData;
+        %tmp.3 = getv %tmp.2 :paired;
+        %tmp.4 = true;
+        %tmp.5 = eq %tmp.3 %tmp.4;
+        bf %tmp.5 @_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_49_4_67_4_if_end;
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_49_4_67_4_if_true:
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_49_32_67_4_start:
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 50 6 ]
+        %tmp.7 = getv ? :textToDisplay;
+        %tmp.8 = getv function %tmp.7 :setText;
+        %tmp.10 = getv ? :Lang;
+        %tmp.11 = getv function %tmp.10 :format;
+        %tmp.13 = getv ? :cStrings;
+        %tmp.15 = const :connected;
+        %tmp.16 = agetv %tmp.13 %tmp.15;
+        %tmp.17 = newa 1;
+        %tmp.19 = getv ? :profileNb;
+        %tmp.20 = dup %tmp.17;
+        %tmp.21 = aputv %tmp.20 0 %tmp.19;
+        %tmp.22 = invoke %tmp.10 %tmp.11(%tmp.16, %tmp.21);
+        invoke %tmp.7 %tmp.8(%tmp.22);
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 57 6 ]
+        %tmp.24 = getv ? :popViewDelay;
+        %tmp.26 = getv ? :eucData;
+        %tmp.27 = getv %tmp.26 :updateDelay;
+        %tmp.28 = sub %tmp.24 %tmp.27;
+        putv self :popViewDelay %tmp.28;
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 59 6 ]
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_59_6_66_6_if_stmt:
+        %tmp.30 = getv ? :popViewDelay;
+        %tmp.31 = 0;
+        %tmp.32 = lt %tmp.30 %tmp.31;
+        bf %tmp.32 @_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_59_6_66_6_if_end;
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_59_6_66_6_if_true:
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_59_28_66_6_start:
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 60 8 ]
+        %tmp.33 = getm $.Toybox.WatchUi;
+        %tmp.34 = getv function %tmp.33 :popView;
+        %tmp.35 = getm $.Toybox.WatchUi;
+        %tmp.36 = getv %tmp.35 :SLIDE_IMMEDIATE;
+        invoke %tmp.33 %tmp.34(%tmp.36);
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 61 8 ]
+        %tmp.37 = getm $.Toybox.WatchUi;
+        %tmp.38 = getv function %tmp.37 :pushView;
+        %tmp.40 = getv ? :psDelegate;
+        %tmp.41 = getv function %tmp.40 :getView;
+        %tmp.42 = invoke %tmp.40 %tmp.41();
+        %tmp.44 = getv ? :psDelegate;
+        %tmp.45 = getv function %tmp.44 :getDelegate;
+        %tmp.46 = invoke %tmp.44 %tmp.45();
+        %tmp.47 = getm $.Toybox.WatchUi;
+        %tmp.48 = getv %tmp.47 :SLIDE_IMMEDIATE;
+        invoke %tmp.37 %tmp.38(%tmp.42, %tmp.46, %tmp.48);
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_59_28_66_6_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_59_6_66_6_if_end;
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_59_6_66_6_if_end:
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_49_32_67_4_stop:
+        goto @_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_49_4_67_4_if_end;
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_49_4_67_4_if_end:
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 69 4 ]
+        %tmp.49 = lgetv %dc;
+        %tmp.50 = getv function %tmp.49 :setColor;
+        %tmp.51 = getm $.Toybox.Graphics;
+        %tmp.52 = getv %tmp.51 :COLOR_BLACK;
+        %tmp.53 = getm $.Toybox.Graphics;
+        %tmp.54 = getv %tmp.53 :COLOR_BLACK;
+        invoke %tmp.49 %tmp.50(%tmp.52, %tmp.54);
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 70 4 ]
+        %tmp.55 = lgetv %dc;
+        %tmp.56 = getv function %tmp.55 :clear;
+        invoke %tmp.55 %tmp.56();
+[ "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc" 81 4 ]
+        %tmp.58 = getv ? :textToDisplay;
+        %tmp.59 = getv function %tmp.58 :draw;
+        %tmp.61 = lgetv %dc;
+        invoke %tmp.58 %tmp.59(%tmp.61);
+_home_tritbool_workspace_WheelDash_source_view_firstConnectionView_mc_47_24_82_2_stop:
+    }
+}
+[ @file = "/home/tritbool/workspace/WheelDash/source/view/firstConnectionView.mc"; @line = 1; ]
+<init> {
+}

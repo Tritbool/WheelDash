@@ -1,13 +1,7 @@
 import Toybox.Lang;
 import Toybox.System;
 module rideStats {
-  var showAverageMovingSpeedStatistic;
-  var showTopSpeedStatistic;
-  var showWatchBatteryConsumptionStatistic;
-  var showTripDistance;
-  var showTotalDistance;
-  var showVoltage;
-  var showWatchBatteryStatistic;
+
   var statsNumberToDiplay = 0;
   var statsIndexToDiplay = 0;
   var statsArray;
@@ -19,7 +13,7 @@ module rideStats {
   var statsTimer;
   var consummedWatchBattery = 0.0;
   var startupWatchBattery;
-  var showProfileName;
+  
   var computeMaxTemperature = false;
   var computeTopSpeed = false;
   var computeAvgMovingSpeed = false;
@@ -35,12 +29,29 @@ module rideStats {
   var computeBatteryUsagePerc = false;
   var computeBatteryUsage = false;
   var computeWatchBatteryUsage = false;
+  
   var currentSum;
   var currentCount;
   var powerSum;
   var powerCount;
   var batteryUsageCount;
   var EUCBatteryPercStart;
+
+  var displayables as Array<Boolean> = new Array<Boolean>[10];
+
+
+  var showAverageMovingSpeedStatistic;
+  var showTopSpeedStatistic;
+  var showWatchBatteryConsumptionStatistic;
+  var showTripDistance;
+  var showTotalDistance;
+  var showVoltage;
+  var showWatchBatteryStatistic;
+  var showProfileName;
+
+  function numberOfActiveStats(){
+      return 10;
+  }
 
   function avgSpeed() {
     if (eucData.useMiles == true) {

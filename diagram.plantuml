@@ -1,0 +1,9 @@
+@startuml
+class GarminEUCApp {
+  -view: string
+  -model: string
+  -year: int
+  +start()
+  +stop()
+}
+@enduml
