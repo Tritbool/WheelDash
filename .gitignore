@@ -1,0 +1,5 @@
+*.mir
+*.iq
+bin
+gen
+.vscode
